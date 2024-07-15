@@ -9,9 +9,10 @@ qt6_add_qml_module(SneedContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES
-		"Screen01.ui.qml"
-		"Screen02.ui.qml"
+		"SettingsPage.ui.qml"
+		"ExercisePage.ui.qml"
 		"App.qml"
+		"DateSelect.qml"
 )
 
 

@@ -20,14 +20,14 @@ void DataManager::init()
     bool ok = dataDir.mkpath("journal");
 
     if (!ok) {
-        QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         std::exit(127);
     }
 
     ok = dataDir.mkpath("person");
 
     if (!ok) {
-        QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         std::exit(127);
     }
 
@@ -69,7 +69,7 @@ DataManager::DataError DataManager::removeFood(int meal, QDate date, const FoodS
     QByteArray toWrite = QJsonDocument(array).toJson();
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QMessageBox::critical(nullptr, "Write failed", "Failed to save some meal data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "Write failed", "Failed to save some meal data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -89,7 +89,7 @@ DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodSer
     bool ok = dir.mkpath(dateString);
 
     if (!ok) {
-        QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -164,7 +164,7 @@ DataManager::DataError DataManager::removeRecipe(const Recipe &recipe)
     QByteArray toWrite = QJsonDocument(array).toJson();
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QMessageBox::critical(nullptr, "Write failed", "Failed to save some recipe data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "Write failed", "Failed to save some recipe data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -216,7 +216,7 @@ DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, Q
     bool ok = dir.mkpath(dateString);
 
     if (!ok) {
-        QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -224,7 +224,7 @@ DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, Q
 
     QFile file(dir.absoluteFilePath("exercises"));
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 

@@ -5,7 +5,7 @@ import QmlProject
 
 Project {
     mainFile: "SneedContent/App.qml"
-    mainUiFile: "SneedContent/Screen01.ui.qml"
+    mainUiFile: "SneedContent/SettingsPage.ui.qml"
     targetDirectory: "/opt/Sneed"
     enableCMakeGeneration: true
     widgetApp: true

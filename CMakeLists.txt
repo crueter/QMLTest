@@ -18,25 +18,28 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick VirtualKeyboard)
+
+add_subdirectory(3rd_party/)
+find_package(OFPLib REQUIRED)
 
 set(CODE_ELEMENTS
-    data/DataManager
-    data/CacheManager
+    # data/DataManager
+    # data/CacheManager
 
-    #Settings
-    #Recipe
+    Settings
+    # Recipe
+
+    # items/Exercise
+    # items/ExerciseSet
 )
-
-#add_subdirectory(3rd_party)
-#find_package(OFPLib)
 
 foreach(ELEMENT ${CODE_ELEMENTS})
     set(HEADERS ${HEADERS} include/${ELEMENT}.h)
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
 endforeach()
 
-# set(PROJECT_SRC ${HEADERS} ${SOURCES})
+set(PROJECT_SRC ${HEADERS} ${SOURCES})
 
 qt_add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SRC})
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
@@ -48,8 +51,12 @@ qt_add_qml_module(SneedApp
     URI SneedTest
     VERSION 1.0
     SOURCES
-    Settings.h Settings.cpp
+    ${PROJECT_SRC}
 )
+
+target_include_directories(SneedApp PRIVATE "include/")
+target_include_directories(SneedApp PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${OFPLib_SOURCE_DIR}/include)
 
 include(qds)
 

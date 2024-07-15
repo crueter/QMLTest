@@ -4,14 +4,26 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "Settings.h"
 #include "autogen/environment.h"
+
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_ANDROID
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+#endif
     set_qt_environment();
     QGuiApplication app(argc, argv);
+    app.setApplicationDisplayName("Sneed");
 
     QQmlApplicationEngine engine;
+
+    Settings settings;
+
+    engine.rootContext()->setContextProperty("settings", &settings);
+
     const QUrl url(mainQmlFile);
     QObject::connect(
                 &engine, &QQmlApplicationEngine::objectCreated, &app,
@@ -19,6 +31,8 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+    // engine..setResizeMode(QQuickView::SizeRootObjectToView);
 
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");

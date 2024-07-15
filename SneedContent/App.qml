@@ -1,5 +1,5 @@
 import QtQuick 6.2
-import QtQuick.Controls 6.2
+import QtQuick.Controls 6.4
 import Sneed
 
 Window {
@@ -12,16 +12,16 @@ Window {
     SwipeView {
         id: swipeView
         anchors.bottom: tabBar.top
+        anchors.topMargin: 0
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.left: parent.left
         currentIndex: tabBar.currentIndex
 
-        Screen01 {
-            id: screen1
+        SettingsPage {
         }
 
-        Screen02 {
+        ExercisePage {
         }
     }
 
@@ -39,10 +39,19 @@ Window {
         currentIndex: swipeView.currentIndex
 
         TabButton {
-            text: qsTr("Page Uno")
+            text: qsTr("Settings")
         }
         TabButton {
-            text: qsTr("Page 2")
+            text: qsTr("Exercise")
+        }
+        TabButton {
+            text: qsTr("Food")
+        }
+        TabButton {
+            text: qsTr("Recipes")
+        }
+        TabButton {
+            text: qsTr("Goals")
         }
     }
 }
