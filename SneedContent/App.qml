@@ -1,5 +1,5 @@
-import QtQuick 6.2
-import QtQuick.Controls 6.4
+import QtQuick
+import QtQuick.Controls
 import Sneed
 
 Window {
@@ -9,12 +9,14 @@ Window {
 
     visible: true
 
+    // TODO: date picker
+
     SwipeView {
         id: swipeView
-        anchors.bottom: tabBar.top
+        anchors.bottom: tabBar.bottom
         anchors.topMargin: 0
         anchors.right: parent.right
-        anchors.top: parent.top
+        anchors.top: dateSelect.bottom
         anchors.left: parent.left
         currentIndex: tabBar.currentIndex
 
@@ -53,5 +55,12 @@ Window {
         TabButton {
             text: qsTr("Goals")
         }
+    }
+
+    DateSelect {
+        id: dateSelect
+        anchors.top: parent.top
+        anchors.topMargin: 0
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 }

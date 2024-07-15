@@ -1,17 +1,63 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
+import QtQml
 
-Item {
+Rectangle {
     id: root
-    width: 480
-    height: 100
+    width: parent.width
+    height: 40
+    color: "#000000"
 
-    Text {
-        id: text1
-        color: "#ffffff"
-        text: qsTr("01/01/2024")
+    // TODO: DATE PICKER
+    MouseArea {
+        id: mouseArea
+        width: dateText.width
+        height: 36
         anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: 22
         anchors.horizontalCenter: parent.horizontalCenter
+
+        Text {
+            id: dateText
+            property date currentDate: new Date()
+
+            color: "#ffffff"
+            text: currentDate.toLocaleDateString(Qt.locale(), "MM/dd/yyyy")
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 30
+            anchors.verticalCenterOffset: 0
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        onClicked: dateDialog.visible = true
+    }
+
+    Button {
+        id: back
+        y: 0
+        width: 59
+        height: 38
+        text: qsTr("<")
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        font.pointSize: 26
+
+        onClicked: dateText.currentDate.setDate(dateText.currentDate.getDate() - 1);
+    }
+
+    Button {
+        id: next
+        x: 0
+        y: 0
+        width: 59
+        height: 38
+        text: qsTr(">")
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        font.pointSize: 26
+
+        onClicked: dateText.currentDate.setDate(dateText.currentDate.getDate() + 1);
     }
 }
+
+
