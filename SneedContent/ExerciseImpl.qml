@@ -5,23 +5,24 @@ ExerciseForm {
 
     width: parent.width
 
-    property list<var> sets
-
     remove.onClicked: impl.deleteMe(impl.myId)
 
     add.onClicked: {
-        setsModel.append(
+        setModel.append(
                     {
                         "reps": 0,
                         "weight": 0,
-                        "myId": setsModel.count
+                        "myId": sets.count
                     })
 
-        impl.sets.push(
-                    {
-                        "reps": 0,
-                        "weight": 0,
-                    })
+        // setszzazz.push(
+        //             {
+        //                 "reps": 0,
+        //                 "weight": 0,
+        //             });
+
+        // console.log("Set : " + setszzazz)
+        // console.log("Type: " + typeof setszzazz)
 
         impl.exerciseChanged()
     }
@@ -30,17 +31,23 @@ ExerciseForm {
         width: impl.width
         id: set
         onDeleteSet: {
-            impl.setsModel.remove(myId)
+            impl.setModel.remove(myId)
+            // sets.pop(myId)
 
-            for (var i = myId; i < setsModel.count; ++i) {
-                impl.setsModel.get(i).myId -= 1
+            for (var i = myId; i < setModel.count; ++i) {
+                impl.setModel.get(i).myId -= 1
             }
 
             impl.exerciseChanged()
         }
 
-        onChanged:
+        onChanged: (reps, weight, id) =>
                    {
+                       // sets[id] = {
+                       //     "reps": reps,
+                       //     "weight": weight
+                       // }
+
                        impl.exerciseChanged()
                    }
     }

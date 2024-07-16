@@ -64,6 +64,8 @@ Rectangle {
 
             ListElement {
                 name: "test"
+                myId: 0
+                sets: []
             }
         }
     }

@@ -14,6 +14,7 @@ Rectangle {
 
     // property string name
     property int myId
+    // property list<variant> setszzazz: []
 
     height: 250
     color: "#000000"
@@ -25,7 +26,7 @@ Rectangle {
     property alias add: add
     property alias listView: listView
     property alias exerciseName: exerciseName
-    property alias setsModel: setsModel
+    property alias setModel: setModel
 
     RoundButton {
         id: remove
@@ -87,7 +88,7 @@ Rectangle {
         anchors.bottomMargin: 0
 
         model: ListModel {
-            id: setsModel
+            id: setModel
         }
     }
 }
