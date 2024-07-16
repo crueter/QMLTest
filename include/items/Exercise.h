@@ -9,8 +9,8 @@
 class Exercise : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
-    Q_PROPERTY(QJSValue sets READ sets WRITE setSets NOTIFY setsChanged FINAL)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QJSValue sets READ sets WRITE setSets NOTIFY setsChanged)
     QML_ELEMENT
 
 public:

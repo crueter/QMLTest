@@ -14,7 +14,7 @@ Rectangle {
     color: "#000000"
 
     signal deleteSet(int myId)
-    signal changed
+    signal changed(int reps, int weight, int id)
 
     property alias remove: remove
     property alias repsEdit: repsEdit

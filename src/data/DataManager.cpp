@@ -213,6 +213,8 @@ DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date
 
     bool ok = dir.mkpath(dateString);
 
+    qDebug() << "mkpath";
+
     if (!ok) {
         // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
@@ -220,6 +222,7 @@ DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date
 
     dir.cd(dateString);
 
+    qDebug() << "okay";
     QFile file(dir.absoluteFilePath("exercises"));
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         // QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
@@ -232,8 +235,10 @@ DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date
 
     for (const Exercise &ex : nativeExercises) {
         data << ex.name();
+        qDebug() << ex.name();
 
         for (ExerciseSet &set : ex.nativeSets()) {
+            qDebug() << set.reps();
             QStringList csv;
             csv << QString::number(set.weight()) << QString::number(set.reps());
 

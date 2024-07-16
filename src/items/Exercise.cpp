@@ -60,7 +60,7 @@ QJSValue Exercise::fromNative(const QList<Exercise> &newExercises)
     for (int i = 0; i < newExercises.size(); ++i) {
         QJSValue obj = engine.newObject();
         obj.setProperty("name", newExercises.at(i).name());
-        obj.setProperty("exercises", newExercises.at(i).sets());
+        obj.setProperty("sets", newExercises.at(i).sets());
         arr.setProperty(i, obj);
     }
 
@@ -72,11 +72,13 @@ QList<Exercise> Exercise::toNative(const QJSValue &newExercises)
 {
     QList<Exercise> ex;
     const int length = newExercises.property("length").toInt();
+
     for (int i = 0; i < length; ++i) {
         Exercise exercise;
         QJSValue obj = newExercises.property(i);
         exercise.setName(obj.property("name").toString());
-        exercise.setSets(obj.property("exercises"));
+        qDebug() << "Sets" << obj.property("sets").toString();
+        exercise.setSets(obj.property("sets"));
         ex.append(exercise);
     }
 

@@ -13,7 +13,7 @@ Rectangle {
     id: exercise
 
     // property string name
-    property string myId
+    property int myId
 
     height: 250
     color: "#000000"
@@ -25,7 +25,7 @@ Rectangle {
     property alias add: add
     property alias listView: listView
     property alias exerciseName: exerciseName
-    property alias sets: sets
+    property alias setsModel: setsModel
 
     RoundButton {
         id: remove
@@ -87,7 +87,7 @@ Rectangle {
         anchors.bottomMargin: 0
 
         model: ListModel {
-            id: sets
+            id: setsModel
         }
     }
 }
