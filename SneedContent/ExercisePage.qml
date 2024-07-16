@@ -12,7 +12,7 @@ import Sneed
 import QtQuick.Layouts
 
 Rectangle {
-    id: rectangle
+    id: root
     width: Constants.width
     height: Constants.height
     color: "#000000"
@@ -42,7 +42,7 @@ Rectangle {
         font.bold: true
         font.pointSize: 30
 
-        onClicked: model.append({"name": ""})
+        onClicked: exercises.append({"name": "", "myId": exercises.count})
     }
 
     ScrollView {
@@ -69,13 +69,21 @@ Rectangle {
             anchors.bottomMargin: 0
 
             model: ListModel {
-                id: model
+                id: exercises
 
                 ListElement {
                     name: "test"
                 }
             }
-            delegate: Exercise { }
+            delegate: ExerciseImpl {
+                width: root.width
+                onDeleteMe: {
+                    exercises.remove(myId);
+
+                    for (let i = myId; i < exercises.count; ++i) {
+                        exercises.get(i).myId -= 1;
+                    }
+                }}
         }
     }
 }

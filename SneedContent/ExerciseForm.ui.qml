@@ -13,14 +13,24 @@ Rectangle {
     id: exercise
 
     // property string name
+    property string myId
 
-    width: parent.width
-    height: 400
+    width: 500
+    height: 250
     color: "#000000"
+
+    signal deleteMe(int myId)
+
+    property alias remove: remove
+    property alias add: add
+    property alias listView: listView
+    property alias exerciseName: exerciseName
+    property alias sets: sets
 
     RoundButton {
         id: remove
-        width: 52
+
+        width: 51
         height: 51
         text: "x"
         anchors.left: parent.left
@@ -53,7 +63,7 @@ Rectangle {
     RoundButton {
         id: add
 
-        width: 52
+        width: 51
         height: 51
         text: "+"
         anchors.right: parent.right
@@ -63,8 +73,6 @@ Rectangle {
         topPadding: 10
         font.pointSize: 24
         flat: false
-
-        onClicked: model.append({"reps": 0, "weight": 0})
     }
 
     ListView {
@@ -73,14 +81,13 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: exerciseName.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 0
+        anchors.leftMargin: 50
         anchors.rightMargin: 0
         anchors.topMargin: 8
         anchors.bottomMargin: 0
 
         model: ListModel {
-            id: model
+            id: sets
         }
-        delegate: ExerciseSet { }
     }
 }

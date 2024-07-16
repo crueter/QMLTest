@@ -1,20 +1,26 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuickUltralite.Extras
 
 Rectangle {
-    id: root
+    id: exerciseSetForm
 
     required property int reps
     required property int weight
+    required property int myId
 
     width: ListView.view.width
     height: 60
 
     color: "#000000"
 
-    signal deleteMe()
+    signal deleteSet(int myId)
+    signal newData(int reps, int weight)
 
+    property alias remove: remove
+    property alias repsEdit: repsEdit
+    property alias weightEdit: weightEdit
+
+    // TODO: Swipe to delete ?
     RoundButton {
         id: remove
 
@@ -28,11 +34,9 @@ Rectangle {
         topPadding: 5
         font.pointSize: 24
         flat: false
-
-        onClicked: root.deleteMe()
     }
 
-    StaticText {
+    Text {
         id: staticText
         width: 57
         height: 51
@@ -40,7 +44,7 @@ Rectangle {
         text: qsTr("Reps:")
         anchors.left: remove.right
         anchors.top: parent.top
-        anchors.leftMargin: 8
+        anchors.leftMargin: 4
         anchors.topMargin: 4
         font.pixelSize: 20
         verticalAlignment: Text.AlignVCenter
@@ -49,18 +53,16 @@ Rectangle {
     SpinBox {
         id: repsEdit
 
-        width: 118
+        width: 101
         height: 45
         anchors.left: staticText.right
         anchors.top: parent.top
         anchors.leftMargin: 8
         anchors.topMargin: 8
-        font.pointSize: 18
-
-        onValueChanged: reps = value
+        font.pointSize: 15
     }
 
-    StaticText {
+    Text {
         id: staticText1
         width: 79
         height: 51
@@ -77,7 +79,7 @@ Rectangle {
     SpinBox {
         id: weightEdit
 
-        width: 108
+        width: 101
         height: 45
         anchors.left: staticText1.right
         anchors.top: parent.top
@@ -85,9 +87,6 @@ Rectangle {
         anchors.topMargin: 8
         editable: true
         to: 2000
-        font.pointSize: 18
-
-        onValueChanged: weight = value
+        font.pointSize: 15
     }
-
 }

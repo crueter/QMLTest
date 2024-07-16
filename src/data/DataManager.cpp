@@ -1,5 +1,4 @@
 #include "data/DataManager.h"
-#include "data/CacheManager.h"
 
 #include "items/Exercise.h"
 
@@ -8,7 +7,6 @@
 #include <QStandardPaths>
 #include <QJsonArray>
 
-#include <QMessageBox>
 #include <QDirIterator>
 #include <qjsondocument.h>
 
@@ -230,18 +228,18 @@ DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, Q
 
     QStringList data;
 
-    for (Exercise *ex : exercises) {
-        data << ex->name();
+    // for (Exercise *ex : exercises) {
+    //     data << ex->name();
 
-        for (ExerciseSet *set : ex->sets()) {
-            QStringList csv;
-            csv << QString::number(set->weight()) << QString::number(set->reps()) << set->time().toString();
+    //     for (ExerciseSet *set : ex->sets()) {
+    //         QStringList csv;
+    //         csv << QString::number(set->weight()) << QString::number(set->reps()) << set->time().toString();
 
-            data << csv.join(',');
-        }
+    //         data << csv.join(',');
+    //     }
 
-        data << "";
-    }
+    //     data << "";
+    // }
 
     file.write(data.join('\n').toUtf8());
     file.close();
@@ -271,35 +269,35 @@ QList<Exercise *> DataManager::loadExercises(QWidget *parent, QDate date)
 
     QStringList textExercises = data.split("\n\n");
 
-    for (const QString &ex : textExercises) {
-        QStringList lines = ex.split('\n');
-        Exercise *exercise = new Exercise(parent);
-        exercise->setName(lines.first());
+    // for (const QString &ex : textExercises) {
+    //     QStringList lines = ex.split('\n');
+    //     // Exercise *exercise = new Exercise(parent);
+    //     // exercise->setName(lines.first());
 
-        lines.pop_front();
+    //     lines.pop_front();
 
-        QList<ExerciseSet *> sets;
-        for (const QString &line : lines) {
-            if (line == "") continue;
+    //     QList<ExerciseSet *> sets;
+    //     for (const QString &line : lines) {
+    //         if (line == "") continue;
 
-            QStringList csv = line.split(',');
+    //         QStringList csv = line.split(',');
 
-            if (csv.size() != 3) {
-                continue;
-            }
+    //         if (csv.size() != 3) {
+    //             continue;
+    //         }
 
-            ExerciseSet *set = new ExerciseSet(exercise);
+    //         ExerciseSet *set = new ExerciseSet(exercise);
 
-            set->setWeight(csv.at(0).toInt());
-            set->setReps(csv.at(1).toInt());
-            set->setTime(QTime::fromString(csv.at(2)));
+    //         set->setWeight(csv.at(0).toInt());
+    //         set->setReps(csv.at(1).toInt());
+    //         set->setTime(QTime::fromString(csv.at(2)));
 
-            sets.append(set);
-        }
+    //         sets.append(set);
+    //     }
 
-        exercise->setSets(sets);
-        exercises.append(exercise);
-    }
+    //     exercise->setSets(sets);
+    //     exercises.append(exercise);
+    // }
 
     file.close();
 
@@ -320,7 +318,7 @@ DataManager::DataError DataManager::saveInfo(QString field, QVariant data)
         bool ok = dir.mkpath(fileDir);
 
         if (!ok) {
-            QMessageBox::critical(nullptr, "mkdir failed", "Failed to make personal info directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+            // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make personal info directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
             return Failure;
         }
 
@@ -329,7 +327,7 @@ DataManager::DataError DataManager::saveInfo(QString field, QVariant data)
 
     QFile file(dir.absoluteFilePath(fileName));
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QMessageBox::critical(nullptr, "Write failed", "Failed to save personal info. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "Write failed", "Failed to save personal info. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -380,7 +378,6 @@ QVariant DataManager::getInfo(const QString &field)
     f.close();
 
     return value;
-
 }
 
 DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)
@@ -399,7 +396,7 @@ DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject
     array.append(obj);
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QMessageBox::critical(nullptr, "Write failed", "Failed to write some data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "Write failed", "Failed to write some data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 

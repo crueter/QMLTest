@@ -30,8 +30,8 @@ set(CODE_ELEMENTS
     Settings
     # Recipe
 
-    # items/Exercise
-    # items/ExerciseSet
+    items/Exercise
+    items/ExerciseSet
 )
 
 foreach(ELEMENT ${CODE_ELEMENTS})
@@ -55,6 +55,7 @@ qt_add_qml_module(SneedApp
 )
 
 target_include_directories(SneedApp PRIVATE "include/")
+target_include_directories(SneedApp PRIVATE "include/items")
 target_include_directories(SneedApp PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${OFPLib_SOURCE_DIR}/include)
 
