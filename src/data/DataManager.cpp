@@ -204,7 +204,7 @@ QList<Recipe> DataManager::loadRecipes()
     return recipes;
 }
 
-DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date)
+DataManager::DataError DataManager::saveExercise(QJSValue exercise, QDate date)
 {
     // QDate date = QDate::currentDate();
     QString dateString = date.toString("MM-dd-yyyy");
@@ -213,8 +213,6 @@ DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date
 
     bool ok = dir.mkpath(dateString);
 
-    qDebug() << "mkpath";
-
     if (!ok) {
         // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
@@ -222,31 +220,38 @@ DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date
 
     dir.cd(dateString);
 
-    qDebug() << "okay";
-    QFile file(dir.absoluteFilePath("exercises"));
+    ok = dir.mkpath("exercises");
+
+    if (!ok) {
+        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        qCritical() << "fail";
+        return Failure;
+    }
+
+    dir.cd("exercises");
+
+    auto ex = Exercise::toNative(exercise);
+
+    QFile file(dir.absoluteFilePath(ex.name()));
+    qDebug() << ex.name();
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         // QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        qCritical() << "fail2";
         return Failure;
     }
 
     QStringList data;
 
-    auto nativeExercises = Exercise::toNative(exercises);
 
-    for (const Exercise &ex : nativeExercises) {
-        data << ex.name();
-        qDebug() << ex.name();
+    for (ExerciseSet &set : ex.nativeSets()) {
+        qDebug() << "Set Reps: " << set.reps();
+        QStringList csv;
+        csv << QString::number(set.weight()) << QString::number(set.reps());
 
-        for (ExerciseSet &set : ex.nativeSets()) {
-            qDebug() << set.reps();
-            QStringList csv;
-            csv << QString::number(set.weight()) << QString::number(set.reps());
-
-            data << csv.join(',');
-        }
-
-        data << "";
+        data << csv.join(',');
     }
+
+    data << "";
 
     file.write(data.join('\n').toUtf8());
     file.close();

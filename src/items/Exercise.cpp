@@ -33,9 +33,9 @@ void Exercise::setName(const QString &newName)
     m_name = newName;
 }
 
-QJSValue Exercise::sets() const
+QList<ExerciseSet> Exercise::sets() const
 {
-    return ExerciseSet::fromNative(m_sets);
+    return (m_sets);
 }
 
 QList<ExerciseSet> Exercise::nativeSets() const
@@ -43,9 +43,9 @@ QList<ExerciseSet> Exercise::nativeSets() const
     return m_sets;
 }
 
-void Exercise::setSets(const QJSValue &newSets)
+void Exercise::setSets(const QList<ExerciseSet> &newSets)
 {
-    m_sets = ExerciseSet::toNative(newSets);
+    m_sets = newSets;
 }
 
 void Exercise::setNativeSets(const QList<ExerciseSet> &newSets)
@@ -53,36 +53,58 @@ void Exercise::setNativeSets(const QList<ExerciseSet> &newSets)
     m_sets = newSets;
 }
 
-QJSValue Exercise::fromNative(const QList<Exercise> &newExercises)
+QJSValue Exercise::jsObject() const
+{
+    return fromNative(*this);
+}
+
+QJSValue Exercise::fromNative(const Exercise &newExercise)
 {
     QJSEngine engine;
-    QJSValue arr = engine.newArray(newExercises.size());
-    for (int i = 0; i < newExercises.size(); ++i) {
-        QJSValue obj = engine.newObject();
-        obj.setProperty("name", newExercises.at(i).name());
-        obj.setProperty("sets", newExercises.at(i).sets());
-        arr.setProperty(i, obj);
-    }
+    QJSValue obj = engine.newObject();
+    obj.setProperty("name", newExercise.name());
+    obj.setProperty("sets", ExerciseSet::fromNativeList(newExercise.sets()));
 
-    return arr;
+    return obj;
+}
+
+Exercise Exercise::toNative(const QJSValue &newExercise)
+{
+    // QList<Exercise> ex;
+    // const int length = newExercises.property("length").toInt();
+
+    // for (int i = 0; i < length; ++i) {
+    Exercise exercise;
+    exercise.setName(newExercise.property("name").toString());
+    exercise.setSets(ExerciseSet::toNativeList(newExercise.property("sets")));
+    for (const ExerciseSet &set : exercise.sets()) {
+        // qDebug() << set.reps() << set.weight();
+    }
+    // ex.append(exercise);
+    // }
+
+    // qDebug() << newExercise.property("sets").isUndefined();
+
+    return exercise;
 
 }
 
-QList<Exercise> Exercise::toNative(const QJSValue &newExercises)
+void Exercise::addSet()
 {
-    QList<Exercise> ex;
-    const int length = newExercises.property("length").toInt();
+    ExerciseSet set;
+    m_sets.append(set);
+}
 
-    for (int i = 0; i < length; ++i) {
-        Exercise exercise;
-        QJSValue obj = newExercises.property(i);
-        exercise.setName(obj.property("name").toString());
-        qDebug() << "Sets" << obj.property("sets").toString();
-        exercise.setSets(obj.property("sets"));
-        ex.append(exercise);
-    }
+void Exercise::removeSet(int idx)
+{
+    m_sets.removeAt(idx);
+}
 
-    return ex;
-
+void Exercise::changeSet(int idx, int reps, int weight)
+{
+    ExerciseSet set = m_sets.at(idx);
+    set.setReps(reps);
+    set.setWeight(weight);
+    m_sets.replace(idx, set);
 }
 

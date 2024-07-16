@@ -38,7 +38,7 @@ void ExerciseSet::setWeight(int newWeight)
     // emit weightChanged();
 }
 
-QJSValue ExerciseSet::fromNative(const QList<ExerciseSet> &newSets)
+QJSValue ExerciseSet::fromNativeList(const QList<ExerciseSet> &newSets)
 {
     QJSEngine engine;
     QJSValue arr = engine.newArray(newSets.size());
@@ -52,7 +52,7 @@ QJSValue ExerciseSet::fromNative(const QList<ExerciseSet> &newSets)
     return arr;
 }
 
-QList<ExerciseSet> ExerciseSet::toNative(const QJSValue &newSets)
+QList<ExerciseSet> ExerciseSet::toNativeList(const QJSValue &newSets)
 {
     QList<ExerciseSet> sets;
     const int length = newSets.property("length").toInt();

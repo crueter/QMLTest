@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "DataManager.h"
 #include "Settings.h"
 #include "autogen/environment.h"
 // #include "items/ExerciseSet.h"
@@ -22,9 +23,11 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     Settings settings;
+    DataManager data;
     // ExerciseSet set;
 
     engine.rootContext()->setContextProperty("settings", &settings);
+    engine.rootContext()->setContextProperty("dataManager", &data);
     // engine.rootContext()->setContextProperty("exerciseSet", &set);
 
     const QUrl url(mainQmlFile);

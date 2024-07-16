@@ -28,8 +28,8 @@ public:
     // QTime time() const;
     // void setTime(const QTime &newTime);
 
-    static QJSValue fromNative(const QList<ExerciseSet> &newSets);
-    static QList<ExerciseSet> toNative(const QJSValue &newSets);
+    static QJSValue fromNativeList(const QList<ExerciseSet> &newSets);
+    static QList<ExerciseSet> toNativeList(const QJSValue &newSets);
 
 private:
     int m_reps;

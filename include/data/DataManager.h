@@ -8,7 +8,7 @@
 
 #include <QDir>
 
-class Exercise;
+class Exercise;/**/
 
 class DataManager : public QObject
 {
@@ -23,6 +23,8 @@ public:
         NoOp
     };
 
+public slots:
+
     DataError removeFood(int meal, QDate date, const FoodServing &food);
     DataError saveFood(int meal, QDate date, const FoodServing &food);
     QList<FoodServing> loadFoods(int meal, QDate date);
@@ -31,8 +33,8 @@ public:
     DataError saveRecipe(const Recipe &recipe);
     QList<Recipe> loadRecipes();
 
-    Q_INVOKABLE DataError saveExercises(QJSValue exercises, QDate date);
-    Q_INVOKABLE QList<Exercise> loadExercises(QDate date);
+    DataError saveExercise(QJSValue exercise, QDate date);
+    QList<Exercise> loadExercises(QDate date);
 
     DataError saveInfo(QString field, QVariant data);
     QVariantMap loadInfo();

@@ -6,9 +6,10 @@ import SneedTest
 ExercisePageForm {
     id: exercisePageImpl
 
-    DataManager {
-        id: data
-    }
+    // property list<var>
+    // DataManager {
+    //     id: data
+    // }
 
     listView.delegate: ExerciseImpl {
         // width: listView.width
@@ -21,71 +22,50 @@ ExercisePageForm {
                 exercises.get(i).myId -= 1
                 console.log("id " + exercises.get(i).myId)
             }
-
-            saveData();
-        }
-
-        onExerciseChanged: {
-            let newSets = []
-            for (let j = 0; j < setModel.count; ++j) {
-                // console.log(sets.count)
-                // console.log(j)
-                // console.log(ex.sets[j])
-                let set = setModel.get(j)
-                console.log("Ok" + set.reps)
-                let obj = {
-                    "reps": set.reps,
-                    "weight": set.weight
-                }
-
-                newSets.push(obj)
-            }
-
-            sets = newSets
-
-            saveData()
         }
     }
 
-    add.onClicked: exercises.append({"sets": [], "name": "", "myId": exercises.count})
+    add.onClicked: exercises.append({"name": "", "myId": exercises.count})
 
     function saveData() {
         let exList = []
 
-        console.log("Exerc " + exercises.count)
+        // console.log("Exerc " + exercises.count)
 
         for (let i = 0; i < exercises.count; ++i) {
             let ex = exercises.get(i)
+            // console.log(ex["ex"])
+            console.log(ex.ex.sets)
             let obj = {
                 "name": ex.name,
                 "sets": []
             }
 
-            for (var key in ex) {
-                console.log("key " + key + " is a(n) " + typeof key)
-            }
+            // for (var key in ex) {
+            //     console.log("key " + key + " is a(n) " + typeof ex[key])
+            // }
 
-            // console.log("Count " + ex.sets.setProperty(0, "name", "sneed"))
-            console.log("Count " + typeof ex.sets)
-            // ex.sets.append({"reps": 999, "weight": 238})
+            // // console.log("Count " + ex.sets.setProperty(0, "name", "sneed"))
+            // console.log("Count " + typeof ex.sets)
 
-            for (let j = 0; j < ex.sets.count; ++j) {
-                console.log(ex.sets.count)
-                console.log(j)
-                console.log(ex.sets[j])
-                let set = ex.sets[j]
-                console.log("Ok" + set.reps)
-                obj["sets"].push({
-                                     "reps": set.reps,
-                                     "weight": set.weight
-                                 })
-                console.log("Okay " + obj["sets"][j].reps)
-            }
+            // for (let j = 0; j < ex.sets.count; ++j) {
+            //     // console.log(ex.sets.count)
+            //     // console.log(j)
+            //     // console.log(ex.sets[j])
+            //     let set = ex.sets[j]
+            //     console.log("Ok" + set.reps)
+            //     obj["sets"].push({
+            //                          "reps": set.reps,
+            //                          "weight": set.weight
+            //                      })
+            //     console.log("Okay " + obj["sets"][j].reps)
+            // }
 
             exList.push(obj)
+            // console.log(ex.sets)
         }
 
-        data.saveExercises(exList, new Date())
+        // data.saveExercises(exList, new Date())
         // console.log(ex)
     }
 }
