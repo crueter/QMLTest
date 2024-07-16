@@ -23,8 +23,7 @@ Window {
         SettingsPage {
         }
 
-        ExercisePageForm {
-            // width: window.width
+        ExercisePageImpl {
         }
     }
 

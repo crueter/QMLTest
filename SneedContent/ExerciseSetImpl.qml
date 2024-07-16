@@ -5,21 +5,23 @@ import SneedTest
 ExerciseSetForm {
     id: exerciseSetImpl
 
+    // property alias set: set
+
     remove.onClicked: exerciseSetImpl.deleteSet(myId)
 
+    // ExerciseSet {
+    //     id: set
+    // }
+
     repsEdit.onValueChanged: {
-        reps = value
-        set.reps = value
-        exerciseSetImpl.changed()
-    }
+                                 reps = repsEdit.value
+                                 // set.reps = reps
+                                 exerciseSetImpl.changed()
+                             }
 
     weightEdit.onValueChanged: {
-        weight = value
-        set.weight = value
-        exerciseSetImpl.changed()
-    }
-
-    ExerciseSet {
-        id: set
-    }
+                                   weight = weightEdit.value
+                                   // set.weight = weight
+                                   exerciseSetImpl.changed()
+                               }
 }

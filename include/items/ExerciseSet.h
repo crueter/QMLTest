@@ -28,12 +28,15 @@ public:
     // QTime time() const;
     // void setTime(const QTime &newTime);
 
+    static QJSValue fromNative(const QList<ExerciseSet> &newSets);
+    static QList<ExerciseSet> toNative(const QJSValue &newSets);
+
 private:
     int m_reps;
     int m_weight;
     // QTime m_time;
 };
 
-Q_DECLARE_METATYPE(QList<ExerciseSet>)
+Q_DECLARE_METATYPE(ExerciseSet)
 
 #endif // EXERCISESET_H

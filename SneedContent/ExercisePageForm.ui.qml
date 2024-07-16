@@ -12,7 +12,7 @@ import Sneed
 import QtQuick.Layouts
 
 Rectangle {
-    id: root
+    id: exercisePageForm
     width: Constants.width
     height: Constants.height
     color: "#000000"
@@ -54,7 +54,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: title.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 0
+        anchors.leftMargin: 5
         anchors.rightMargin: 0
         anchors.topMargin: 15
         anchors.bottomMargin: 0

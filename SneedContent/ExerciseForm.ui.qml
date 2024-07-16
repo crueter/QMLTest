@@ -15,7 +15,6 @@ Rectangle {
     // property string name
     property string myId
 
-    width: 500
     height: 250
     color: "#000000"
 
@@ -58,8 +57,6 @@ Rectangle {
         anchors.topMargin: 8
         font.pointSize: 20
         placeholderText: qsTr("Exercise Name")
-
-        onEditingFinished: name = text
     }
 
     RoundButton {
@@ -79,6 +76,7 @@ Rectangle {
 
     ListView {
         id: listView
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: exerciseName.bottom

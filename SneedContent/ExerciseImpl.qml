@@ -5,16 +5,22 @@ import SneedTest
 ExerciseForm {
     id: impl
 
+    width: parent.width
+
     remove.onClicked: impl.deleteMe(impl.myId)
+
+    Exercise {
+        id: exercise
+    }
 
     add.onClicked: {
         sets.append(
-            {
-                "reps": 0,
-                "weight": 0,
-                "myId": sets.count
-            })
-        console.log("ok")
+                    {
+                        "reps": 0,
+                        "weight": 0,
+                        "myId": sets.count
+                    })
+        impl.exerciseChanged()
     }
 
     listView.delegate: ExerciseSetImpl {
@@ -30,25 +36,30 @@ ExerciseForm {
         }
 
         onChanged: {
-            let sets = []
+            let setList = []
 
             for (let i = 0; i < sets.count; ++i) {
-                set = sets.get(i).set
-                sets.push(set)
+                let set = sets.get(i)
+                console.log(set.myId)
+                // console.log(set.reps)
+                setList.push(
+                            {
+                                "reps": set.reps,
+                                "weight": set.weight
+                            })
             }
 
-            exercise.sets = sets
+            exercise.sets = setList
 
             impl.exerciseChanged()
         }
     }
 
     exerciseName.onEditingFinished: {
-        exercise.name = exerciseName.text
-        impl.exerciseChanged()
-    }
+        exercise.name = exerciseName.displayText
+        name = exercise.name
 
-    Exercise {
-        id: exercise
+        console.log(exercise.name)
+        impl.exerciseChanged()
     }
 }

@@ -10,7 +10,8 @@
 #include <QDirIterator>
 #include <qjsondocument.h>
 
-DataManager::DataManager()
+DataManager::DataManager(QObject *parent)
+    : QObject(parent)
 {
     dataDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     bool ok = dataDir.mkpath("journal");
@@ -203,8 +204,9 @@ QList<Recipe> DataManager::loadRecipes()
     return recipes;
 }
 
-DataManager::DataError DataManager::saveExercises(QList<Exercise> exercises, QDate date)
+DataManager::DataError DataManager::saveExercises(QJSValue exercises, QDate date)
 {
+    // QDate date = QDate::currentDate();
     QString dateString = date.toString("MM-dd-yyyy");
     QDir dir(dataDir);
     dir.cd("journal");
@@ -226,10 +228,12 @@ DataManager::DataError DataManager::saveExercises(QList<Exercise> exercises, QDa
 
     QStringList data;
 
-    for (const Exercise &ex : exercises) {
+    auto nativeExercises = Exercise::toNative(exercises);
+
+    for (const Exercise &ex : nativeExercises) {
         data << ex.name();
 
-        for (ExerciseSet &set : ex.sets()) {
+        for (ExerciseSet &set : ex.nativeSets()) {
             QStringList csv;
             csv << QString::number(set.weight()) << QString::number(set.reps());
 
@@ -292,7 +296,7 @@ QList<Exercise> DataManager::loadExercises(QDate date)
             sets.append(set);
         }
 
-        exercise.setSets(sets);
+        exercise.setNativeSets(sets);
         exercises.append(exercise);
     }
 

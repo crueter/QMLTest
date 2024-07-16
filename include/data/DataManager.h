@@ -3,15 +3,19 @@
 
 #include "FoodItem.h"
 #include "Recipe.h"
+#include "qjsvalue.h"
+#include "qqmlintegration.h"
 
 #include <QDir>
 
 class Exercise;
 
-class DataManager
+class DataManager : public QObject
 {
+    Q_OBJECT
+    QML_ELEMENT
 public:
-    DataManager();
+    DataManager(QObject *parent = nullptr);
 
     enum DataError {
         Success,
@@ -27,8 +31,8 @@ public:
     DataError saveRecipe(const Recipe &recipe);
     QList<Recipe> loadRecipes();
 
-    DataError saveExercises(QList<Exercise> exercises, QDate date);
-    QList<Exercise> loadExercises(QDate date);
+    Q_INVOKABLE DataError saveExercises(QJSValue exercises, QDate date);
+    Q_INVOKABLE QList<Exercise> loadExercises(QDate date);
 
     DataError saveInfo(QString field, QVariant data);
     QVariantMap loadInfo();

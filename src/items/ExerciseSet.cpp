@@ -1,6 +1,7 @@
 #include "items/ExerciseSet.h"
 
 #include <QTime>
+#include <QJSValue>
 
 ExerciseSet::ExerciseSet(QObject *parent)
     : QObject(parent)
@@ -35,6 +36,35 @@ void ExerciseSet::setWeight(int newWeight)
         return;
     m_weight = newWeight;
     // emit weightChanged();
+}
+
+QJSValue ExerciseSet::fromNative(const QList<ExerciseSet> &newSets)
+{
+    QJSEngine engine;
+    QJSValue arr = engine.newArray(newSets.size());
+    for (int i = 0; i < newSets.size(); ++i) {
+        QJSValue obj = engine.newObject();
+        obj.setProperty("reps", newSets.at(i).reps());
+        obj.setProperty("weight", newSets.at(i).weight());
+        arr.setProperty(i, obj);
+    }
+
+    return arr;
+}
+
+QList<ExerciseSet> ExerciseSet::toNative(const QJSValue &newSets)
+{
+    QList<ExerciseSet> sets;
+    const int length = newSets.property("length").toInt();
+    for (int i = 0; i < length; ++i) {
+        ExerciseSet set;
+        QJSValue obj = newSets.property(i);
+        set.setReps(obj.property("reps").toInt());
+        set.setWeight(obj.property("weight").toInt());
+        sets.append(set);
+    }
+
+    return sets;
 }
 
 int ExerciseSet::reps() const
