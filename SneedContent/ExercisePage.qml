@@ -29,24 +29,53 @@ Rectangle {
     }
 
     RoundButton {
-        id: roundButton
-        x: 414
+        id: add
+
+        x: 415
         width: 50
         height: 50
         text: "+"
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.rightMargin: 15
-        anchors.topMargin: 15
+        anchors.topMargin: 7
         font.bold: true
         font.pointSize: 30
+
+        onClicked: model.append({"name": ""})
     }
 
-    ColumnLayout {
-        id: columnLayout
-        x: 8
-        y: 78
-        width: 472
-        height: 562
+    ScrollView {
+        id: scrollView
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: add.bottom
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
+        anchors.topMargin: 0
+        anchors.bottomMargin: 0
+
+
+        ListView {
+            id: listView
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: add.bottom
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 0
+            anchors.rightMargin: 0
+            anchors.topMargin: 8
+            anchors.bottomMargin: 0
+
+            model: ListModel {
+                id: model
+
+                ListElement {
+                    name: "test"
+                }
+            }
+            delegate: Exercise { }
+        }
     }
 }

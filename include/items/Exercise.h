@@ -8,17 +8,18 @@
 class Exercise : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
     QML_ELEMENT
 
 public:
-    explicit Exercise(QWidget *parent = nullptr);
+    explicit Exercise(QObject *parent = nullptr);
 
     QList<ExerciseSet *> sets() const;
 
-    void setName(const QString &name);
-    QString name();
-
     void setSets(const QList<ExerciseSet *> &newSets);
+
+    QString name() const;
+    void setName(const QString &newName);
 
 public slots:
     void addSet();
@@ -31,7 +32,11 @@ signals:
 
     void dataChanged();
 
+    void nameChanged();
+
 private:
+    QString m_name;
+
     QList<ExerciseSet *> m_sets;
 };
 

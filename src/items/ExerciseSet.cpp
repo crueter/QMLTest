@@ -1,59 +1,18 @@
 #include "items/ExerciseSet.h"
-#include "ui_ExerciseSet.h"
 
 #include <QTime>
 
-ExerciseSet::ExerciseSet(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::ExerciseSet)
+ExerciseSet::ExerciseSet(QObject *parent)
+    : QObject(parent)
 {
-    ui->setupUi(this);
 }
 
 ExerciseSet::ExerciseSet(ExerciseSet *other)
-    : QWidget(other->parentWidget())
-    , ui(new Ui::ExerciseSet)
+    : QObject(other->parent())
 {
-    ui->setupUi(this);
-
     setReps(other->reps());
     setWeight(other->weight());
     setTime(other->time());
-}
-
-ExerciseSet::~ExerciseSet()
-{
-    delete ui;
-}
-
-void ExerciseSet::setReps(const int reps)
-{
-    ui->reps->setValue(reps);
-}
-
-int ExerciseSet::reps() const
-{
-    return ui->reps->value();
-}
-
-void ExerciseSet::setWeight(const int weight)
-{
-    ui->weight->setValue(weight);
-}
-
-int ExerciseSet::weight() const
-{
-    return ui->weight->value();
-}
-
-void ExerciseSet::setTime(const QTime &time)
-{
-    ui->time->setTime(time);
-}
-
-QTime ExerciseSet::time() const
-{
-    return ui->time->time();
 }
 
 void ExerciseSet::remove()
@@ -64,4 +23,43 @@ void ExerciseSet::remove()
 void ExerciseSet::change()
 {
     emit dataChanged();
+}
+
+QTime ExerciseSet::time() const
+{
+    return m_time;
+}
+
+void ExerciseSet::setTime(const QTime &newTime)
+{
+    if (m_time == newTime)
+        return;
+    m_time = newTime;
+    emit timeChanged();
+}
+
+int ExerciseSet::weight() const
+{
+    return m_weight;
+}
+
+void ExerciseSet::setWeight(int newWeight)
+{
+    if (m_weight == newWeight)
+        return;
+    m_weight = newWeight;
+    emit weightChanged();
+}
+
+int ExerciseSet::reps() const
+{
+    return m_reps;
+}
+
+void ExerciseSet::setReps(int newReps)
+{
+    if (m_reps == newReps)
+        return;
+    m_reps = newReps;
+    emit repsChanged();
 }

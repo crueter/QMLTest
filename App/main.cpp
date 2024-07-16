@@ -6,6 +6,7 @@
 
 #include "Settings.h"
 #include "autogen/environment.h"
+// #include "items/ExerciseSet.h"
 
 #include <QQmlContext>
 
@@ -21,8 +22,10 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     Settings settings;
+    // ExerciseSet set;
 
     engine.rootContext()->setContextProperty("settings", &settings);
+    // engine.rootContext()->setContextProperty("exerciseSet", &set);
 
     const QUrl url(mainQmlFile);
     QObject::connect(
