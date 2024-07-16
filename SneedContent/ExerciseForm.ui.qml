@@ -20,6 +20,7 @@ Rectangle {
     color: "#000000"
 
     signal deleteMe(int myId)
+    signal exerciseChanged
 
     property alias remove: remove
     property alias add: add
@@ -48,6 +49,7 @@ Rectangle {
         text: name
 
         height: 56
+        color: "#ddf5f5f5"
         anchors.left: remove.right
         anchors.right: add.left
         anchors.top: parent.top
@@ -63,7 +65,7 @@ Rectangle {
     RoundButton {
         id: add
 
-        width: 51
+        width: 52
         height: 51
         text: "+"
         anchors.right: parent.right

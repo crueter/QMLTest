@@ -14,8 +14,10 @@ class ExerciseSet : public QObject
     QML_ELEMENT
 
 public:
-    explicit ExerciseSet(QObject *parent = nullptr);
+    ExerciseSet(QObject *parent = nullptr);
     ExerciseSet(const ExerciseSet &other);
+
+    ExerciseSet operator=(const ExerciseSet &other);
 
     int reps() const;
     void setReps(int newReps);

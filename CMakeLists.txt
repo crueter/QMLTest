@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(SneedApp LANGUAGES CXX)
 
+add_subdirectory(3rd_party)
+find_package(OFPLib)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(CMAKE_AUTOMOC ON)
@@ -20,15 +23,12 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 
 find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick VirtualKeyboard)
 
-add_subdirectory(3rd_party/)
-find_package(OFPLib REQUIRED)
-
 set(CODE_ELEMENTS
-    # data/DataManager
-    # data/CacheManager
+    data/DataManager
+    data/CacheManager
 
     Settings
-    # Recipe
+    Recipe
 
     items/Exercise
     items/ExerciseSet

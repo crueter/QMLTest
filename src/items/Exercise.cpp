@@ -6,6 +6,21 @@ Exercise::Exercise(QObject *parent)
 {
 }
 
+Exercise::Exercise(const Exercise &other)
+    : QObject(other.parent())
+{
+    m_name = other.name();
+    m_sets = other.sets();
+}
+
+Exercise Exercise::operator=(const Exercise &other)
+{
+    setParent(other.parent());
+    m_name = other.name();
+    m_sets = other.sets();
+    return *this;
+}
+
 QString Exercise::name() const
 {
     return m_name;

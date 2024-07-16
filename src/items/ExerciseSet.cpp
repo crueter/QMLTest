@@ -15,18 +15,14 @@ ExerciseSet::ExerciseSet(const ExerciseSet &other)
     // setTime(other->time());
 }
 
-// QTime ExerciseSet::time() const
-// {
-//     return m_time;
-// }
+ExerciseSet ExerciseSet::operator=(const ExerciseSet &other)
+{
+    setParent(other.parent());
+    setReps(other.reps());
+    setWeight(other.weight());
 
-// void ExerciseSet::setTime(const QTime &newTime)
-// {
-//     if (m_time == newTime)
-//         return;
-//     m_time = newTime;
-//     emit timeChanged();
-// }
+    return *this;
+}
 
 int ExerciseSet::weight() const
 {

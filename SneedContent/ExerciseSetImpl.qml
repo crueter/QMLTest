@@ -1,5 +1,6 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+
+import SneedTest
 
 ExerciseSetForm {
     id: exerciseSetImpl
@@ -8,9 +9,17 @@ ExerciseSetForm {
 
     repsEdit.onValueChanged: {
         reps = value
+        set.reps = value
+        exerciseSetImpl.changed()
     }
 
     weightEdit.onValueChanged: {
         weight = value
+        set.weight = value
+        exerciseSetImpl.changed()
+    }
+
+    ExerciseSet {
+        id: set
     }
 }

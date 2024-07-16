@@ -12,11 +12,12 @@ qt6_add_qml_module(SneedContent
 		"SettingsPage.ui.qml"
 		"App.qml"
 		"DateSelect.qml"
-		"ExercisePage.qml"
 		"ExerciseForm.ui.qml"
 		"ExerciseImpl.qml"
 		"ExerciseSetForm.ui.qml"
 		"ExerciseSetImpl.qml"
+		"ExercisePageImpl.qml"
+		"ExercisePageForm.ui.qml"
 )
 
 

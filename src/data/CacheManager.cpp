@@ -7,6 +7,8 @@
 
 #include <QJsonDocument>
 
+// #include <QMessageBox>
+
 QList<FoodItem> CacheManager::cachedFoods{};
 
 QDir CacheManager::cacheDir{};

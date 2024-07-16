@@ -10,9 +10,7 @@
 #include <QDirIterator>
 #include <qjsondocument.h>
 
-QDir DataManager::dataDir{};
-
-void DataManager::init()
+DataManager::DataManager()
 {
     dataDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     bool ok = dataDir.mkpath("journal");
@@ -205,7 +203,7 @@ QList<Recipe> DataManager::loadRecipes()
     return recipes;
 }
 
-DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, QDate date)
+DataManager::DataError DataManager::saveExercises(QList<Exercise> exercises, QDate date)
 {
     QString dateString = date.toString("MM-dd-yyyy");
     QDir dir(dataDir);
@@ -228,18 +226,18 @@ DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, Q
 
     QStringList data;
 
-    // for (Exercise *ex : exercises) {
-    //     data << ex->name();
+    for (const Exercise &ex : exercises) {
+        data << ex.name();
 
-    //     for (ExerciseSet *set : ex->sets()) {
-    //         QStringList csv;
-    //         csv << QString::number(set->weight()) << QString::number(set->reps()) << set->time().toString();
+        for (ExerciseSet &set : ex.sets()) {
+            QStringList csv;
+            csv << QString::number(set.weight()) << QString::number(set.reps());
 
-    //         data << csv.join(',');
-    //     }
+            data << csv.join(',');
+        }
 
-    //     data << "";
-    // }
+        data << "";
+    }
 
     file.write(data.join('\n').toUtf8());
     file.close();
@@ -247,9 +245,9 @@ DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, Q
     return Success;
 }
 
-QList<Exercise *> DataManager::loadExercises(QWidget *parent, QDate date)
+QList<Exercise> DataManager::loadExercises(QDate date)
 {
-    QList<Exercise *> exercises{};
+    QList<Exercise> exercises{};
     QString dateString = date.toString("MM-dd-yyyy");
     QDir dir(dataDir.absolutePath());
     dir.cd("journal");
@@ -269,35 +267,34 @@ QList<Exercise *> DataManager::loadExercises(QWidget *parent, QDate date)
 
     QStringList textExercises = data.split("\n\n");
 
-    // for (const QString &ex : textExercises) {
-    //     QStringList lines = ex.split('\n');
-    //     // Exercise *exercise = new Exercise(parent);
-    //     // exercise->setName(lines.first());
+    for (const QString &ex : textExercises) {
+        QStringList lines = ex.split('\n');
+        Exercise exercise;
+        exercise.setName(lines.first());
 
-    //     lines.pop_front();
+        lines.pop_front();
 
-    //     QList<ExerciseSet *> sets;
-    //     for (const QString &line : lines) {
-    //         if (line == "") continue;
+        QList<ExerciseSet> sets;
+        for (const QString &line : lines) {
+            if (line == "") continue;
 
-    //         QStringList csv = line.split(',');
+            QStringList csv = line.split(',');
 
-    //         if (csv.size() != 3) {
-    //             continue;
-    //         }
+            if (csv.size() != 2) {
+                continue;
+            }
 
-    //         ExerciseSet *set = new ExerciseSet(exercise);
+            ExerciseSet set;
 
-    //         set->setWeight(csv.at(0).toInt());
-    //         set->setReps(csv.at(1).toInt());
-    //         set->setTime(QTime::fromString(csv.at(2)));
+            set.setWeight(csv.at(0).toInt());
+            set.setReps(csv.at(1).toInt());
 
-    //         sets.append(set);
-    //     }
+            sets.append(set);
+        }
 
-    //     exercise->setSets(sets);
-    //     exercises.append(exercise);
-    // }
+        exercise.setSets(sets);
+        exercises.append(exercise);
+    }
 
     file.close();
 
@@ -378,6 +375,7 @@ QVariant DataManager::getInfo(const QString &field)
     f.close();
 
     return value;
+
 }
 
 DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)

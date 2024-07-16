@@ -17,7 +17,12 @@ Rectangle {
     height: Constants.height
     color: "#000000"
 
+    property alias add: add
+    property alias exercises: exercises
+    property alias listView: listView
+
     Text {
+        id: title
         color: "#ffffff"
         text: "Exercises"
         anchors.top: parent.top
@@ -41,49 +46,25 @@ Rectangle {
         anchors.topMargin: 7
         font.bold: true
         font.pointSize: 30
-
-        onClicked: exercises.append({"name": "", "myId": exercises.count})
     }
 
-    ScrollView {
-        id: scrollView
+    ListView {
+        id: listView
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: add.bottom
+        anchors.top: title.bottom
         anchors.bottom: parent.bottom
         anchors.leftMargin: 0
         anchors.rightMargin: 0
-        anchors.topMargin: 0
+        anchors.topMargin: 15
         anchors.bottomMargin: 0
 
+        model: ListModel {
+            id: exercises
 
-        ListView {
-            id: listView
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: add.bottom
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 0
-            anchors.rightMargin: 0
-            anchors.topMargin: 8
-            anchors.bottomMargin: 0
-
-            model: ListModel {
-                id: exercises
-
-                ListElement {
-                    name: "test"
-                }
+            ListElement {
+                name: "test"
             }
-            delegate: ExerciseImpl {
-                width: root.width
-                onDeleteMe: {
-                    exercises.remove(myId);
-
-                    for (let i = myId; i < exercises.count; ++i) {
-                        exercises.get(i).myId -= 1;
-                    }
-                }}
         }
     }
 }

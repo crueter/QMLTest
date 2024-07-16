@@ -14,7 +14,9 @@ class Exercise : public QObject
     QML_ELEMENT
 
 public:
-    explicit Exercise(QObject *parent = nullptr);
+    Exercise(QObject *parent = nullptr);
+    Exercise(const Exercise &other);
+    Exercise operator=(const Exercise &other);
 
     QString name() const;
     void setName(const QString &newName);
