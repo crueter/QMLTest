@@ -30,7 +30,7 @@ ExerciseForm {
         console.log("Model " + name + " ------ " + newName)
     }
 
-    remove.onClicked: exercises.deleteMe(impl.myId)
+    remove.onClicked: exercises.deleteMe(exID)
 
     add.onClicked: addSet(0, 0)
 

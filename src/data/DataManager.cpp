@@ -259,11 +259,11 @@ DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
     dir.cd("exercises");
 
     QFile file(dir.absoluteFilePath(ex.name()));
-    qDebug() << ex.name();
+    // qDebug() << ex.name();
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         // QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        qDebug() << "epic fail";
+        // qDebug() << "epic fail";
         return Failure;
     }
 

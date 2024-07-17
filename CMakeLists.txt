@@ -28,6 +28,7 @@ set(CODE_ELEMENTS
     data/CacheManager
 
     ExerciseListModel
+    ExerciseSetsModel
 
     Settings
     Recipe

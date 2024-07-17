@@ -38,5 +38,6 @@ private:
 };
 
 Q_DECLARE_METATYPE(ExerciseSet)
+Q_DECLARE_METATYPE(QList<ExerciseSet>)
 
 #endif // EXERCISESET_H

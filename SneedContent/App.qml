@@ -26,6 +26,8 @@ Window {
 
         ExercisePageImpl {
             objectName: "rootExercisePage"
+
+            Component.onCompleted: exercises.loadData(new Date())
         }
     }
 

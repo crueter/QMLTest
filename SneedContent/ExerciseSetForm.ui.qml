@@ -4,10 +4,6 @@ import QtQuick.Controls 2.15
 Rectangle {
     id: exerciseSetForm
 
-    required property int reps
-    required property int weight
-    required property int myId
-
     width: ListView.view.width
     height: 60
 
@@ -53,8 +49,6 @@ Rectangle {
     SpinBox {
         id: repsEdit
 
-        value: reps
-
         width: 101
         height: 45
         anchors.left: staticText.right
@@ -81,8 +75,6 @@ Rectangle {
 
     SpinBox {
         id: weightEdit
-
-        value: weight
 
         width: 101
         height: 45

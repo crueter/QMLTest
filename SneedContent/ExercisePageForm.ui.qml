@@ -9,6 +9,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 6.2
 import QtQuick.Controls 6.2
 import Sneed
+import SneedTest
 import QtQuick.Layouts
 
 Rectangle {
@@ -18,7 +19,6 @@ Rectangle {
     color: "#000000"
 
     property alias add: add
-    property alias exercises: exercises
     property alias listView: listView
     property alias roundButton: roundButton
 
@@ -69,9 +69,7 @@ Rectangle {
         anchors.topMargin: 15
         anchors.bottomMargin: 0
 
-        model: ListModel {
-            id: exercises
-        }
+        model: exercises
     }
 
     RoundButton {
