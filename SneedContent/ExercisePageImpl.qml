@@ -7,14 +7,11 @@ ExercisePageForm {
     id: exercisePageImpl
 
     function addExercise(exercise) {
-        for (var key in exercise) {
-            console.log(key)
-        }
-        console.log(exercise.ex.name)
-
         exercises.append({"name": exercise.name, "myId": exercises.count})
-        // exercises.get(exercises.count - 1)
-        // exercises.append()
+    }
+
+    function addSet(idx: int, reps: int, weight: int) {
+        listView.itemAtIndex(idx).addSet(reps, weight)
     }
 
     listView.delegate: ExerciseImpl {
@@ -31,4 +28,9 @@ ExercisePageForm {
     }
 
     add.onClicked: exercises.append({"name": "", "myId": exercises.count})
+
+    roundButton.onClicked: {
+        listView.itemAtIndex(0).addSet(0, 1)
+        listView.itemAtIndex(0).setName(exercises.get(0).name);
+    }
 }

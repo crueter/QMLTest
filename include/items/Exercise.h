@@ -31,6 +31,7 @@ public:
 
 public slots:
     void addSet();
+    void addSet(int reps, int weight);
     void removeSet(int idx);
     void changeSet(int idx, int reps, int weight);
 

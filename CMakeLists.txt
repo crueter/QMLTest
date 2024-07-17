@@ -27,6 +27,8 @@ set(CODE_ELEMENTS
     data/DataManager
     data/CacheManager
 
+    ExerciseListModel
+
     Settings
     Recipe
 

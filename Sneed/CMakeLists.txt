@@ -14,9 +14,9 @@ qt6_add_qml_module(Sneed
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES
-		"DirectoryFontLoader.qml"
-		"EventListSimulator.qml"
 		"EventListModel.qml"
+		"EventListSimulator.qml"
+		"DirectoryFontLoader.qml"
 		"Constants.qml"
 )
 

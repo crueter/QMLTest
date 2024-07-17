@@ -13,18 +13,26 @@ ExerciseForm {
         id: ex
     }
 
-    remove.onClicked: impl.deleteMe(impl.myId)
-
-    add.onClicked: {
+    function addSet(reps: int, weight: int) {
+        console.log("adding set")
         impl.setModel.append(
                     {
-                        "reps": 0,
-                        "weight": 0,
+                        "reps": reps,
+                        "weight": weight,
                         "myId": setModel.count
                     })
 
-        ex.addSet()
+        ex.addSet(reps, weight)
     }
+
+    function setName(newName: string) {
+        name = newName
+        ex.name = name
+    }
+
+    remove.onClicked: impl.deleteMe(impl.myId)
+
+    add.onClicked: addSet(0, 0)
 
     listView.delegate: ExerciseSetImpl {
         width: impl.width
@@ -44,8 +52,5 @@ ExerciseForm {
                    }
     }
 
-    exerciseName.onEditingFinished: {
-        name = exerciseName.displayText
-        ex.name = name
-    }
+    exerciseName.onEditingFinished: setName(exerciseName.displayText)
 }

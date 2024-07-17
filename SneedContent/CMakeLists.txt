@@ -9,15 +9,15 @@ qt6_add_qml_module(SneedContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES
-		"SettingsPage.ui.qml"
-		"App.qml"
-		"DateSelect.qml"
-		"ExerciseForm.ui.qml"
-		"ExerciseImpl.qml"
-		"ExerciseSetForm.ui.qml"
-		"ExerciseSetImpl.qml"
-		"ExercisePageImpl.qml"
 		"ExercisePageForm.ui.qml"
+		"ExercisePageImpl.qml"
+		"DateSelect.qml"
+		"App.qml"
+		"SettingsPage.ui.qml"
+		"ExerciseImpl.qml"
+		"ExerciseSetImpl.qml"
+		"ExerciseForm.ui.qml"
+		"ExerciseSetForm.ui.qml"
 )
 
 

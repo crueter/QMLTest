@@ -53,6 +53,8 @@ Rectangle {
     SpinBox {
         id: repsEdit
 
+        value: reps
+
         width: 101
         height: 45
         anchors.left: staticText.right
@@ -64,6 +66,7 @@ Rectangle {
 
     Text {
         id: staticText1
+
         width: 79
         height: 51
         color: "#ffffff"
@@ -78,6 +81,8 @@ Rectangle {
 
     SpinBox {
         id: weightEdit
+
+        value: weight
 
         width: 101
         height: 45

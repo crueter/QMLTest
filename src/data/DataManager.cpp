@@ -259,14 +259,15 @@ DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
     dir.cd("exercises");
 
     QFile file(dir.absoluteFilePath(ex.name()));
+    qDebug() << ex.name();
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         // QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        qDebug() << "epic fail";
         return Failure;
     }
 
     QStringList data;
-
 
     for (ExerciseSet &set : ex.nativeSets()) {
         QStringList csv;
@@ -296,23 +297,28 @@ QList<Exercise> DataManager::loadExercises(QDate date)
 
     dir.cd(dateString);
 
-    QFile file(dir.absoluteFilePath("exercises"));
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (!dir.cd("exercises")) {
         return exercises;
     }
 
-    QString data = file.readAll();
+    dir.cd("exercises");
 
-    QStringList textExercises = data.split("\n\n");
+    QDirIterator iter(dir, QDirIterator::IteratorFlag::Subdirectories);
 
-    for (const QString &ex : textExercises) {
-        QStringList lines = ex.split('\n');
-        Exercise exercise;
-        exercise.setName(lines.first());
+    while (iter.hasNext()) {
+        QFile f = iter.next();
+        QString fileName = f.fileName();
+        QString baseName = fileName.split('/').last();
+        if (baseName.startsWith('.')) continue;
 
-        lines.pop_front();
+        Exercise ex;
+
+        f.open(QIODevice::ReadOnly | QIODevice::Text);
+        QString data = f.readAll();
+        QStringList lines = data.split('\n');
 
         QList<ExerciseSet> sets;
+
         for (const QString &line : lines) {
             if (line == "") continue;
 
@@ -330,11 +336,13 @@ QList<Exercise> DataManager::loadExercises(QDate date)
             sets.append(set);
         }
 
-        exercise.setNativeSets(sets);
-        exercises.append(exercise);
-    }
+        ex.setSets(sets);
+        ex.setName(baseName);
 
-    file.close();
+        f.close();
+
+        exercises.append(ex);
+    }
 
     return exercises;
 }

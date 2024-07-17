@@ -32,8 +32,8 @@ public:
     static QList<ExerciseSet> toNativeList(const QJSValue &newSets);
 
 private:
-    int m_reps;
-    int m_weight;
+    int m_reps = 0;
+    int m_weight = 0;
     // QTime m_time;
 };
 

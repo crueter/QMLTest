@@ -20,6 +20,7 @@ Rectangle {
     property alias add: add
     property alias exercises: exercises
     property alias listView: listView
+    property alias roundButton: roundButton
 
     Text {
         id: title
@@ -71,5 +72,12 @@ Rectangle {
         model: ListModel {
             id: exercises
         }
+    }
+
+    RoundButton {
+        id: roundButton
+        x: 0
+        y: 1
+        text: "+"
     }
 }

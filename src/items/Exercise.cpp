@@ -87,6 +87,18 @@ void Exercise::addSet()
     DataManager::saveExercise(*this, QDate::currentDate());
 }
 
+void Exercise::addSet(int reps, int weight)
+{
+    qDebug() << "Exercise::addSet called from QML";
+    ExerciseSet set;
+    set.setReps(reps);
+    set.setWeight(weight);
+    m_sets.append(set);
+
+    DataManager::saveExercise(*this, QDate::currentDate());
+
+}
+
 void Exercise::removeSet(int idx)
 {
     m_sets.removeAt(idx);

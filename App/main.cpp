@@ -28,39 +28,35 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("settings", &settings);
 
+    QObject *exercisesPage;
+
     const QUrl url(mainQmlFile);
     QObject::connect(
                 &engine, &QQmlApplicationEngine::objectCreated, &app,
-                [url, &engine](QObject *obj, const QUrl &objUrl) {
+                [url, &engine, exercisesPage](QObject *obj, const QUrl &objUrl) mutable {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
 
-        QObject *exercisesPage = obj->findChild<QObject*>("rootExercisePage");
+        exercisesPage = obj->findChild<QObject*>("rootExercisePage");
         if (exercisesPage) {
             // qDebug() << exercisesPage->property("exercises").value<QQmlListModel *>();
 
             QQmlComponent component(&engine,
                                     QUrl("qrc:/qt/qml/SneedContent/ExerciseImpl.qml"));
 
-            QObject *object = component.createWithInitialProperties(QVariantMap{{"name", "blud"}});
+            auto exercises = DataManager::loadExercises(QDate::currentDate());
 
-            Exercise ex;
-            ex.setName("awesome");
+            for (int i = 0; i < exercises.size(); ++i) {
+                Exercise ex = exercises.at(i);
+                QObject *object = component.createWithInitialProperties(QVariantMap{{"name", ex.name()}});
+                QMetaObject::invokeMethod(object, "setName",
+                                          Q_ARG(QString, ex.name()));
 
-            object->setProperty("ex", QVariant::fromValue(ex));
-
-            QMetaObject::invokeMethod(exercisesPage, "addExercise",
-                                      Q_ARG(QVariant, QVariant::fromValue(object)));
-            // ...
-                // delete object;
-            // qDebug() << exercisesPage;
+                QMetaObject::invokeMethod(exercisesPage, "addExercise",
+                                          Q_ARG(QVariant, QVariant::fromValue(object)));
+            }
         }
-
     }, Qt::QueuedConnection);
-
-    // for (QObject *obj : engine.()) {
-    //     qDebug() << obj;
-    // }
 
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
