@@ -41,7 +41,6 @@ QVariant ExerciseSetsModel::data(const QModelIndex &index, int role) const
         return index.row();
     }
 
-
     return QVariant();
 }
 

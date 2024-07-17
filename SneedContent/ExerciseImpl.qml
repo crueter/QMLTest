@@ -7,6 +7,8 @@ ExerciseForm {
 
     width: parent.width
 
+    property alias ex: ex
+
     Exercise {
         id: ex
     }
@@ -30,7 +32,7 @@ ExerciseForm {
         console.log("Model " + name + " ------ " + newName)
     }
 
-    remove.onClicked: exercises.deleteMe(impl.myId)
+    remove.onClicked: exercise.deleteMe(exID)
 
     add.onClicked: addSet(0, 0)
 

@@ -29,6 +29,15 @@ Window {
 
             Component.onCompleted: exercises.loadData(new Date())
         }
+
+        FoodPageImpl {
+        }
+
+        RecipesPageImpl {
+        }
+
+        GoalsPageImpl {
+        }
     }
 
     TabBar {

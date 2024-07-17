@@ -39,6 +39,9 @@ QVariant ExerciseListModel::data(const QModelIndex &index, int role) const
     } else if (role == ELMRoleTypes::SETS) {
         return QVariant::fromValue(m_data[index.row()].sets());
     }
+    else if (role == ELMRoleTypes::SETS) {
+        return index.row();
+    }
 
     return QVariant();
 }
@@ -75,7 +78,7 @@ void ExerciseListModel::add(QString name, QList<ExerciseSet> sets)
 
 bool ExerciseListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
-    beginRemoveRows(parent, row, row + count);
+    beginRemoveRows(parent, row, row + count - 1);
     m_data.remove(row, count);
     endRemoveRows();
 
@@ -87,5 +90,6 @@ QHash<int, QByteArray> ExerciseListModel::roleNames() const
     QHash<int,QByteArray> rez;
     rez[NAME] = "name";
     rez[SETS] = "sets";
+    rez[ID] = "exID";
     return rez;
 }

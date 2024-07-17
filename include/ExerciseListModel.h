@@ -14,7 +14,8 @@ public:
     enum ELMRoleTypes
     {
         NAME = Qt::UserRole+1,
-        SETS
+        SETS,
+        ID
     };
 
     ExerciseListModel(QObject *parent = nullptr);
