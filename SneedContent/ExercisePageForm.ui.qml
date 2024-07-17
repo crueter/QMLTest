@@ -25,10 +25,14 @@ Rectangle {
         id: title
         color: "#ffffff"
         text: "Exercises"
+
         anchors.top: parent.top
         anchors.topMargin: 10
+
         font.pixelSize: 24
+
         anchors.horizontalCenter: parent.horizontalCenter
+
         font.bold: true
         font.family: Constants.largeFont.family
     }
@@ -40,20 +44,25 @@ Rectangle {
         width: 50
         height: 50
         text: "+"
+
         anchors.right: parent.right
         anchors.top: parent.top
+
         anchors.rightMargin: 15
         anchors.topMargin: 7
+
         font.bold: true
         font.pointSize: 30
     }
 
     ListView {
         id: listView
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: title.bottom
         anchors.bottom: parent.bottom
+
         anchors.leftMargin: 5
         anchors.rightMargin: 0
         anchors.topMargin: 15
@@ -61,12 +70,6 @@ Rectangle {
 
         model: ListModel {
             id: exercises
-
-            ListElement {
-                name: "test"
-                myId: 0
-                sets: []
-            }
         }
     }
 }

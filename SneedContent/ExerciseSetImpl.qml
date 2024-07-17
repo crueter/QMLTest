@@ -7,13 +7,13 @@ ExerciseSetForm {
 
     repsEdit.onValueChanged: {
         reps = repsEdit.value
-        console.log(reps)
+
         exerciseSetImpl.changed(reps, weight, myId)
     }
 
     weightEdit.onValueChanged: {
         weight = weightEdit.value
-        console.log(weight);
+
         exerciseSetImpl.changed(reps, weight, myId)
     }
 }

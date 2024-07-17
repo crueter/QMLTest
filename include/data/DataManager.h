@@ -8,14 +8,12 @@
 
 #include <QDir>
 
-class Exercise;/**/
+class Exercise;
 
-class DataManager : public QObject
+class DataManager
 {
-    Q_OBJECT
-    QML_ELEMENT
 public:
-    DataManager(QObject *parent = nullptr);
+    static void init ();
 
     enum DataError {
         Success,
@@ -23,27 +21,27 @@ public:
         NoOp
     };
 
-public slots:
+public:
+    static DataError removeFood(int meal, QDate date, const FoodServing &food);
+    static DataError saveFood(int meal, QDate date, const FoodServing &food);
+    static QList<FoodServing> loadFoods(int meal, QDate date);
 
-    DataError removeFood(int meal, QDate date, const FoodServing &food);
-    DataError saveFood(int meal, QDate date, const FoodServing &food);
-    QList<FoodServing> loadFoods(int meal, QDate date);
+    static DataError removeRecipe(const Recipe &recipe);
+    static DataError saveRecipe(const Recipe &recipe);
+    static QList<Recipe> loadRecipes();
 
-    DataError removeRecipe(const Recipe &recipe);
-    DataError saveRecipe(const Recipe &recipe);
-    QList<Recipe> loadRecipes();
+    static DataError removeExercise(const Exercise &exercise, const QDate &date);
+    static DataError saveExercise(const Exercise &exercise, QDate date);
+    static QList<Exercise> loadExercises(QDate date);
 
-    DataError saveExercise(QJSValue exercise, QDate date);
-    QList<Exercise> loadExercises(QDate date);
-
-    DataError saveInfo(QString field, QVariant data);
-    QVariantMap loadInfo();
-    QVariant getInfo(const QString &field);
+    static DataError saveInfo(QString field, QVariant data);
+    static QVariantMap loadInfo();
+    static QVariant getInfo(const QString &field);
 
 private:
-    QDir dataDir;
+    static QDir dataDir;
 
-    DataError addJsonObject(QFile &file, const QJsonObject &obj);
+    static DataError addJsonObject(QFile &file, const QJsonObject &obj);
 };
 
 #endif // DATAMANAGER_H

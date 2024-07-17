@@ -13,6 +13,7 @@ Window {
 
     SwipeView {
         id: swipeView
+        objectName: "swipeView"
         anchors.bottom: tabBar.bottom
         anchors.topMargin: 0
         anchors.right: parent.right
@@ -24,6 +25,7 @@ Window {
         }
 
         ExercisePageImpl {
+            objectName: "rootExercisePage"
         }
     }
 

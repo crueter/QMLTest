@@ -12,7 +12,7 @@ import QtQuick.Controls 2.15
 Rectangle {
     id: exercise
 
-    // property string name
+    required property string name
     property int myId
     // property list<variant> setszzazz: []
 

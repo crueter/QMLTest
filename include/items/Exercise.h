@@ -26,15 +26,15 @@ public:
     void setSets(const QList<ExerciseSet> &newSets);
     void setNativeSets(const QList<ExerciseSet> &newSets);
 
-    static QJSValue fromNative(const Exercise &newExercise);
-    static Exercise toNative(const QJSValue &newExercise);
+    // static QJSValue fromNative(const Exercise &newExercise);
+    // static Exercise toNative(const QJSValue &newExercise);
 
 public slots:
     void addSet();
     void removeSet(int idx);
     void changeSet(int idx, int reps, int weight);
 
-    QJSValue jsObject() const;
+    void remove();
 
 signals:
     void nameChanged();

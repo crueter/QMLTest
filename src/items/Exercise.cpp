@@ -4,6 +4,7 @@
 Exercise::Exercise(QObject *parent)
     : QObject(parent)
 {
+    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 Exercise::Exercise(const Exercise &other)
@@ -11,6 +12,7 @@ Exercise::Exercise(const Exercise &other)
 {
     m_name = other.name();
     m_sets = other.nativeSets();
+    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 Exercise Exercise::operator=(const Exercise &other)
@@ -18,6 +20,8 @@ Exercise Exercise::operator=(const Exercise &other)
     setParent(other.parent());
     m_name = other.name();
     m_sets = other.nativeSets();
+    DataManager::saveExercise(*this, QDate::currentDate());
+
     return *this;
 }
 
@@ -30,7 +34,9 @@ void Exercise::setName(const QString &newName)
 {
     if (m_name == newName)
         return;
+    DataManager::removeExercise(*this, QDate::currentDate());
     m_name = newName;
+    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 QList<ExerciseSet> Exercise::sets() const
@@ -53,51 +59,38 @@ void Exercise::setNativeSets(const QList<ExerciseSet> &newSets)
     m_sets = newSets;
 }
 
-QJSValue Exercise::jsObject() const
-{
-    return fromNative(*this);
-}
+// QJSValue Exercise::fromNative(const Exercise &newExercise)
+// {
+//     QJSEngine engine;
+//     QJSValue obj = engine.newObject();
+//     obj.setProperty("name", newExercise.name());
+//     obj.setProperty("sets", ExerciseSet::fromNativeList(newExercise.sets()));
 
-QJSValue Exercise::fromNative(const Exercise &newExercise)
-{
-    QJSEngine engine;
-    QJSValue obj = engine.newObject();
-    obj.setProperty("name", newExercise.name());
-    obj.setProperty("sets", ExerciseSet::fromNativeList(newExercise.sets()));
+//     return obj;
+// }
 
-    return obj;
-}
+// Exercise Exercise::toNative(const QJSValue &newExercise)
+// {
+//     Exercise exercise;
+//     exercise.setName(newExercise.property("name").toString());
+//     exercise.setSets(ExerciseSet::toNativeList(newExercise.property("sets")));
 
-Exercise Exercise::toNative(const QJSValue &newExercise)
-{
-    // QList<Exercise> ex;
-    // const int length = newExercises.property("length").toInt();
-
-    // for (int i = 0; i < length; ++i) {
-    Exercise exercise;
-    exercise.setName(newExercise.property("name").toString());
-    exercise.setSets(ExerciseSet::toNativeList(newExercise.property("sets")));
-    for (const ExerciseSet &set : exercise.sets()) {
-        // qDebug() << set.reps() << set.weight();
-    }
-    // ex.append(exercise);
-    // }
-
-    // qDebug() << newExercise.property("sets").isUndefined();
-
-    return exercise;
-
-}
+//     return exercise;
+// }
 
 void Exercise::addSet()
 {
+    qDebug() << "Exercise::addSet called from QML";
     ExerciseSet set;
     m_sets.append(set);
+
+    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 void Exercise::removeSet(int idx)
 {
     m_sets.removeAt(idx);
+    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 void Exercise::changeSet(int idx, int reps, int weight)
@@ -106,5 +99,12 @@ void Exercise::changeSet(int idx, int reps, int weight)
     set.setReps(reps);
     set.setWeight(weight);
     m_sets.replace(idx, set);
+
+    DataManager::saveExercise(*this, QDate::currentDate());
+}
+
+void Exercise::remove()
+{
+    DataManager::removeExercise(*this, QDate::currentDate());
 }
 
