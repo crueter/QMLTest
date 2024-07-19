@@ -16,6 +16,7 @@ Rectangle {
     color: "#000000"
 
     property int mealNumber: 1
+    property alias listView: listView
     property alias mealName: mealName
     property alias add: add
 
@@ -57,20 +58,5 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: 15
         anchors.bottomMargin: 15
-        // TODO: FoodServing Model
-        model: ListModel {}
-        delegate: Row {
-            spacing: 5
-            Rectangle {
-                width: 100
-                height: 20
-                color: colorCode
-            }
-
-            Text {
-                width: 100
-                text: name
-            }
-        }
     }
 }

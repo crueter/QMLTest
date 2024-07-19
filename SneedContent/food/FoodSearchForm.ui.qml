@@ -21,7 +21,7 @@ Rectangle {
     property alias recipes: recipes
 
     property alias swipeView: swipeView
-    property alias search: search
+    property alias searchBar: searchBar
 
     Text {
         id: text1
@@ -98,7 +98,7 @@ Rectangle {
     }
 
     TextField {
-        id: search
+        id: searchBar
         anchors.left: parent.left
         anchors.right: submit.left
         anchors.top: back.bottom
@@ -115,8 +115,8 @@ Rectangle {
         x: 551
         text: qsTr("Submit")
         anchors.right: parent.right
-        anchors.top: search.top
-        anchors.bottom: search.bottom
+        anchors.top: searchBar.top
+        anchors.bottom: searchBar.bottom
         anchors.rightMargin: 15
         anchors.topMargin: 0
         anchors.bottomMargin: 0

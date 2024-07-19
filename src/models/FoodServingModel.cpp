@@ -34,7 +34,9 @@ QVariant FoodServingModel::data(const QModelIndex &index, int role) const
         return m_data[index.row()].units;
     } else if (role == FSMRoleTypes::ID) {
         return index.row();
-    } else if (role == FSMRoleTypes::ID) {
+    } else if (role == FSMRoleTypes::MEAL) {
+        return m_meal;
+    } else if (role == FSMRoleTypes::SERVING) {
         return QVariant::fromValue(m_data[index.row()]);
     }
 
@@ -71,6 +73,12 @@ void FoodServingModel::add(const FoodItem &item, const ServingSize &size, const 
     endInsertRows();
 }
 
+void FoodServingModel::add(const FoodServing &serving)
+{
+    qDebug() << "C++: adding to FSM" << serving.item.name();
+    add(serving.item, serving.size, serving.units);
+}
+
 bool FoodServingModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
@@ -101,8 +109,9 @@ QHash<int, QByteArray> FoodServingModel::roleNames() const
     QHash<int,QByteArray> rez;
     rez[ITEM] = "item";
     rez[SIZE] = "servingSize";
-    rez[UNITS] = "units";
     rez[SERVING] = "serving";
+    rez[UNITS] = "units";
+    rez[MEAL] = "mealNumber";
     rez[ID] = "foodID";
     return rez;
 }

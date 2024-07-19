@@ -94,7 +94,7 @@ Rectangle {
         font.pixelSize: 17
     }
 
-    DoubleSpinBox {
+    SpinBox {
         id: servings
         anchors.left: title.left
         anchors.right: parent.right
@@ -104,7 +104,7 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: -6
         anchors.bottomMargin: -6
-        realTo: 1000
+        to: 1000
     }
 
     ComboBox {

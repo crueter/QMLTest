@@ -19,6 +19,7 @@ public:
         SIZE,
         UNITS,
         ID,
+        MEAL,
         SERVING
     };
 
@@ -28,6 +29,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
 
     Q_INVOKABLE void add(const FoodItem &item, const ServingSize &size, const double units = 1);
+    Q_INVOKABLE void add(const FoodServing &serving);
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
     Q_INVOKABLE void search(const QString &query);
