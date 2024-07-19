@@ -27,13 +27,13 @@ set(CODE_ELEMENTS
     data/DataManager
     data/CacheManager
 
-    ExerciseListModel
-    ExerciseSetsModel
-
     Settings
     Recipe
 
     models/FoodServingModel
+    models/FoodServingComboBoxModel
+    models/ExerciseListModel
+    models/ExerciseSetsModel
 
     items/Exercise
     items/ExerciseSet

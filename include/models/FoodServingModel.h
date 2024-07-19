@@ -18,7 +18,8 @@ public:
         ITEM = Qt::UserRole+1,
         SIZE,
         UNITS,
-        ID
+        ID,
+        SERVING
     };
 
     FoodServingModel(QObject *parent = nullptr);

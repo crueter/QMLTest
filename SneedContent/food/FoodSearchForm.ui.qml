@@ -9,8 +9,6 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import SneedTest
-
 Rectangle {
     id: rectangle
     color: "#000000"

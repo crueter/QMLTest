@@ -27,6 +27,23 @@ Window {
         }
     }
 
+    Dialog {
+        id: foodEdit
+        width: window.width
+        height: window.height
+
+        property alias edit: edit
+
+        FoodServingEditImpl {
+            id: edit
+            width: parent.width
+            height: parent.height
+
+            back.onClicked: foodEdit.reject()
+        }
+    }
+
+
     SwipeView {
         id: swipeView
         objectName: "swipeView"

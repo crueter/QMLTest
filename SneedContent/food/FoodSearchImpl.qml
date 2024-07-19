@@ -21,13 +21,13 @@ FoodSearchForm {
     }
 
     online.model: onlineModel
-    online.delegate: FoodServingEditImpl {}
+    online.delegate: FoodServingInfoImpl {}
 
     offline.model: offlineModel
-    offline.delegate: FoodServingEditImpl {}
+    offline.delegate: FoodServingInfoImpl {}
 
     recipes.model: recipeModel
-    recipes.delegate: FoodServingEditImpl {}
+    recipes.delegate: FoodServingInfoImpl {}
 
     submit.onClicked: swipeView.currentItem.model.search(search.displayText)
 }

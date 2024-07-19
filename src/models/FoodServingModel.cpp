@@ -34,6 +34,8 @@ QVariant FoodServingModel::data(const QModelIndex &index, int role) const
         return m_data[index.row()].units;
     } else if (role == FSMRoleTypes::ID) {
         return index.row();
+    } else if (role == FSMRoleTypes::ID) {
+        return QVariant::fromValue(m_data[index.row()]);
     }
 
     return QVariant();
@@ -83,6 +85,7 @@ void FoodServingModel::search(const QString &query)
     if (m_data.size() > 0) {
         removeRows(0, m_data.size(), QModelIndex());
     }
+    emit m_manager->cancelAll();
     m_manager->search(query);
     connect(m_manager, &OFPManager::searchComplete, this, [this](const QList<FoodItem> &foods) {
         for (const FoodItem &food : foods) {
@@ -99,6 +102,7 @@ QHash<int, QByteArray> FoodServingModel::roleNames() const
     rez[ITEM] = "item";
     rez[SIZE] = "servingSize";
     rez[UNITS] = "units";
+    rez[SERVING] = "serving";
     rez[ID] = "foodID";
     return rez;
 }
