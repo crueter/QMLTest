@@ -16,8 +16,8 @@ Rectangle {
     color: "#000000"
 
     property int mealNumber: 1
-
     property alias mealName: mealName
+    property alias add: add
 
     Text {
         id: mealName
@@ -51,7 +51,7 @@ Rectangle {
         id: listView
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: roundButton.bottom
+        anchors.top: add.bottom
         anchors.bottom: parent.bottom
         anchors.leftMargin: 15
         anchors.rightMargin: 15

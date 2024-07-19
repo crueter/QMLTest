@@ -11,6 +11,22 @@ Window {
 
     // TODO: date picker
 
+    Dialog {
+        id: search
+        width: window.width
+        height: window.height
+
+        property alias food: food
+
+        FoodSearchImpl {
+            id: food
+            width: parent.width
+            height: parent.height
+
+            back.onClicked: search.reject()
+        }
+    }
+
     SwipeView {
         id: swipeView
         objectName: "swipeView"
@@ -25,8 +41,6 @@ Window {
         }
 
         ExercisePageImpl {
-            objectName: "rootExercisePage"
-
             Component.onCompleted: exercises.loadData(new Date())
         }
 
