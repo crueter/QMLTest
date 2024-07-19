@@ -6,8 +6,8 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(SneedContentPlugin)
 Q_IMPORT_QML_PLUGIN(SneedPlugin)
+Q_IMPORT_QML_PLUGIN(SneedContentPlugin)
 
 const char mainQmlFile[] = "qrc:/qt/qml/SneedContent/App.qml";
 

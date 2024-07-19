@@ -9,11 +9,21 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import SneedTest
+
 Rectangle {
     id: rectangle
     color: "#000000"
 
     property alias back: back
+    property alias submit: submit
+
+    property alias online: online
+    property alias offline: offline
+    property alias recipes: recipes
+
+    property alias swipeView: swipeView
+    property alias search: search
 
     Text {
         id: text1
@@ -66,62 +76,14 @@ Rectangle {
 
         ListView {
             id: online
-            // anchors.fill: parent
-            // TODO: FoodItem model
-            model: ListModel {}
-            delegate: Row {
-                spacing: 5
-                Rectangle {
-                    width: 100
-                    height: 20
-                    color: colorCode
-                }
-
-                Text {
-                    width: 100
-                    text: name
-                }
-            }
         }
 
         ListView {
             id: offline
-            // anchors.fill: parent
-            // TODO: FoodItem model
-            model: ListModel {}
-            delegate: Row {
-                spacing: 5
-                Rectangle {
-                    width: 100
-                    height: 20
-                    color: colorCode
-                }
-
-                Text {
-                    width: 100
-                    text: name
-                }
-            }
         }
 
         ListView {
             id: recipes
-            // anchors.fill: parent
-            // TODO: FoodItem model
-            model: ListModel {}
-            delegate: Row {
-                spacing: 5
-                Rectangle {
-                    width: 100
-                    height: 20
-                    color: colorCode
-                }
-
-                Text {
-                    width: 100
-                    text: name
-                }
-            }
         }
     }
 
@@ -138,9 +100,9 @@ Rectangle {
     }
 
     TextField {
-        id: textField
+        id: search
         anchors.left: parent.left
-        anchors.right: toolButton.left
+        anchors.right: submit.left
         anchors.top: back.bottom
         anchors.bottom: tabBar.top
         anchors.leftMargin: 8
@@ -151,12 +113,12 @@ Rectangle {
     }
 
     ToolButton {
-        id: toolButton
+        id: submit
         x: 551
         text: qsTr("Submit")
         anchors.right: parent.right
-        anchors.top: textField.top
-        anchors.bottom: textField.bottom
+        anchors.top: search.top
+        anchors.bottom: search.bottom
         anchors.rightMargin: 15
         anchors.topMargin: 0
         anchors.bottomMargin: 0

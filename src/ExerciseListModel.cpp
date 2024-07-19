@@ -39,7 +39,7 @@ QVariant ExerciseListModel::data(const QModelIndex &index, int role) const
     } else if (role == ELMRoleTypes::SETS) {
         return QVariant::fromValue(m_data[index.row()].sets());
     }
-    else if (role == ELMRoleTypes::SETS) {
+    else if (role == ELMRoleTypes::ID) {
         return index.row();
     }
 
