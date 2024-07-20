@@ -28,7 +28,7 @@ MealLogForm {
     listView.delegate: FoodServingInfoImpl {
         function editEntry(item, serving, units) {
             model.units = units
-            model.serving = serving
+            model.servingSize = serving
 
             fsm.saveData(new Date())
         }
@@ -41,16 +41,21 @@ MealLogForm {
             foodEdit.open()
 
             foodEdit.edit.ready.connect(editEntry)
-        }}
+        }
+
+        onDeleteFood: {
+            fsm.removeRow(foodID)
+            fsm.saveData(new Date())
+        }
+
+        remove.visible: true
+    }
     listView.clip: true
 
     function addFood(item, servingSize, units) {
-        console.log("Adding Food!!! " + item.name)
-        // console.log(impl.height)
-        // impl.height += 100/
-        // console.log(impl.height)
         search.food.searchReady.disconnect(addFood)
         fsm.add(item, servingSize, units);
+        fsm.cache(item)
         fsm.saveData(new Date())
 
     }

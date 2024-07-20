@@ -6,8 +6,7 @@
 #include <QQmlComponent>
 
 #include "DataManager.h"
-#include "Exercise.h"
-#include "ExerciseListModel.h"
+#include "CacheManager.h"
 #include "Settings.h"
 #include "autogen/environment.h"
 
@@ -26,41 +25,17 @@ int main(int argc, char *argv[])
 
     Settings settings;
     DataManager::init();
-
-    ExerciseListModel* model = new ExerciseListModel();
-
-    engine.rootContext()->setContextProperty("exerciseModel", model);
+    CacheManager::init();
 
     engine.rootContext()->setContextProperty("settings", &settings);
 
-    QObject *exercisesPage;
 
     const QUrl url(mainQmlFile);
     QObject::connect(
                 &engine, &QQmlApplicationEngine::objectCreated, &app,
-                [url, &engine, exercisesPage](QObject *obj, const QUrl &objUrl) mutable {
+                [url, &engine](QObject *obj, const QUrl &objUrl) mutable {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
-
-        // exercisesPage = obj->findChild<QObject*>("rootExercisePage");
-        // if (exercisesPage) {
-        //     // qDebug() << exercisesPage->property("exercises").value<QQmlListModel *>();
-
-        //     QQmlComponent component(&engine,
-        //                             QUrl("qrc:/qt/qml/SneedContent/ExerciseImpl.qml"));
-
-        //     auto exercises = DataManager::loadExercises(QDate::currentDate());
-
-        //     for (int i = 0; i < exercises.size(); ++i) {
-        //         Exercise ex = exercises.at(i);
-        //         QObject *object = component.createWithInitialProperties(QVariantMap{{"name", ex.name()}});
-        //         QMetaObject::invokeMethod(object, "setName",
-        //                                   Q_ARG(QString, ex.name()));
-
-        //         QMetaObject::invokeMethod(exercisesPage, "addExercise",
-        //                                   Q_ARG(QVariant, QVariant::fromValue(object)));
-        //     }
-        // }
     }, Qt::QueuedConnection);
 
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");

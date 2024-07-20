@@ -18,7 +18,6 @@ ExerciseForm {
     }
 
     function addSet(reps: int, weight: int) {
-        console.log("adding set")
         esm.add(reps, weight)
 
         ex.addSet(reps, weight)
@@ -29,7 +28,6 @@ ExerciseForm {
         exerciseName.text = newName
 
         ex.name = newName
-        console.log("Model " + name + " ------ " + newName)
     }
 
     remove.onClicked: exercise.deleteMe(exID)
@@ -37,11 +35,12 @@ ExerciseForm {
     add.onClicked: addSet(0, 0)
 
     listView.delegate: ExerciseSetImpl {
-        width: exercise.width
+        // width: exercise.width
         id: set
+        clip: true
 
         onDeleteSet: {
-            esm.removeRows(setID, 1)
+            esm.removeRow(setID)
             ex.removeSet(setID)
         }
 

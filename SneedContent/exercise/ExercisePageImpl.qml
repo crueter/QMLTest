@@ -14,12 +14,15 @@ ExercisePageForm {
 
     listView.delegate: ExerciseImpl {
         id: exercise
+        height: 85 + 60 * listView.count
 
         onDeleteMe: {
                     exercises.removeRow(exID)
                     ex.remove()
                 }
     }
+
+    listView.model: exercises
 
     add.onClicked: exercises.add("")
 }

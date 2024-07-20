@@ -67,8 +67,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 0
 
-                Layout.preferredHeight: 65 + listView.count * (110 + listView.spacing)
-                // Layout.maximumHeight: 550
+                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
             }
 
             MealLogImpl {
@@ -79,8 +78,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 1
 
-                Layout.preferredHeight: 65 + listView.count * 125
-                // Layout.maximumHeight: 550
+                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
             }
 
             MealLogImpl {
@@ -91,8 +89,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 2
 
-                Layout.preferredHeight: 50 + listView.count * 125
-                // Layout.maximumHeight: 550
+                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
             }
 
             MealLogImpl {
@@ -103,8 +100,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 3
 
-                Layout.preferredHeight: 50 + listView.count * 125
-                // Layout.maximumHeight: 550
+                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
             }
 
             MealLogImpl {
@@ -115,8 +111,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 4
 
-                Layout.preferredHeight: listView.count * 100
-                // Layout.maximumHeight: 550
+                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
             }
         }
     }

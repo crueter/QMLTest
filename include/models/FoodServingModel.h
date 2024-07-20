@@ -11,6 +11,7 @@ class FoodServingModel : public QAbstractListModel
     Q_OBJECT
     QML_ELEMENT
     Q_PROPERTY(int meal READ meal WRITE setMeal NOTIFY mealChanged FINAL)
+    Q_PROPERTY(bool offlineSearch READ offlineSearch WRITE setOfflineSearch NOTIFY offlineSearchChanged FINAL)
 public:
 
     enum FSMRoleTypes
@@ -33,6 +34,8 @@ public:
 
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
+    Q_INVOKABLE static void cache(const FoodItem &item);
+
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     bool setData(const QModelIndex &index, const QVariant &value,
                  int role = Qt::EditRole) override;
@@ -45,16 +48,22 @@ public:
     int meal() const;
     void setMeal(int newMeal);
 
+    bool offlineSearch() const;
+    void setOfflineSearch(bool newOfflineSearch);
+
 signals:
     void mealChanged();
     void searchComplete();
 
+    void offlineSearchChanged();
+
 protected:
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
 private:
     QList<FoodServing> m_data;
 
     int m_meal;
+    bool m_offlineSearch;
 
     OFPManager *m_manager;
 };

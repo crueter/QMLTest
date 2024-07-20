@@ -13,11 +13,13 @@ FoodSearchForm {
     FoodServingModel {
         id: onlineModel
         meal: mealNumber
+        offlineSearch: false
     }
 
     FoodServingModel {
         id: offlineModel
         meal: mealNumber
+        offlineSearch: true
     }
 
     FoodServingModel {
@@ -27,6 +29,9 @@ FoodSearchForm {
 
     online.model: onlineModel
     online.delegate: FoodServingInfoImpl {
+        id: delegate
+        clip: true
+
         mouse.onClicked: {
             foodEdit.edit.foodServing = serving
             foodEdit.edit.mealNumber = mealNumber
@@ -38,47 +43,16 @@ FoodSearchForm {
         }
 
         onReady: (item, servingSize, units) => {
-                     console.log("FoodSearch " + units)
                      search.accept()
                      searchReady(item, servingSize, units)
                  }
     }
 
     offline.model: offlineModel
-    offline.delegate: FoodServingInfoImpl {
-        mouse.onClicked: {
-            foodEdit.edit.foodServing = serving
-            foodEdit.edit.mealNumber = mealNumber
-
-            foodEdit.edit.loadData()
-            foodEdit.open()
-
-            foodEdit.edit.onReady.connect(send)
-        }
-
-        onReady: (item, servingSize, units) => {
-                     search.accept()
-                     searchReady(item, servingSize, units)
-                 }
-    }
+    offline.delegate: online.delegate
 
     recipes.model: recipeModel
-    recipes.delegate: FoodServingInfoImpl {
-        mouse.onClicked: {
-            foodEdit.edit.foodServing = serving
-            foodEdit.edit.mealNumber = mealNumber
-
-            foodEdit.edit.loadData()
-            foodEdit.open()
-
-            foodEdit.edit.onReady.connect(send)
-        }
-
-        onReady: (item, servingSize, units) => {
-                     search.accept()
-                     searchReady(item, servingSize, units)
-                 }
-    }
+    recipes.delegate: online.delegate
 
     submit.onClicked: swipeView.currentItem.model.search(searchBar.displayText)
 }

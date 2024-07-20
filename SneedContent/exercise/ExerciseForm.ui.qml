@@ -14,8 +14,10 @@ Rectangle {
 
     // property int myId
 
-    height: 250
-    color: "#000000"
+    // height: 250
+    color: "#141414"
+    border.color: "#ffffff"
+    border.width: 3
 
     signal deleteMe(int myId)
     signal exerciseChanged
@@ -79,10 +81,13 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: exerciseName.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 50
+        anchors.leftMargin: 20
         anchors.rightMargin: 0
         anchors.topMargin: 8
         anchors.bottomMargin: 0
+        boundsMovement: Flickable.StopAtBounds
+        boundsBehavior: Flickable.StopAtBounds
+        interactive: false
 
         model: esm
     }

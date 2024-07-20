@@ -67,7 +67,5 @@ Rectangle {
         anchors.rightMargin: 0
         anchors.topMargin: 15
         anchors.bottomMargin: 0
-
-        model: exercises
     }
 }

@@ -80,7 +80,6 @@ void Exercise::setNativeSets(const QList<ExerciseSet> &newSets)
 
 void Exercise::addSet()
 {
-    qDebug() << "Exercise::addSet called from QML";
     ExerciseSet set;
     m_sets.append(set);
 
@@ -89,7 +88,6 @@ void Exercise::addSet()
 
 void Exercise::addSet(int reps, int weight)
 {
-    qDebug() << "Exercise::addSet called from QML";
     ExerciseSet set;
     set.setReps(reps);
     set.setWeight(weight);

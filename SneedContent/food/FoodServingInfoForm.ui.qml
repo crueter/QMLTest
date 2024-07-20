@@ -15,10 +15,14 @@ Rectangle {
     border.color: "#ffffff"
 
     height: 100
+
+    signal deleteFood(int id)
+
     property alias foodName: foodName
     property alias brandServing: brandServing
     property alias calories: calories
     property alias mouse: mouse
+    property alias remove: remove
 
     MouseArea {
         anchors.fill: parent
@@ -28,11 +32,11 @@ Rectangle {
             id: foodName
             color: "#ffffff"
             text: qsTr("Food Name")
-            anchors.left: parent.left
+            anchors.left: remove.right
             anchors.top: parent.top
             anchors.leftMargin: 15
             anchors.topMargin: 15
-            font.pixelSize: 22
+            font.pixelSize: 18
             font.weight: Font.DemiBold
         }
 
@@ -40,11 +44,11 @@ Rectangle {
             id: brandServing
             color: "#c2c2c2"
             text: qsTr("Generic, 1 cup")
-            anchors.left: parent.left
+            anchors.left: remove.right
             anchors.top: foodName.bottom
             anchors.leftMargin: 25
             anchors.topMargin: 15
-            font.pixelSize: 16
+            font.pixelSize: 12
         }
 
         Text {
@@ -55,7 +59,21 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: 25
-            font.pixelSize: 18
+            font.pixelSize: 15
+        }
+
+        RoundButton {
+            visible: false
+            id: remove
+            width: 52
+            height: 51
+            text: "x"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            topPadding: 4
+            topInset: 6
+            font.pointSize: 30
         }
     }
 }

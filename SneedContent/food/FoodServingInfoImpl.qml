@@ -14,8 +14,9 @@ FoodServingInfoForm {
     calories.text: item.nutrients.calories * servingSize.multiplier(units) + "kcal"
 
     function send(item, servingSize, units) {
-        console.log("InfoImpl " + units)
         foodEdit.edit.onReady.disconnect(send)
         ready(item, servingSize, units)
     }
+
+    remove.onClicked: deleteFood(foodID)
 }

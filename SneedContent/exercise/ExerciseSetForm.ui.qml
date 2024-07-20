@@ -4,10 +4,12 @@ import QtQuick.Controls 2.15
 Rectangle {
     id: exerciseSetForm
 
-    width: ListView.view.width
+    // width: ListView.view.width
+    width: 435
     height: 60
 
-    color: "#000000"
+    color: "#383838"
+    border.color: "#ffffff"
 
     signal deleteSet(int myId)
     signal changed(int reps, int weight, int id)

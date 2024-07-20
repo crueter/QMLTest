@@ -102,6 +102,48 @@ DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodSer
     return addJsonObject(file, food.toJson());
 }
 
+DataManager::DataError DataManager::truncateSaveFoods(int meal, QDate date, const QList<FoodServing> &foods)
+{
+    QString dateString = date.toString("MM-dd-yyyy");
+    QDir dir(dataDir);
+    dir.cd("journal");
+
+    bool ok = dir.mkpath(dateString);
+
+    if (!ok) {
+        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        return Failure;
+    }
+
+    dir.cd(dateString);
+
+    dir.mkpath("meals");
+
+    dir.cd("meals");
+
+    QFile file(dir.absoluteFilePath(QString::number(meal) + ".json"));
+
+    QJsonArray array;
+
+    for (const FoodServing &s : foods) {
+        array.append(s.toJson());
+    }
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        // QMessageBox::critical(nullptr, "Write failed", "Failed to write some data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        return Failure;
+    }
+
+    QByteArray toWrite = QJsonDocument(array).toJson();
+
+    file.write(toWrite);
+
+    file.close();
+
+    return Success;
+
+}
+
 QList<FoodServing> DataManager::loadFoods(int meal, QDate date)
 {
     QList<FoodServing> servings{};

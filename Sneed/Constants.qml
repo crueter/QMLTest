@@ -18,10 +18,15 @@ QtObject {
                                                   pixelSize: Qt.application.font.pixelSize * 1.6
                                               })
 
+    // TODO: background color for each "level"
     readonly property color backgroundColor: "#EAEAEA"
 
 
     property StudioApplication application: StudioApplication {
         fontPath: Qt.resolvedUrl("../../SneedContent/" + relativeFontDirectory)
     }
+
+    readonly property int onlineSearch: 0
+    readonly property int offlineSearch: 1
+    readonly property int recipesSearch: 2
 }

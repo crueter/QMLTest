@@ -1,6 +1,7 @@
 #include "models/FoodServingModel.h"
 #include "OFPManager.h"
 
+#include <CacheManager.h>
 #include <DataManager.h>
 
 FoodServingModel::FoodServingModel(QObject *parent)
@@ -56,9 +57,7 @@ void FoodServingModel::loadData(QDate date)
 
 void FoodServingModel::saveData(QDate date)
 {
-    for (const FoodServing &s : m_data) {
-        DataManager::saveFood(m_meal, date, s);
-    }
+    DataManager::truncateSaveFoods(m_meal, date, m_data);
 }
 
 void FoodServingModel::add(const FoodItem &item, const ServingSize &size, const double units)
@@ -75,7 +74,6 @@ void FoodServingModel::add(const FoodItem &item, const ServingSize &size, const 
 
 void FoodServingModel::add(const FoodServing &serving)
 {
-    qDebug() << "C++: adding to FSM" << serving.item.name();
     add(serving.item, serving.size, serving.units);
 }
 
@@ -88,6 +86,11 @@ bool FoodServingModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
+void FoodServingModel::cache(const FoodItem &item)
+{
+    CacheManager::cacheFoodItem(item);
+}
+
 Qt::ItemFlags FoodServingModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
@@ -98,13 +101,6 @@ Qt::ItemFlags FoodServingModel::flags(const QModelIndex &index) const
 
 bool FoodServingModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    // if (index.isValid() && role == Qt::EditRole) {
-
-    //     stringList.replace(index.row(), value.toString());
-    //     emit dataChanged(index, index, {role});
-    //     return true;
-    // }
-
     if (!index.isValid()) {
         return false;
     }
@@ -127,15 +123,22 @@ void FoodServingModel::search(const QString &query)
     if (m_data.size() > 0) {
         removeRows(0, m_data.size(), QModelIndex());
     }
-    emit m_manager->cancelAll();
-    m_manager->search(query);
-    connect(m_manager, &OFPManager::searchComplete, this, [this](const QList<FoodItem> &foods) {
-        for (const FoodItem &food : foods) {
-            add(food, food.defaultServing(), 1);
-        }
 
-        emit searchComplete();
-    });
+    if (!m_offlineSearch) {
+        emit m_manager->cancelAll();
+        m_manager->search(query);
+        connect(m_manager, &OFPManager::searchComplete, this, [this](const QList<FoodItem> &foods) {
+            for (const FoodItem &food : foods) {
+                add(food, food.defaultServing(), 1);
+            }
+
+            emit searchComplete();
+        });
+    } else {
+        for (const FoodItem &item : CacheManager::search(query)) {
+            add(item, item.defaultServing(), 1);
+        }
+    }
 }
 
 QHash<int, QByteArray> FoodServingModel::roleNames() const
@@ -148,6 +151,19 @@ QHash<int, QByteArray> FoodServingModel::roleNames() const
     rez[MEAL] = "mealNumber";
     rez[ID] = "foodID";
     return rez;
+}
+
+bool FoodServingModel::offlineSearch() const
+{
+    return m_offlineSearch;
+}
+
+void FoodServingModel::setOfflineSearch(bool newOfflineSearch)
+{
+    if (m_offlineSearch == newOfflineSearch)
+        return;
+    m_offlineSearch = newOfflineSearch;
+    emit offlineSearchChanged();
 }
 
 int FoodServingModel::meal() const

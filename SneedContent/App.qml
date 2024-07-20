@@ -43,7 +43,6 @@ Window {
 
             submit.onClicked: {
                 foodEdit.accept()
-                console.log("EditImpl " + servings.value)
                 ready(foodServing.item, unit.currentValue, servings.value)
             }
         }

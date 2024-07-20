@@ -24,6 +24,7 @@ public:
 public:
     static DataError removeFood(int meal, QDate date, const FoodServing &food);
     static DataError saveFood(int meal, QDate date, const FoodServing &food);
+    static DataError truncateSaveFoods(int meal, QDate date, const QList<FoodServing> &foods);
     static QList<FoodServing> loadFoods(int meal, QDate date);
 
     static DataError removeRecipe(const Recipe &recipe);
