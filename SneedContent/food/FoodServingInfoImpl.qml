@@ -3,7 +3,7 @@ import QtQuick 2.15
 FoodServingInfoForm {
     width: parent.width
 
-    signal ready(var serving)
+    signal ready(var item, var servingSize, var units)
 
     property int meal
 
@@ -13,8 +13,9 @@ FoodServingInfoForm {
 
     calories.text: item.nutrients.calories * servingSize.multiplier(units) + "kcal"
 
-    function send(serving) {
-        console.log("InfoImpl ready")
-        ready(serving)
+    function send(item, servingSize, units) {
+        console.log("InfoImpl " + units)
+        foodEdit.edit.onReady.disconnect(send)
+        ready(item, servingSize, units)
     }
 }

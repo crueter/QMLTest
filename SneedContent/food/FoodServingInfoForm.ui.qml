@@ -11,10 +11,10 @@ import QtQuick.Controls 2.15
 
 Rectangle {
     id: rectangle
-    color: "#000000"
+    color: "#242424"
+    border.color: "#ffffff"
 
     height: 100
-
     property alias foodName: foodName
     property alias brandServing: brandServing
     property alias calories: calories

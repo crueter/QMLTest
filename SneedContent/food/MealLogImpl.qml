@@ -4,8 +4,10 @@ import QtQuick.Controls
 import SneedTest
 
 MealLogForm {
+    id: impl
     width: parent.width
-    height: 500
+    // height: Layout.height
+    // clip: true
 
     add.onClicked: {
         search.food.mealNumber = mealNumber
@@ -15,10 +17,22 @@ MealLogForm {
 
     FoodServingModel {
         id: fsm
+        meal: mealNumber
+    }
+
+    Component.onCompleted: {
+        fsm.loadData(new Date())
     }
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
+        function editEntry(item, serving, units) {
+            model.units = units
+            model.serving = serving
+
+            fsm.saveData(new Date())
+        }
+
         mouse.onClicked: {
             foodEdit.edit.foodServing = serving
             foodEdit.edit.mealNumber = mealNumber
@@ -26,12 +40,18 @@ MealLogForm {
             foodEdit.edit.loadData()
             foodEdit.open()
 
-            foodEdit.edit.onReady.connect(send)
+            foodEdit.edit.ready.connect(editEntry)
         }}
+    listView.clip: true
 
-    function addFood(serving) {
-        console.log("Adding Food!!! " + serving.units)
-        fsm.add(serving);
-        console.log(fsm)
+    function addFood(item, servingSize, units) {
+        console.log("Adding Food!!! " + item.name)
+        // console.log(impl.height)
+        // impl.height += 100/
+        // console.log(impl.height)
+        search.food.searchReady.disconnect(addFood)
+        fsm.add(item, servingSize, units);
+        fsm.saveData(new Date())
+
     }
 }

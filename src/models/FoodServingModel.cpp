@@ -88,6 +88,40 @@ bool FoodServingModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
+Qt::ItemFlags FoodServingModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+}
+
+bool FoodServingModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    // if (index.isValid() && role == Qt::EditRole) {
+
+    //     stringList.replace(index.row(), value.toString());
+    //     emit dataChanged(index, index, {role});
+    //     return true;
+    // }
+
+    if (!index.isValid()) {
+        return false;
+    }
+
+    if (role == FSMRoleTypes::ITEM) {
+        m_data[index.row()].item = value.value<FoodItem>();
+    } else if (role == FSMRoleTypes::SIZE) {
+        m_data[index.row()].size = value.value<ServingSize>();
+    } else if (role == FSMRoleTypes::UNITS) {
+        m_data[index.row()].units = value.toDouble();
+    } else {
+        return false;
+    }
+
+    return true;
+}
+
 void FoodServingModel::search(const QString &query)
 {
     if (m_data.size() > 0) {

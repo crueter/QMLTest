@@ -6,7 +6,7 @@ FoodSearchForm {
     width: parent.width
     height: parent.height
 
-    signal searchReady(var serving)
+    signal searchReady(var item, var servingSize, var units)
 
     property int mealNumber
 
@@ -37,10 +37,10 @@ FoodSearchForm {
             foodEdit.edit.onReady.connect(send)
         }
 
-        onReady: (serving) => {
-                     console.log("Lets Go")
+        onReady: (item, servingSize, units) => {
+                     console.log("FoodSearch " + units)
                      search.accept()
-                     searchReady(serving)
+                     searchReady(item, servingSize, units)
                  }
     }
 
@@ -56,9 +56,9 @@ FoodSearchForm {
             foodEdit.edit.onReady.connect(send)
         }
 
-        onReady: (serving) => {
+        onReady: (item, servingSize, units) => {
                      search.accept()
-                     searchReady(serving)
+                     searchReady(item, servingSize, units)
                  }
     }
 
@@ -74,9 +74,9 @@ FoodSearchForm {
             foodEdit.edit.onReady.connect(send)
         }
 
-        onReady: (serving) => {
+        onReady: (item, servingSize, units) => {
                      search.accept()
-                     searchReady(serving)
+                     searchReady(item, servingSize, units)
                  }
     }
 

@@ -47,8 +47,8 @@ Rectangle {
         anchors.topMargin: 60
         anchors.bottomMargin: 60
 
-        GridLayout {
-            id: gridLayout
+        ColumnLayout {
+            id: colLayout
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -57,59 +57,66 @@ Rectangle {
             anchors.rightMargin: 0
             anchors.topMargin: 0
             anchors.bottomMargin: 0
-            rowSpacing: 10
-            columnSpacing: 10
-            rows: 5
-            columns: 1
+            spacing: 10
 
             MealLogImpl {
                 id: mealLog1
                 Layout.minimumHeight: 60
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 0
-                Layout.column: 0
+
+                Layout.preferredHeight: 65 + listView.count * (110 + listView.spacing)
+                // Layout.maximumHeight: 550
             }
 
             MealLogImpl {
                 id: mealLog2
                 Layout.minimumHeight: 60
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 1
-                Layout.column: 0
+
+                Layout.preferredHeight: 65 + listView.count * 125
+                // Layout.maximumHeight: 550
             }
 
             MealLogImpl {
                 id: mealLog3
                 Layout.minimumHeight: 60
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 2
-                Layout.column: 0
+
+                Layout.preferredHeight: 50 + listView.count * 125
+                // Layout.maximumHeight: 550
             }
 
             MealLogImpl {
                 id: mealLog4
                 Layout.minimumHeight: 60
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 3
-                Layout.column: 0
+
+                Layout.preferredHeight: 50 + listView.count * 125
+                // Layout.maximumHeight: 550
             }
 
             MealLogImpl {
                 id: mealLog5
                 Layout.minimumHeight: 60
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.row: 4
-                Layout.column: 0
+
+                Layout.preferredHeight: listView.count * 100
+                // Layout.maximumHeight: 550
             }
         }
     }

@@ -40,10 +40,11 @@ Window {
             height: parent.height
 
             back.onClicked: foodEdit.reject()
+
             submit.onClicked: {
-                console.log("EditImpl ready")
-                edit.ready(foodServing)
                 foodEdit.accept()
+                console.log("EditImpl " + servings.value)
+                ready(foodServing.item, unit.currentValue, servings.value)
             }
         }
     }

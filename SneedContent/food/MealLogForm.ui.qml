@@ -13,7 +13,9 @@ Rectangle {
     id: rectangle
     // width: 580
     // height: 400
-    color: "#000000"
+    color: "#141414"
+    border.color: "#ffffff"
+    border.width: 2
 
     property int mealNumber: 1
     property alias listView: listView
@@ -58,5 +60,8 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: 15
         anchors.bottomMargin: 15
+        boundsMovement: Flickable.StopAtBounds
+        boundsBehavior: Flickable.StopAtBounds
+        interactive: false
     }
 }

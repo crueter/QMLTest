@@ -10,22 +10,17 @@ FoodServingEditForm {
         id: fsm
     }
 
-    signal ready(var foodServing)
+    signal ready(var item, var servingSize, var units)
 
     property var foodServing
     property int mealNumber
 
     foodName.text: foodServing.item.name
     servings.value: foodServing.units
-    servings.onValueChanged: {
-        foodServing.units = servings.value
-        console.log(foodServing.units)
-    }
 
     unit.model: fsm
     unit.textRole: "name"
     unit.valueRole: "size"
-    unit.onActivated: foodServing.size = unit.currentValue
 
     function loadData() {
         fsm.add(foodServing.item.servingSizes)
@@ -36,9 +31,4 @@ FoodServingEditForm {
     carbs.text: unit.currentValue.multiplier(servings.value) * foodServing.item.nutrients.carbs
     fat.text: unit.currentValue.multiplier(servings.value) * foodServing.item.nutrients.fat
     protein.text: unit.currentValue.multiplier(servings.value) * foodServing.item.nutrients.protein
-
-    // submit.onClicked: {
-    //     foodEdit.accept()
-    //     ready(foodServing)
-    // }
 }
