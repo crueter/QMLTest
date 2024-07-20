@@ -33,6 +33,8 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
         return m_data[index.row()].servings();
     } else if (role == RLMRoleTypes::ID) {
         return index.row();
+    } else if (role == RLMRoleTypes::RECIPE) {
+        return QVariant::fromValue(m_data[index.row()]);
     }
 
     return QVariant();
@@ -105,9 +107,13 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
         m_data[index.row()].setName(value.toString());
     } else if (role == RLMRoleTypes::UNITS) {
         m_data[index.row()].setServings(value.toDouble());
+    } else if (role == RLMRoleTypes::RECIPE) {
+        m_data[index.row()] = value.value<Recipe>();
     } else {
         return false;
     }
+
+    saveData();
 
     return true;
 }
@@ -119,5 +125,19 @@ QHash<int, QByteArray> RecipeListModel::roleNames() const
     rez[FOODS] = "foods";
     rez[UNITS] = "servings";
     rez[ID] = "recipeID";
+    rez[RECIPE] = "recipe";
     return rez;
+}
+
+int RecipeListModel::meal() const
+{
+    return m_meal;
+}
+
+void RecipeListModel::setMeal(int newMeal)
+{
+    if (m_meal == newMeal)
+        return;
+    m_meal = newMeal;
+    emit mealChanged();
 }

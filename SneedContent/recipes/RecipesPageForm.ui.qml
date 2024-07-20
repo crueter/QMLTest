@@ -17,6 +17,9 @@ Rectangle {
     height: Constants.height
     color: "#000000"
 
+    property alias add: add
+    property alias listView: listView
+
     Text {
         id: text1
         color: "#ffffff"
@@ -26,5 +29,30 @@ Rectangle {
         font.pixelSize: 24
         font.bold: true
         anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+    RoundButton {
+        id: add
+        x: 528
+        width: 52
+        height: 48
+        text: "+"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
+        font.pointSize: 26
+    }
+
+    ListView {
+        id: listView
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: add.bottom
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 15
+        anchors.rightMargin: 15
+        anchors.topMargin: 15
+        anchors.bottomMargin: 15
     }
 }

@@ -1,28 +1,32 @@
 import QtQuick 2.15
-import QtQuick.Controls
 
 import SneedTest
+import SneedContent
 
-MealLogForm {
-    id: impl
+RecipeEditForm {
     width: parent.width
-    // height: Layout.height
-    // clip: true
-
-    add.onClicked: {
-        search.food.mealNumber = mealNumber
-        search.open()
-        search.food.searchReady.connect(addFood)
-    }
+    height: parent.height
 
     FoodServingModel {
         id: fsm
-        meal: mealNumber
     }
 
-    Component.onCompleted: {
-        fsm.loadData(new Date())
+    signal ready(var recipe)
+
+    property var recipe
+    property int mealNumber
+
+    recipeName.text: recipe.name
+    servings.value: recipe.servings
+
+    function loadData() {
+        fsm.add(recipe.foods)
     }
+
+    calories.text: recipe.nutrients(recipe.servings).calories
+    carbs.text: recipe.nutrients(recipe.servings).carbs
+    fat.text: recipe.nutrients(recipe.servings).fat
+    protein.text: recipe.nutrients(recipe.servings).protein
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
@@ -30,7 +34,10 @@ MealLogForm {
             model.units = units
             model.servingSize = serving
 
-            fsm.saveData(new Date())
+            recipe.foods = fsm.foods
+
+            // fsm.saveData(new Date())
+            foodEdit.edit.ready.disconnect(editEntry)
         }
 
         mouse.onClicked: {
@@ -49,13 +56,5 @@ MealLogForm {
         }
 
         remove.visible: true
-    }
-    listView.clip: true
-
-    function addFood(item, servingSize, units) {
-        search.food.searchReady.disconnect(addFood)
-        fsm.add(item, servingSize, units);
-        fsm.cache(item)
-        fsm.saveData(new Date())
     }
 }

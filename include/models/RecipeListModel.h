@@ -9,6 +9,7 @@ class RecipeListModel : public QAbstractListModel
 {
     Q_OBJECT
     QML_ELEMENT
+    Q_PROPERTY(int meal READ meal WRITE setMeal NOTIFY mealChanged FINAL)
 public:
 
     enum RLMRoleTypes
@@ -16,7 +17,8 @@ public:
         FOODS = Qt::UserRole+1,
         NAME,
         UNITS,
-        ID
+        ID,
+        RECIPE
     };
 
     RecipeListModel(QObject *parent = nullptr);
@@ -41,9 +43,6 @@ public:
     int meal() const;
     void setMeal(int newMeal);
 
-    bool offlineSearch() const;
-    void setOfflineSearch(bool newOfflineSearch);
-
 signals:
     void mealChanged();
     void searchComplete();
@@ -52,6 +51,8 @@ protected:
     QHash<int, QByteArray> roleNames() const override;
 private:
     QList<Recipe> m_data;
+
+    int m_meal;
 };
 
 #endif // RECIPELISTMODEL_H

@@ -16,7 +16,7 @@ Rectangle {
 
     height: 100
 
-    signal deleteFood(int id)
+    signal deleteRecipe(int id)
 
     property alias recipeName: recipeName
     property alias servingSize: servingSize

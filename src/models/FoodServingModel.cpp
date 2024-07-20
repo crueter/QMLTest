@@ -44,6 +44,11 @@ QVariant FoodServingModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+QList<FoodServing> FoodServingModel::foods() const
+{
+    return m_data;
+}
+
 void FoodServingModel::loadData(QDate date)
 {
     beginResetModel();

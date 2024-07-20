@@ -22,7 +22,7 @@ FoodSearchForm {
         offlineSearch: true
     }
 
-    FoodServingModel {
+    RecipeListModel {
         id: recipeModel
         meal: mealNumber
     }
@@ -52,7 +52,24 @@ FoodSearchForm {
     offline.delegate: online.delegate
 
     recipes.model: recipeModel
-    recipes.delegate: online.delegate
+    recipes.delegate: FoodServingInfoImpl {
+        clip: true
+
+        mouse.onClicked: {
+            foodEdit.edit.foodServing = serving
+            foodEdit.edit.mealNumber = mealNumber
+
+            foodEdit.edit.loadData()
+            foodEdit.open()
+
+            foodEdit.edit.onReady.connect(send)
+        }
+
+        onReady: (item, servingSize, units) => {
+                     search.accept()
+                     searchReady(item, servingSize, units)
+                 }
+    }
 
     submit.onClicked: swipeView.currentItem.model.search(searchBar.displayText)
 }

@@ -12,6 +12,7 @@ class FoodServingModel : public QAbstractListModel
     QML_ELEMENT
     Q_PROPERTY(int meal READ meal WRITE setMeal NOTIFY mealChanged FINAL)
     Q_PROPERTY(bool offlineSearch READ offlineSearch WRITE setOfflineSearch NOTIFY offlineSearchChanged FINAL)
+    Q_PROPERTY(QList<FoodServing> foods READ foods)
 public:
 
     enum FSMRoleTypes
@@ -28,6 +29,8 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+
+    QList<FoodServing> foods() const;
 
     Q_INVOKABLE void add(const FoodItem &item, const ServingSize &size, const double units = 1);
     Q_INVOKABLE void add(const FoodServing &serving);

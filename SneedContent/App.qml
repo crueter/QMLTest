@@ -48,6 +48,26 @@ Window {
         }
     }
 
+    Dialog {
+        id: recipeEdit
+        width: window.width
+        height: window.height
+
+        property alias recipe: recipe
+
+        RecipeEditImpl {
+            id: recipe
+            width: parent.width
+            height: parent.height
+
+            back.onClicked: recipeEdit.reject()
+
+            submit.onClicked: {
+                recipeEdit.accept()
+                ready(recipe)
+            }
+        }
+    }
 
     SwipeView {
         id: swipeView
