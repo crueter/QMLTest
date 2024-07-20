@@ -35,6 +35,8 @@ set(CODE_ELEMENTS
     models/ExerciseListModel
     models/ExerciseSetsModel
 
+    models/RecipeListModel
+
     items/Exercise
     items/ExerciseSet
 )

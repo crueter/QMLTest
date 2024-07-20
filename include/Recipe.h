@@ -13,6 +13,7 @@ public:
 
     void addFood(const FoodServing &food);
     void removeFood(const FoodServing &food);
+    void setFoods(const QList<FoodServing> &foods);
     QList<FoodServing> foods() const;
 
     NutrientUnion nutrients(double units);

@@ -14,6 +14,13 @@ void Recipe::removeFood(const FoodServing &food)
     m_foods.removeOne(food);
 }
 
+void Recipe::setFoods(const QList<FoodServing> &foods)
+{
+    for (const FoodServing &s : foods) {
+        m_foods.append(s);
+    }
+}
+
 QList<FoodServing> Recipe::foods() const
 {
     return m_foods;

@@ -1,7 +1,7 @@
 #include "Settings.h"
 
-#include <QSettings>
 #include <QGuiApplication>
+#include <QSettings>
 
 const Setting Settings::FirstRun{"firstRun", true};
 
