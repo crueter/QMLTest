@@ -11,19 +11,20 @@ RecipeAddForm {
     property var recipe
 
     recipeName.text: recipe.name
-    servings.value: recipe.units
+    servings.dValue: recipe.servings
 
-    servings.onValueChanged: resetNutrients()
+    servings.onDValueChanged: resetNutrients()
 
-    calories.text: Math.round(recipe.nutrients(servings.value / recipe.units).calories * 10) / 10.
-    carbs.text: Math.round(recipe.nutrients(servings.value / recipe.units).carbs * 10) / 10.
-    fat.text: Math.round(recipe.nutrients(servings.value / recipe.units).fat * 10) / 10.
-    protein.text: Math.round(recipe.nutrients(servings.value / recipe.units).protein * 10) / 10.
+    calories.text: Math.round(recipe.nutrients().calories * 10 * (servings.dValue / recipe.servings)) / 10.
+    carbs.text: Math.round(recipe.nutrients().carbs * 10 * (servings.dValue / recipe.servings)) / 10.
+    fat.text: Math.round(recipe.nutrients().fat * 10 * (servings.dValue / recipe.servings)) / 10.
+    protein.text: Math.round(recipe.nutrients().protein * 10 * (servings.dValue / recipe.servings)) / 10.
 
     function resetNutrients() {
-        calories.text = Math.round(recipe.nutrients(servings.value / recipe.units).calories * 10) / 10.
-        carbs.text = Math.round(recipe.nutrients(servings.value / recipe.units).carbs * 10) / 10.
-        fat.text = Math.round(recipe.nutrients(servings.value / recipe.units).fat * 10) / 10.
-        protein.text = Math.round(recipe.nutrients(servings.value / recipe.units).protein * 10) / 10.
+        console.log(recipe.servings)
+        calories.text = Math.round(recipe.nutrients().calories * 10 * (servings.dValue / recipe.servings)) / 10.
+        carbs.text = Math.round(recipe.nutrients().carbs * 10 * (servings.dValue / recipe.servings)) / 10.
+        fat.text = Math.round(recipe.nutrients().fat * 10 * (servings.dValue / recipe.servings)) / 10.
+        protein.text = Math.round(recipe.nutrients().protein * 10 * (servings.dValue / recipe.servings)) / 10.
     }
 }

@@ -47,6 +47,20 @@ void FoodServingComboBoxModel::add(const QList<ServingSize> &sizes)
     endInsertRows();
 }
 
+void FoodServingComboBoxModel::clear()
+{
+    removeRows(0, m_data.count());
+}
+
+bool FoodServingComboBoxModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    beginRemoveRows(parent, row, row + count - 1);
+    m_data.remove(row, count);
+    endRemoveRows();
+
+    return true;
+}
+
 QHash<int, QByteArray> FoodServingComboBoxModel::roleNames() const
 {
     QHash<int,QByteArray> rez;

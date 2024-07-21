@@ -10,7 +10,6 @@ MealLogForm {
     // clip: true
 
     add.onClicked: {
-        search.food.mealNumber = mealNumber
         search.open()
         search.food.searchReady.connect(addFood)
     }
@@ -26,16 +25,20 @@ MealLogForm {
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
-        function editEntry(item, serving, units) {
-            model.units = units
-            model.servingSize = serving
+        function editEntry(servings) {
+            foodEdit.edit.ready.disconnect(editEntry)
+
+            let food = servings[0]
+            model.serving = food
+            model.servingSize = food.size
+
+            console.log(food + " " + food.size.unit())
 
             fsm.saveData(new Date())
         }
 
         mouse.onClicked: {
             foodEdit.edit.foodServing = serving
-            foodEdit.edit.mealNumber = mealNumber
 
             foodEdit.edit.loadData()
             foodEdit.open()
@@ -54,10 +57,7 @@ MealLogForm {
 
     function addFood(servings) {
         search.food.searchReady.disconnect(addFood)
-        for (serving in servings) {
-            fsm.add(serving)
-            fsm.cache(serving.item)
-        }
+        fsm.add(servings);
         fsm.saveData(new Date())
     }
 }

@@ -25,6 +25,10 @@ public:
     Q_INVOKABLE void add(const ServingSize &size);
     Q_INVOKABLE void add(const QList<ServingSize> &sizes);
 
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+
+    Q_INVOKABLE void clear();
+
 protected:
     QHash<int, QByteArray> roleNames() const;
 private:

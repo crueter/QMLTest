@@ -129,6 +129,8 @@ bool FoodServingModel::setData(const QModelIndex &index, const QVariant &value, 
         m_data[index.row()].size = value.value<ServingSize>();
     } else if (role == FSMRoleTypes::UNITS) {
         m_data[index.row()].units = value.toDouble();
+    } else if (role == FSMRoleTypes::SERVING) {
+        m_data.replace(index.row(), value.value<FoodServing>());
     } else {
         return false;
     }

@@ -9,6 +9,8 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import SneedContent
+
 Rectangle {
     id: rectangle
     color: "#000000"
@@ -83,8 +85,11 @@ Rectangle {
         font.pixelSize: 17
     }
 
-    SpinBox {
+    DoubleSpinBox {
         id: servings
+
+        dValue: 1
+
         anchors.left: title.left
         anchors.right: parent.right
         anchors.top: text1.top
@@ -93,7 +98,8 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: -6
         anchors.bottomMargin: -6
-        to: 1000
+
+        dTo: 1000
     }
 
     Text {

@@ -11,10 +11,11 @@ FoodServingInfoForm {
 
     brandServing.text: item.brand + ", " + servingSize.unit(units)
 
-    calories.text: item.nutrients.calories * servingSize.multiplier(units) + "kcal"
+    calories.text: Math.round(item.nutrients.calories * servingSize.multiplier(units) * 10) / 10. + "kcal"
 
     function send(servings) {
         foodEdit.edit.onReady.disconnect(send)
+        // console.log(typeof servings)
         ready(servings)
     }
 

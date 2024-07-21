@@ -16,7 +16,7 @@ qt6_add_qml_module(SneedContent
 		"food/MealLogImpl.qml"
 		"food/FoodServingInfoForm.ui.qml"
 		"food/MealLogForm.ui.qml"
-		"food/DoubleSpinBox.qml"
+                "DoubleSpinBox.qml"
 		"food/FoodPageForm.ui.qml"
 		"food/FoodSearchImpl.qml"
 		"food/FoodServingInfoImpl.qml"
@@ -39,6 +39,4 @@ qt6_add_qml_module(SneedContent
 		"exercise/ExercisePageImpl.qml"
 		"exercise/ExercisePageForm.ui.qml"
 		"exercise/ExerciseSetImpl.qml"
-)
-
-
+            )

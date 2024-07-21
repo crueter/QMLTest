@@ -43,6 +43,7 @@ Window {
 
             submit.onClicked: {
                 foodEdit.accept()
+                console.log(foodServing.size.unit())
                 ready([foodServing])
             }
         }
@@ -78,7 +79,7 @@ Window {
 
         property alias add: add
 
-        RecipeEditImpl {
+        RecipeAddImpl {
             id: add
             width: parent.width
             height: parent.height
@@ -87,6 +88,7 @@ Window {
 
             submit.onClicked: {
                 recipeAdd.accept();
+                console.log(recipe.asServings(servings.value))
                 ready(recipe.asServings(servings.value));
             }
         }

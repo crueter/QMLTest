@@ -16,7 +16,7 @@ RecipeEditForm {
     property var recipe
 
     recipeName.text: recipe.name
-    servings.value: recipe.servings
+    servings.dValue: recipe.servings
 
     function loadData() {
         fsm.clear()

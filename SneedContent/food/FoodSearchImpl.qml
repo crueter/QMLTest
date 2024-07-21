@@ -57,10 +57,10 @@ FoodSearchForm {
             recipeAdd.add.resetNutrients()
             recipeAdd.open()
 
-            recipeAdd.add.onReady.connect(send)
+            recipeAdd.add.onReady.connect(sendServings)
         }
 
-        onReady: (servings) => {
+        onReadyServings: (servings) => {
                      search.accept()
                      searchReady(servings)
                  }
