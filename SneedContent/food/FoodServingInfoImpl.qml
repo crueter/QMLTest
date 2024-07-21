@@ -14,8 +14,7 @@ FoodServingInfoForm {
     calories.text: Math.round(item.nutrients.calories * servingSize.multiplier(units) * 10) / 10. + "kcal"
 
     function send(servings) {
-        foodEdit.edit.onReady.disconnect(send)
-        // console.log(typeof servings)
+        foodEdit.edit.ready.disconnect(send)
         ready(servings)
     }
 

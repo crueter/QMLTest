@@ -57,7 +57,7 @@ Rectangle {
     Text {
         id: title
         color: "#ffffff"
-        text: qsTr("Edit")
+        text: qsTr("Edit Recipe")
         anchors.top: parent.top
         anchors.topMargin: 10
         font.pixelSize: 24
@@ -102,7 +102,7 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: -6
         anchors.bottomMargin: -6
-        dTo: 1000
+        to: 1000 * 100
     }
 
     Text {

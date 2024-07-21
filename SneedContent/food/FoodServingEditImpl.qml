@@ -16,7 +16,6 @@ FoodServingEditForm {
     property var foodServing
 
     foodName.text: foodServing.item.name
-    servings.dValue: foodServing.units
 
     unit.model: fsm
     unit.textRole: "name"
@@ -26,17 +25,18 @@ FoodServingEditForm {
         foodServing.size = unit.valueAt(unit.currentIndex)
     }
 
-    servings.onDValueChanged: foodServing.units = servings.dValue
+    servings.onValueChanged: foodServing.units = servings.value / 100.0
 
     function loadData() {
         fsm.clear()
         fsm.add(foodServing.item.servingSizes)
-        servings.dValue = foodServing.units
+
+        servings.value = foodServing.units * 100.0
         unit.currentIndex = unit.indexOfValue(foodServing.size)
     }
 
-    calories.text: Math.round(unit.currentValue.multiplier(servings.dValue) * foodServing.item.nutrients.calories * 10.) / 10.
-    carbs.text: Math.round(unit.currentValue.multiplier(servings.dValue) * foodServing.item.nutrients.carbs * 10.) / 10.
-    fat.text: Math.round(unit.currentValue.multiplier(servings.dValue) * foodServing.item.nutrients.fat * 10.) / 10.
-    protein.text: Math.round(unit.currentValue.multiplier(servings.dValue) * foodServing.item.nutrients.protein * 10.) / 10.
+    calories.text: Math.round(unit.currentValue.multiplier(servings.realValue) * foodServing.item.nutrients.calories * 10.) / 10.
+    carbs.text: Math.round(unit.currentValue.multiplier(servings.realValue) * foodServing.item.nutrients.carbs * 10.) / 10.
+    fat.text: Math.round(unit.currentValue.multiplier(servings.realValue) * foodServing.item.nutrients.fat * 10.) / 10.
+    protein.text: Math.round(unit.currentValue.multiplier(servings.realValue) * foodServing.item.nutrients.protein * 10.) / 10.
 }

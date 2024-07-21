@@ -43,7 +43,7 @@ Window {
 
             submit.onClicked: {
                 foodEdit.accept()
-                console.log(foodServing.size.unit())
+
                 ready([foodServing])
             }
         }
@@ -66,7 +66,7 @@ Window {
             submit.onClicked: {
                 recipeDialog.accept()
                 recipe.name = recipeName.text
-                recipe.servings = servings.value
+
                 ready(recipe)
             }
         }
@@ -88,8 +88,8 @@ Window {
 
             submit.onClicked: {
                 recipeAdd.accept();
-                console.log(recipe.asServings(servings.value))
-                ready(recipe.asServings(servings.value));
+
+                ready(recipe.asServings(servings.value / 100.0));
             }
         }
     }

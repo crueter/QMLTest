@@ -31,6 +31,9 @@ RecipesPageForm {
             model.recipe = recipe
 
             rlm.saveData()
+            reloadData()
+
+            recipeDialog.recipeEdit.ready.disconnect(editEntry)
         }
 
         mouse.onClicked: {
@@ -47,13 +50,14 @@ RecipesPageForm {
             rlm.saveData()
         }
 
+        Component.onCompleted: reloadData()
+
         remove.visible: true
     }
     listView.clip: true
 
     function addRecipe(recipe) {
         search.food.searchReady.disconnect(addRecipe)
-        console.log(recipe)
         rlm.add(recipe);
 
         rlm.saveData()

@@ -132,8 +132,6 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
         return false;
     }
 
-    saveData();
-
     return true;
 }
 

@@ -88,7 +88,7 @@ Rectangle {
     DoubleSpinBox {
         id: servings
 
-        dValue: 1
+        value: 1 * 100
 
         anchors.left: title.left
         anchors.right: parent.right
@@ -99,7 +99,7 @@ Rectangle {
         anchors.topMargin: -6
         anchors.bottomMargin: -6
 
-        dTo: 1000
+        to: 1000 * 100
     }
 
     Text {

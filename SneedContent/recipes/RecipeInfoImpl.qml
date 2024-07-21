@@ -10,17 +10,23 @@ RecipeInfoForm {
 
     recipeName.text: recipe.name
 
-    servingSize.text: servings + " servings"
+    servingSize.text: recipe.servings + " servings"
 
     calories.text: Math.round(recipe.nutrients().calories * 10.) / 10.0 + "kcal"
 
+    function reloadData() {
+        recipeName.text = recipe.name
+        servingSize.text = recipe.servings + " servings"
+        calories.text = Math.round(recipe.nutrients().calories * 10.) / 10.0 + "kcal"
+    }
+
     function send(recipe) {
-        recipeDialog.recipeEdit.onReady.disconnect(send)
+        recipeDialog.recipeEdit.ready.disconnect(send)
         ready(recipe)
     }
 
     function sendServings(servings) {
-        recipeAdd.add.onReady.disconnect(sendServings)
+        recipeAdd.add.ready.disconnect(sendServings)
         readyServings(servings)
     }
 

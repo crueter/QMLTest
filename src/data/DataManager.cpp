@@ -223,6 +223,7 @@ DataManager::DataError DataManager::saveRecipe(const Recipe &recipe)
 
 DataManager::DataError DataManager::truncateSaveRecipes(const QList<Recipe> &recipes)
 {
+    // qDebug() << "saving recipes rn";
     QFile file(dataDir.absoluteFilePath("recipes.json"));
 
     QJsonArray array;

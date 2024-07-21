@@ -10,6 +10,7 @@ MealLogForm {
     // clip: true
 
     add.onClicked: {
+        search.food.opening()
         search.open()
         search.food.searchReady.connect(addFood)
     }
@@ -31,8 +32,6 @@ MealLogForm {
             let food = servings[0]
             model.serving = food
             model.servingSize = food.size
-
-            console.log(food + " " + food.size.unit())
 
             fsm.saveData(new Date())
         }
@@ -57,7 +56,10 @@ MealLogForm {
 
     function addFood(servings) {
         search.food.searchReady.disconnect(addFood)
+
         fsm.add(servings);
+        fsm.cache(servings)
+
         fsm.saveData(new Date())
     }
 }

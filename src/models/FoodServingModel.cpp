@@ -84,7 +84,6 @@ void FoodServingModel::add(const FoodServing &serving)
 
 void FoodServingModel::add(const QList<FoodServing> &serving)
 {
-    // qDebug() << "adding" << serving.size();
     for (const FoodServing &s : serving) {
         add(s);
     }
@@ -107,6 +106,13 @@ bool FoodServingModel::removeRows(int row, int count, const QModelIndex &parent)
 void FoodServingModel::cache(const FoodItem &item)
 {
     CacheManager::cacheFoodItem(item);
+}
+
+void FoodServingModel::cache(const QList<FoodServing> &item)
+{
+    for (const FoodServing &s : item) {
+        CacheManager::cacheFoodItem(s.item);
+    }
 }
 
 Qt::ItemFlags FoodServingModel::flags(const QModelIndex &index) const

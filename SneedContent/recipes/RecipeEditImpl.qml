@@ -16,14 +16,20 @@ RecipeEditForm {
     property var recipe
 
     recipeName.text: recipe.name
-    servings.dValue: recipe.servings
+
+    servings.onValueChanged: {
+        recipe.servings = servings.value / 100.0
+    }
 
     function loadData() {
         fsm.clear()
+        servings.value = recipe.servings * 100
+
         fsm.add(recipe.foods)
     }
 
     add.onClicked: {
+        search.food.opening()
         search.open()
         search.food.searchReady.connect(addFood)
     }
@@ -35,6 +41,7 @@ RecipeEditForm {
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
+        clip: true
         function editEntry(item, serving, units) {
             model.units = units
             model.servingSize = serving
@@ -72,10 +79,11 @@ RecipeEditForm {
         protein.text = Math.round(recipe.nutrients().protein * 10) / 10.
     }
 
-    function addFood(item, serving, units) {
+    function addFood(servings) {
         search.food.searchReady.disconnect(addFood)
-        fsm.add(item, serving, units);
-        fsm.cache(item)
+
+        fsm.add(servings);
+        fsm.cache(servings)
 
         recipe.foods = fsm.foods
         resetNutrients()

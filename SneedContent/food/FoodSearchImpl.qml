@@ -4,6 +4,7 @@ import SneedTest
 import SneedContent
 
 FoodSearchForm {
+    id: fsf
     width: parent.width
     height: parent.height
     clip: true
@@ -24,6 +25,10 @@ FoodSearchForm {
         id: recipeModel
     }
 
+    function opening() {
+        recipeModel.clear()
+    }
+
     online.model: onlineModel
     online.delegate: FoodServingInfoImpl {
         id: delegate
@@ -35,14 +40,14 @@ FoodSearchForm {
             foodEdit.edit.loadData()
             foodEdit.open()
 
-            foodEdit.edit.onReady.connect(send)
+            foodEdit.edit.ready.connect(send)
         }
 
         onReady: (servings) => {
                      search.accept()
                      searchReady(servings)
                  }
-    }
+            }
 
     offline.model: offlineModel
     offline.delegate: online.delegate
@@ -54,16 +59,18 @@ FoodSearchForm {
         mouse.onClicked: {
             recipeAdd.add.recipe = recipe
 
-            recipeAdd.add.resetNutrients()
+            recipeAdd.add.reloadData()
             recipeAdd.open()
 
-            recipeAdd.add.onReady.connect(sendServings)
+            recipeAdd.add.ready.connect(sendServings)
         }
 
         onReadyServings: (servings) => {
-                     search.accept()
-                     searchReady(servings)
-                 }
+                             search.accept()
+                             searchReady(servings)
+                         }
+
+        remove.visible: false
     }
 
     submit.onClicked: swipeView.currentItem.model.search(searchBar.displayText)
