@@ -43,7 +43,7 @@ Window {
 
             submit.onClicked: {
                 foodEdit.accept()
-                ready(foodServing.item, unit.currentValue, servings.value)
+                ready([foodServing])
             }
         }
     }
@@ -67,6 +67,27 @@ Window {
                 recipe.name = recipeName.text
                 recipe.servings = servings.value
                 ready(recipe)
+            }
+        }
+    }
+
+    Dialog {
+        id: recipeAdd
+        width: window.width
+        height: window.height
+
+        property alias add: add
+
+        RecipeEditImpl {
+            id: add
+            width: parent.width
+            height: parent.height
+
+            back.onClicked: recipeAdd.reject()
+
+            submit.onClicked: {
+                recipeAdd.accept();
+                ready(recipe.asServings(servings.value));
             }
         }
     }

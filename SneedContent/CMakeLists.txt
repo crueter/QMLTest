@@ -28,6 +28,8 @@ qt6_add_qml_module(SneedContent
 		"recipes/RecipeEditForm.ui.qml"
 		"recipes/RecipeEditImpl.qml"
 		"recipes/RecipesPageImpl.qml"
+		"recipes/RecipeAddForm.ui.qml"
+		"recipes/RecipeAddImpl.qml"
 		"settings/SettingsPage.ui.qml"
 		"goals/GoalsPageForm.ui.qml"
 		"goals/GoalsPageImpl.qml"

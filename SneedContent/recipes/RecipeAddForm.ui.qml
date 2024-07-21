@@ -13,20 +13,16 @@ Rectangle {
     id: rectangle
     color: "#000000"
 
-    width: 400
-    height: 400
-
     property alias submit: submit
     property alias back: back
-    property alias add: add
 
     property alias recipeName: recipeName
     property alias servings: servings
+
     property alias calories: calories
     property alias carbs: carbs
     property alias fat: fat
     property alias protein: protein
-    property alias listView: listView
 
     Button {
         id: back
@@ -55,7 +51,7 @@ Rectangle {
     Text {
         id: title
         color: "#ffffff"
-        text: qsTr("Edit")
+        text: qsTr("Add Recipe")
         anchors.top: parent.top
         anchors.topMargin: 10
         font.pixelSize: 24
@@ -63,16 +59,13 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    TextField {
+    Text {
         id: recipeName
         color: "#ffffff"
-        text: qsTr("")
-        placeholderText: "Recipe"
+        text: qsTr("Food Name")
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.top: title.bottom
         anchors.leftMargin: 40
-        anchors.rightMargin: 40
         anchors.topMargin: 20
         font.pixelSize: 20
         wrapMode: Text.WrapAnywhere
@@ -196,30 +189,5 @@ Rectangle {
         font.pixelSize: 16
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: text6.horizontalCenter
-    }
-
-    ListView {
-        id: listView
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: add.bottom
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 15
-        anchors.rightMargin: 15
-        anchors.topMargin: 15
-        anchors.bottomMargin: 21
-    }
-
-    RoundButton {
-        id: add
-        x: 348
-        width: 52
-        height: 48
-        text: "+"
-        anchors.right: parent.right
-        anchors.top: protein.bottom
-        anchors.rightMargin: 8
-        anchors.topMargin: 8
-        font.pointSize: 26
     }
 }

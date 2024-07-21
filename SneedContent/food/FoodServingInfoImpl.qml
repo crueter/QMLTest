@@ -3,7 +3,7 @@ import QtQuick 2.15
 FoodServingInfoForm {
     width: parent.width
 
-    signal ready(var item, var servingSize, var units)
+    signal ready(var servings)
 
     property int meal
 
@@ -13,9 +13,9 @@ FoodServingInfoForm {
 
     calories.text: item.nutrients.calories * servingSize.multiplier(units) + "kcal"
 
-    function send(item, servingSize, units) {
+    function send(servings) {
         foodEdit.edit.onReady.disconnect(send)
-        ready(item, servingSize, units)
+        ready(servings)
     }
 
     remove.onClicked: deleteFood(foodID)

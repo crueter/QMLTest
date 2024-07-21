@@ -31,6 +31,7 @@ public:
     static DataError saveRecipe(const Recipe &recipe);
     static DataError truncateSaveRecipes(const QList<Recipe> &recipes);
     static QList<Recipe> loadRecipes();
+    static QList<Recipe> searchRecipes(const QString &query);
 
     static DataError removeExercise(const Exercise &exercise, const QDate &date);
     static DataError saveExercise(const Exercise &exercise, QDate date);

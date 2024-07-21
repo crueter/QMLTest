@@ -52,10 +52,12 @@ MealLogForm {
     }
     listView.clip: true
 
-    function addFood(item, servingSize, units) {
+    function addFood(servings) {
         search.food.searchReady.disconnect(addFood)
-        fsm.add(item, servingSize, units);
-        fsm.cache(item)
+        for (serving in servings) {
+            fsm.add(serving)
+            fsm.cache(serving.item)
+        }
         fsm.saveData(new Date())
     }
 }

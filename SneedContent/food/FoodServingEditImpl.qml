@@ -10,10 +10,9 @@ FoodServingEditForm {
         id: fsm
     }
 
-    signal ready(var item, var servingSize, var units)
+    signal ready(var servings)
 
     property var foodServing
-    property int mealNumber
 
     foodName.text: foodServing.item.name
     servings.value: foodServing.units
@@ -21,6 +20,9 @@ FoodServingEditForm {
     unit.model: fsm
     unit.textRole: "name"
     unit.valueRole: "size"
+
+    unit.onCurrentIndexChanged: foodServing.serving = unit.currentValue
+    servings.onValueChanged: foodServing.units = servings.value
 
     function loadData() {
         fsm.add(foodServing.item.servingSizes)

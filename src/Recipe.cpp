@@ -20,14 +20,24 @@ void Recipe::removeFood(const FoodServing &food)
 
 void Recipe::setFoods(const QList<FoodServing> &foods)
 {
-    for (const FoodServing &s : foods) {
-        m_foods.append(s);
-    }
+    m_foods = foods;
 }
 
 QList<FoodServing> Recipe::foods() const
 {
     return m_foods;
+}
+
+QList<FoodServing> Recipe::asServings(double units)
+{
+    QList<FoodServing> foods;
+    for (FoodServing &food : m_foods) {
+        food.units *= units / m_servings;
+
+        foods.append(food);
+    }
+
+    return foods;
 }
 
 NutrientUnion Recipe::nutrients(double units)

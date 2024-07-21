@@ -68,9 +68,28 @@ void RecipeListModel::add(const QList<FoodServing> &foods, const QString &name, 
     endInsertRows();
 }
 
+void RecipeListModel::clear()
+{
+    removeRows(0, m_data.count());
+}
+
 void RecipeListModel::add(const Recipe &recipe)
 {
     add(recipe.foods(), recipe.name(), recipe.servings());
+}
+
+void RecipeListModel::add(const QList<Recipe> &recipes)
+{
+    for (const Recipe &recipe : recipes) {
+        add(recipe);
+    }
+}
+
+void RecipeListModel::search(const QString &query)
+{
+    clear();
+
+    add(DataManager::searchRecipes(query));
 }
 
 bool RecipeListModel::removeRows(int row, int count, const QModelIndex &parent)

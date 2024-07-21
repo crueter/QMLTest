@@ -14,25 +14,24 @@ RecipeEditForm {
     signal ready(var recipe)
 
     property var recipe
-    property int mealNumber
 
     recipeName.text: recipe.name
     servings.value: recipe.servings
 
     function loadData() {
+        fsm.clear()
         fsm.add(recipe.foods)
     }
 
     add.onClicked: {
-        search.food.mealNumber = mealNumber
         search.open()
         search.food.searchReady.connect(addFood)
     }
 
-    calories.text: recipe.nutrients().calories
-    carbs.text: recipe.nutrients().carbs
-    fat.text: recipe.nutrients().fat
-    protein.text: recipe.nutrients().protein
+    calories.text: Math.round(recipe.nutrients().calories * 10) / 10.
+    carbs.text: Math.round(recipe.nutrients().carbs * 10) / 10.
+    fat.text: Math.round(recipe.nutrients().fat * 10) / 10.
+    protein.text: Math.round(recipe.nutrients().protein * 10) / 10.
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
@@ -42,13 +41,13 @@ RecipeEditForm {
 
             recipe.foods = fsm.foods
 
-            // fsm.saveData(new Date())
+            resetNutrients()
+
             foodEdit.edit.ready.disconnect(editEntry)
         }
 
         mouse.onClicked: {
             foodEdit.edit.foodServing = serving
-            foodEdit.edit.mealNumber = mealNumber
 
             foodEdit.edit.loadData()
             foodEdit.open()
@@ -58,10 +57,19 @@ RecipeEditForm {
 
         onDeleteFood: {
             fsm.removeRow(foodID)
-            // fsm.saveData(new Date())
+
+            recipe.foods = fsm.foods
+            resetNutrients()
         }
 
         remove.visible: true
+    }
+
+    function resetNutrients() {
+        calories.text =  Math.round(recipe.nutrients().calories * 10) / 10.
+        carbs.text = Math.round(recipe.nutrients().carbs * 10) / 10.
+        fat.text = Math.round(recipe.nutrients().fat * 10) / 10.
+        protein.text = Math.round(recipe.nutrients().protein * 10) / 10.
     }
 
     function addFood(item, serving, units) {
@@ -70,5 +78,6 @@ RecipeEditForm {
         fsm.cache(item)
 
         recipe.foods = fsm.foods
+        resetNutrients()
     }
 }

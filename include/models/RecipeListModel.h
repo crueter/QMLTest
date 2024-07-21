@@ -28,6 +28,11 @@ public:
 
     Q_INVOKABLE void add(const QList<FoodServing> &foods, const QString &name, const double servings = 1);
     Q_INVOKABLE void add(const Recipe &recipe);
+    Q_INVOKABLE void add(const QList<Recipe> &recipes);
+
+    Q_INVOKABLE void clear();
+
+    Q_INVOKABLE void search(const QString &query);
 
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 

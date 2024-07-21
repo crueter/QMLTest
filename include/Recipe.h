@@ -22,6 +22,8 @@ public:
     void setFoods(const QList<FoodServing> &foods);
     QList<FoodServing> foods() const;
 
+    Q_INVOKABLE QList<FoodServing> asServings(double units);
+
     Q_INVOKABLE NutrientUnion nutrients(double units = 1);
 
     QString name() const;

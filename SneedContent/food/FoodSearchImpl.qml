@@ -1,31 +1,27 @@
 import QtQuick 2.15
 
 import SneedTest
+import SneedContent
 
 FoodSearchForm {
     width: parent.width
     height: parent.height
     clip: true
 
-    signal searchReady(var item, var servingSize, var units)
-
-    property int mealNumber
+    signal searchReady(var servings)
 
     FoodServingModel {
         id: onlineModel
-        meal: mealNumber
         offlineSearch: false
     }
 
     FoodServingModel {
         id: offlineModel
-        meal: mealNumber
         offlineSearch: true
     }
 
     RecipeListModel {
         id: recipeModel
-        meal: mealNumber
     }
 
     online.model: onlineModel
@@ -35,7 +31,6 @@ FoodSearchForm {
 
         mouse.onClicked: {
             foodEdit.edit.foodServing = serving
-            foodEdit.edit.mealNumber = mealNumber
 
             foodEdit.edit.loadData()
             foodEdit.open()
@@ -43,9 +38,9 @@ FoodSearchForm {
             foodEdit.edit.onReady.connect(send)
         }
 
-        onReady: (item, servingSize, units) => {
+        onReady: (servings) => {
                      search.accept()
-                     searchReady(item, servingSize, units)
+                     searchReady(servings)
                  }
     }
 
@@ -53,22 +48,21 @@ FoodSearchForm {
     offline.delegate: online.delegate
 
     recipes.model: recipeModel
-    recipes.delegate: FoodServingInfoImpl {
+    recipes.delegate: RecipeInfoImpl {
         clip: true
 
         mouse.onClicked: {
-            foodEdit.edit.foodServing = serving
-            foodEdit.edit.mealNumber = mealNumber
+            recipeAdd.add.recipe = recipe
 
-            foodEdit.edit.loadData()
-            foodEdit.open()
+            recipeAdd.add.resetNutrients()
+            recipeAdd.open()
 
-            foodEdit.edit.onReady.connect(send)
+            recipeAdd.add.onReady.connect(send)
         }
 
-        onReady: (item, servingSize, units) => {
+        onReady: (servings) => {
                      search.accept()
-                     searchReady(item, servingSize, units)
+                     searchReady(servings)
                  }
     }
 

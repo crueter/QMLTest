@@ -90,6 +90,11 @@ void FoodServingModel::add(const QList<FoodServing> &serving)
     }
 }
 
+void FoodServingModel::clear()
+{
+    removeRows(0, m_data.count());
+}
+
 bool FoodServingModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);

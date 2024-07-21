@@ -271,6 +271,24 @@ QList<Recipe> DataManager::loadRecipes()
     return recipes;
 }
 
+QList<Recipe> DataManager::searchRecipes(const QString &query)
+{
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QRegExp regex(".*" + query + ".*", Qt::CaseInsensitive);
+#else
+    QRegularExpression regex(".*" + query + ".*", QRegularExpression::PatternOption::CaseInsensitiveOption);
+#endif
+
+    QList<Recipe> recipes;
+    for (const Recipe &recipe : loadRecipes()) {
+        if (recipe.name().contains(regex)) {
+            recipes.append(recipe);
+        }
+    }
+
+    return recipes;
+}
+
 DataManager::DataError DataManager::removeExercise(const Exercise &exercise, const QDate &date)
 {
     QString dateString = date.toString("MM-dd-yyyy");
