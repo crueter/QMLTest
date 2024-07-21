@@ -34,6 +34,7 @@ public:
 
     Q_INVOKABLE void add(const FoodItem &item, const ServingSize &size, const double units = 1);
     Q_INVOKABLE void add(const FoodServing &serving);
+    Q_INVOKABLE void add(const QList<FoodServing> &serving);
 
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 

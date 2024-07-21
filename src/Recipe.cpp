@@ -2,7 +2,11 @@
 
 #include <QJsonArray>
 
-Recipe::Recipe() {}
+Recipe::Recipe() {
+    m_foods = {};
+    m_name = "";
+    m_servings = 1;
+}
 
 void Recipe::addFood(const FoodServing &food)
 {

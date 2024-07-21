@@ -82,6 +82,14 @@ void FoodServingModel::add(const FoodServing &serving)
     add(serving.item, serving.size, serving.units);
 }
 
+void FoodServingModel::add(const QList<FoodServing> &serving)
+{
+    // qDebug() << "adding" << serving.size();
+    for (const FoodServing &s : serving) {
+        add(s);
+    }
+}
+
 bool FoodServingModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);

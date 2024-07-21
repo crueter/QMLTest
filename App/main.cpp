@@ -24,10 +24,12 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     Settings settings;
+    Recipe recipe;
     DataManager::init();
     CacheManager::init();
 
     engine.rootContext()->setContextProperty("settings", &settings);
+    engine.rootContext()->setContextProperty("blankRecipe", QVariant::fromValue(recipe));
 
 
     const QUrl url(mainQmlFile);

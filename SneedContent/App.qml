@@ -49,21 +49,23 @@ Window {
     }
 
     Dialog {
-        id: recipeEdit
+        id: recipeDialog
         width: window.width
         height: window.height
 
-        property alias recipe: recipe
+        property alias recipeEdit: recipeEdit
 
         RecipeEditImpl {
-            id: recipe
+            id: recipeEdit
             width: parent.width
             height: parent.height
 
-            back.onClicked: recipeEdit.reject()
+            back.onClicked: recipeDialog.reject()
 
             submit.onClicked: {
-                recipeEdit.accept()
+                recipeDialog.accept()
+                recipe.name = recipeName.text
+                recipe.servings = servings.value
                 ready(recipe)
             }
         }

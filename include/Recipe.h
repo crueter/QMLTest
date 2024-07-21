@@ -5,6 +5,7 @@
 #include "NutrientUnion.h"
 
 #include <QList>
+#include <qqmlintegration.h>
 
 class Recipe
 {
@@ -12,6 +13,7 @@ class Recipe
     Q_PROPERTY(QList<FoodServing> foods READ foods WRITE setFoods FINAL)
     Q_PROPERTY(double servings READ servings WRITE setServings FINAL)
     Q_PROPERTY(QString name READ name WRITE setName FINAL)
+    QML_ELEMENT
 public:
     Recipe();
 
@@ -20,7 +22,7 @@ public:
     void setFoods(const QList<FoodServing> &foods);
     QList<FoodServing> foods() const;
 
-    Q_INVOKABLE NutrientUnion nutrients(double units);
+    Q_INVOKABLE NutrientUnion nutrients(double units = 1);
 
     QString name() const;
     void setName(const QString &newName);

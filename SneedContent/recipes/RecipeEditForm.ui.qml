@@ -18,6 +18,7 @@ Rectangle {
 
     property alias submit: submit
     property alias back: back
+    property alias add: add
 
     property alias recipeName: recipeName
     property alias servings: servings
@@ -201,11 +202,24 @@ Rectangle {
         id: listView
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: carbs.bottom
+        anchors.top: add.bottom
         anchors.bottom: parent.bottom
         anchors.leftMargin: 15
         anchors.rightMargin: 15
-        anchors.topMargin: 10
+        anchors.topMargin: -46
         anchors.bottomMargin: 21
+    }
+
+    RoundButton {
+        id: add
+        x: 348
+        width: 52
+        height: 48
+        text: "+"
+        anchors.right: parent.right
+        anchors.top: protein.bottom
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
+        font.pointSize: 26
     }
 }

@@ -23,10 +23,16 @@ RecipeEditForm {
         fsm.add(recipe.foods)
     }
 
-    calories.text: recipe.nutrients(recipe.servings).calories
-    carbs.text: recipe.nutrients(recipe.servings).carbs
-    fat.text: recipe.nutrients(recipe.servings).fat
-    protein.text: recipe.nutrients(recipe.servings).protein
+    add.onClicked: {
+        search.food.mealNumber = mealNumber
+        search.open()
+        search.food.searchReady.connect(addFood)
+    }
+
+    calories.text: recipe.nutrients().calories
+    carbs.text: recipe.nutrients().carbs
+    fat.text: recipe.nutrients().fat
+    protein.text: recipe.nutrients().protein
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
@@ -52,9 +58,17 @@ RecipeEditForm {
 
         onDeleteFood: {
             fsm.removeRow(foodID)
-            fsm.saveData(new Date())
+            // fsm.saveData(new Date())
         }
 
         remove.visible: true
+    }
+
+    function addFood(item, serving, units) {
+        search.food.searchReady.disconnect(addFood)
+        fsm.add(item, serving, units);
+        fsm.cache(item)
+
+        recipe.foods = fsm.foods
     }
 }

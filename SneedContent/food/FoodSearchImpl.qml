@@ -5,6 +5,7 @@ import SneedTest
 FoodSearchForm {
     width: parent.width
     height: parent.height
+    clip: true
 
     signal searchReady(var item, var servingSize, var units)
 

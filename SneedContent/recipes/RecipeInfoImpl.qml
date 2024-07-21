@@ -7,11 +7,11 @@ RecipeInfoForm {
 
     property int meal
 
-    recipeName.text: name
+    recipeName.text: recipe.name
 
     servingSize.text: servings + " servings"
 
-    calories.text: recipe.nutrients(servings) + "kcal"
+    calories.text: recipe.nutrients().calories + "kcal"
 
     function send(recipe) {
         foodEdit.edit.onReady.disconnect(send)

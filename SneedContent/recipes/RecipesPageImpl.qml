@@ -4,17 +4,21 @@ import SneedTest
 
 RecipesPageForm {
     id: impl
-    width: parent.width
+    // width: parent.width
+
+    // Recipe {
+    //     id: blankRecipe
+    // }
 
     add.onClicked: {
-        recipeEdit.recipe.recipe = new Recipe()
-        recipeEdit.recipe.open()
-        recipeEdit.recipe.ready.connect(addRecipe)
+        recipeDialog.recipeEdit.recipe = blankRecipe
+        recipeDialog.open()
+        recipeDialog.recipeEdit.ready.connect(addRecipe)
     }
 
     RecipeListModel {
         id: rlm
-        meal: mealNumber
+        meal: 0
     }
 
     Component.onCompleted: {
@@ -30,17 +34,17 @@ RecipesPageForm {
         }
 
         mouse.onClicked: {
-            recipeEdit.recipe.recipe = model.recipe
+            recipeDialog.recipeEdit.recipe = model.recipe
 
-            recipeEdit.recipe.loadData()
-            recipeEdit.recipe.open()
+            recipeDialog.recipeEdit.loadData()
+            recipeDialog.open()
 
-            recipeEdit.recipe.ready.connect(editEntry)
+            recipeDialog.recipeEdit.ready.connect(editEntry)
         }
 
-        onDeleteFood: {
-            rlm.removeRow(foodID)
-            rlm.saveData(new Date())
+        onDeleteRecipe: {
+            rlm.removeRow(recipeID)
+            rlm.saveData()
         }
 
         remove.visible: true
@@ -49,6 +53,7 @@ RecipesPageForm {
 
     function addRecipe(recipe) {
         search.food.searchReady.disconnect(addRecipe)
+        console.log(recipe)
         rlm.add(recipe);
 
         rlm.saveData()
