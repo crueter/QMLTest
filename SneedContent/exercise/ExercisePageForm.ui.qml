@@ -8,15 +8,17 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 */
 import QtQuick 6.2
 import QtQuick.Controls 6.2
+
 import Sneed
+import SneedContent
 
 import QtQuick.Layouts
 
 Rectangle {
     id: exercisePageForm
     width: Constants.width
-    height: Constants.height
-    color: "#000000"
+    height: Constants.pageHeight
+    color: Constants.baseColor
 
     property date currentDate
 
@@ -39,22 +41,14 @@ Rectangle {
         font.family: Constants.largeFont.family
     }
 
-    RoundButton {
+    AddButton {
         id: add
-
-        x: 415
-        width: 50
-        height: 50
-        text: "+"
 
         anchors.right: parent.right
         anchors.top: parent.top
 
         anchors.rightMargin: 15
         anchors.topMargin: 7
-
-        font.bold: true
-        font.pointSize: 30
     }
 
     ListView {
@@ -63,7 +57,7 @@ Rectangle {
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: title.bottom
+        anchors.top: add.bottom
         anchors.bottom: parent.bottom
 
         anchors.leftMargin: 5

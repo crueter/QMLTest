@@ -9,9 +9,11 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import Sneed
+
 Rectangle {
     id: rectangle
-    color: "#000000"
+    color: Constants.sub1Color
 
     property alias back: back
     property alias submit: submit
@@ -100,11 +102,11 @@ Rectangle {
     TextField {
         id: searchBar
         anchors.left: parent.left
-        anchors.right: submit.left
+        anchors.right: parent.right
         anchors.top: back.bottom
         anchors.bottom: tabBar.top
-        anchors.leftMargin: 8
-        anchors.rightMargin: 15
+        anchors.leftMargin: 10
+        anchors.rightMargin: 80
         anchors.topMargin: 4
         anchors.bottomMargin: 6
         placeholderText: qsTr("Query")
@@ -112,14 +114,17 @@ Rectangle {
 
     ToolButton {
         id: submit
-        x: 551
+
         text: qsTr("Submit")
         anchors.right: parent.right
+        anchors.left: searchBar.right
         anchors.top: searchBar.top
         anchors.bottom: searchBar.bottom
-        anchors.rightMargin: 15
+
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
         anchors.topMargin: 0
         anchors.bottomMargin: 0
-        flat: true
+        flat: false
     }
 }

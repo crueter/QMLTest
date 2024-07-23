@@ -9,23 +9,12 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import Sneed
-import QtQuick.Layouts
+RoundButton {
+    id: add
 
-Rectangle {
-    id: rectangle
-    width: Constants.width
-    height: Constants.pageHeight
-    color: Constants.baseColor
+    width: 52
+    height: 52
+    text: "+"
 
-    Text {
-        id: text1
-        color: "#ffffff"
-        text: qsTr("Goals")
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        font.pixelSize: 24
-        font.bold: true
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
+    font.pointSize: 26
 }

@@ -15,8 +15,9 @@ import QtQuick.Layouts
 Rectangle {
     id: rectangle
     width: Constants.width
-    height: Constants.height
-    color: "#000000"
+    height: Constants.pageHeight
+    color: Constants.baseColor
+
     property alias title: title
 
     Text {
@@ -31,173 +32,177 @@ Rectangle {
         font.family: Constants.largeFont.family
     }
 
-    ScrollView {
-        id: scrollView
+    // ScrollView {
+    //     id: scrollView
+    //     anchors.left: parent.left
+    //     anchors.right: parent.right
+    //     anchors.top: title.bottom
+    //     anchors.bottom: parent.bottom
+
+    //     anchors.leftMargin: 0
+    //     anchors.rightMargin: 10
+    //     anchors.topMargin: 0
+    //     anchors.bottomMargin: 55
+
+    // contentHeight: meal5.y
+
+    // ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+    // ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+    GridLayout {
+        id: grid
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.top: title.bottom
+        anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 55
 
-        // contentHeight: meal5.y
+        anchors.leftMargin: 15
+        anchors.rightMargin: 15
+        anchors.bottomMargin: 10
+        anchors.topMargin: 8
 
-        // ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        // ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-        GridLayout {
-            id: grid
-            anchors.fill: parent
-            anchors.rightMargin: -210
-            anchors.leftMargin: 15
-            rows: 1
-            flow: GridLayout.TopToBottom
+        rows: 1
+        flow: GridLayout.TopToBottom
 
-            columns: 2
+        columns: 2
 
-            Text {
-                id: meal1
-                x: 22
-                color: "#ffffff"
-                text: qsTr("Meal 1 Name:")
-                // anchors.left: parent.left
-                // anchors.top: parent.top
-                anchors.leftMargin: 20
-                anchors.topMargin: 20
-                font.pixelSize: 20
-                font.underline: true
-                font.bold: false
+        Text {
+            id: meal1
+            color: "#ffffff"
+            text: qsTr("Meal 1 Name:")
 
-                Layout.row: 0
-                Layout.column: 0
-            }
+            anchors.leftMargin: 20
+            anchors.topMargin: 10
 
-            TextField {
-                id: meal1Name
-                y: 60
-                height: 35
-                color: "#ffffff"
-                text: qsTr(settings.meal1Name)
-                // anchors.left: meal1.right
-                // anchors.right: parent.right
-                // anchors.bottom: meal1.bottom
-                font.pixelSize: 18
+            font.pixelSize: 20
+            font.underline: true
+            font.bold: false
 
-                Layout.fillWidth: true
-                Layout.row: 0
-                Layout.column: 1
+            Layout.row: 0
+            Layout.column: 0
+        }
 
-                onEditingFinished: settings.meal1Name = text
-            }
+        TextField {
+            id: meal1Name
+            height: 35
+            color: "#ffffff"
+            text: qsTr(settings.meal1Name)
 
-            Text {
-                id: meal2
-                x: 22
-                color: "#ffffff"
-                text: qsTr("Meal 2 Name:")
-                anchors.leftMargin: 20
-                anchors.topMargin: 20
-                font.pixelSize: 20
-                font.underline: true
-                font.bold: false
-                Layout.row: 1
-                Layout.column: 0
-            }
+            font.pixelSize: 18
 
-            TextField {
-                id: meal2Name
-                y: 60
-                height: 35
-                color: "#ffffff"
-                text: qsTr(settings.meal2Name)
-                font.pixelSize: 18
-                onEditingFinished: settings.meal2Name = text
-                Layout.row: 1
-                Layout.fillWidth: true
-                Layout.column: 1
-            }
+            Layout.fillWidth: true
+            Layout.row: 0
+            Layout.column: 1
 
-            Text {
-                id: meal3
-                x: 22
-                color: "#ffffff"
-                text: qsTr("Meal 3 Name:")
-                anchors.leftMargin: 20
-                anchors.topMargin: 20
-                font.pixelSize: 20
-                font.underline: true
-                font.bold: false
-                Layout.row: 2
-                Layout.column: 0
-            }
+            onEditingFinished: settings.meal1Name = text
+        }
 
-            TextField {
-                id: meal3Name
-                y: 60
-                height: 35
-                color: "#ffffff"
-                text: qsTr(settings.meal3Name)
-                font.pixelSize: 18
-                onEditingFinished: settings.meal3Name = text
-                Layout.row: 2
-                Layout.fillWidth: true
-                Layout.column: 1
-            }
+        Text {
+            id: meal2
+            x: 22
+            color: "#ffffff"
+            text: qsTr("Meal 2 Name:")
+            anchors.leftMargin: 20
+            anchors.topMargin: 20
+            font.pixelSize: 20
+            font.underline: true
+            font.bold: false
+            Layout.row: 1
+            Layout.column: 0
+        }
 
-            Text {
-                id: meal4
-                x: 22
-                color: "#ffffff"
-                text: qsTr("Meal 4 Name:")
-                anchors.leftMargin: 20
-                anchors.topMargin: 20
-                font.pixelSize: 20
-                font.underline: true
-                font.bold: false
-                Layout.row: 3
-                Layout.column: 0
-            }
+        TextField {
+            id: meal2Name
+            y: 60
+            height: 35
+            color: "#ffffff"
+            text: qsTr(settings.meal2Name)
+            font.pixelSize: 18
+            onEditingFinished: settings.meal2Name = text
+            Layout.row: 1
+            Layout.fillWidth: true
+            Layout.column: 1
+        }
 
-            TextField {
-                id: meal4Name
-                y: 60
-                height: 35
-                color: "#ffffff"
-                text: qsTr(settings.meal4Name)
-                font.pixelSize: 18
-                onEditingFinished: settings.meal4Name = text
-                Layout.row: 3
-                Layout.fillWidth: true
-                Layout.column: 1
-            }
+        Text {
+            id: meal3
+            x: 22
+            color: "#ffffff"
+            text: qsTr("Meal 3 Name:")
+            anchors.leftMargin: 20
+            anchors.topMargin: 20
+            font.pixelSize: 20
+            font.underline: true
+            font.bold: false
+            Layout.row: 2
+            Layout.column: 0
+        }
 
-            Text {
-                id: meal5
-                x: 22
-                color: "#ffffff"
-                text: qsTr("Meal 5 Name:")
-                anchors.leftMargin: 20
-                anchors.topMargin: 20
-                font.pixelSize: 20
-                font.underline: true
-                font.bold: false
-                Layout.row: 4
-                Layout.column: 0
-            }
+        TextField {
+            id: meal3Name
+            y: 60
+            height: 35
+            color: "#ffffff"
+            text: qsTr(settings.meal3Name)
+            font.pixelSize: 18
+            onEditingFinished: settings.meal3Name = text
+            Layout.row: 2
+            Layout.fillWidth: true
+            Layout.column: 1
+        }
 
-            TextField {
-                id: meal5Name
-                y: 60
-                height: 35
-                color: "#ffffff"
-                text: qsTr(settings.meal5Name)
-                font.pixelSize: 18
-                onEditingFinished: settings.meal5Name = text
-                Layout.row: 4
-                Layout.fillWidth: true
-                Layout.column: 1
-            }
+        Text {
+            id: meal4
+            x: 22
+            color: "#ffffff"
+            text: qsTr("Meal 4 Name:")
+            anchors.leftMargin: 20
+            anchors.topMargin: 20
+            font.pixelSize: 20
+            font.underline: true
+            font.bold: false
+            Layout.row: 3
+            Layout.column: 0
+        }
+
+        TextField {
+            id: meal4Name
+            y: 60
+            height: 35
+            color: "#ffffff"
+            text: qsTr(settings.meal4Name)
+            font.pixelSize: 18
+            onEditingFinished: settings.meal4Name = text
+            Layout.row: 3
+            Layout.fillWidth: true
+            Layout.column: 1
+        }
+
+        Text {
+            id: meal5
+            x: 22
+            color: "#ffffff"
+            text: qsTr("Meal 5 Name:")
+            anchors.leftMargin: 20
+            anchors.topMargin: 20
+            font.pixelSize: 20
+            font.underline: true
+            font.bold: false
+            Layout.row: 4
+            Layout.column: 0
+        }
+
+        TextField {
+            id: meal5Name
+            y: 60
+            height: 35
+            color: "#ffffff"
+            text: qsTr(settings.meal5Name)
+            font.pixelSize: 18
+            onEditingFinished: settings.meal5Name = text
+            Layout.row: 4
+            Layout.fillWidth: true
+            Layout.column: 1
         }
     }
+    // }
 }

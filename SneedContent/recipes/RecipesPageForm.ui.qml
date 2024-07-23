@@ -10,12 +10,13 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import Sneed
+import SneedContent
 
 Rectangle {
     id: rectangle
     width: Constants.width
-    height: Constants.height
-    color: "#000000"
+    height: Constants.pageHeight
+    color: Constants.baseColor
 
     property alias add: add
     property alias listView: listView
@@ -31,17 +32,13 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    RoundButton {
+    AddButton {
         id: add
-        x: 528
-        width: 52
-        height: 48
-        text: "+"
+
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.rightMargin: 8
         anchors.topMargin: 8
-        font.pointSize: 26
     }
 
     ListView {
@@ -50,9 +47,13 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: add.bottom
         anchors.bottom: parent.bottom
+
         anchors.leftMargin: 15
         anchors.rightMargin: 15
         anchors.topMargin: 15
-        anchors.bottomMargin: 15
+        anchors.bottomMargin: 40
+
+        boundsMovement: Flickable.StopAtBounds
+        boundsBehavior: Flickable.StopAtBounds
     }
 }

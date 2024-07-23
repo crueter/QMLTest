@@ -36,7 +36,7 @@ Rectangle {
 
     Button {
         id: back
-        y: 0
+
         width: 59
         height: 38
         text: qsTr("<")
@@ -52,8 +52,7 @@ Rectangle {
 
     Button {
         id: next
-        x: 0
-        y: 0
+
         width: 59
         height: 38
         text: qsTr(">")

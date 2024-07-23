@@ -14,9 +14,10 @@ import Sneed
 
 Rectangle {
     id: rectangle
+    y: 0
     width: Constants.width
-    height: Constants.height
-    color: "#000000"
+    height: Constants.pageHeight
+    color: Constants.baseColor
 
     property date currentDate
 

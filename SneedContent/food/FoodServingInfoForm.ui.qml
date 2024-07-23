@@ -9,9 +9,12 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import SneedContent
+import Sneed
+
 Rectangle {
     id: rectangle
-    color: "#242424"
+    color: Constants.sub2Color
     border.color: "#ffffff"
 
     height: 100
@@ -53,27 +56,24 @@ Rectangle {
 
         Text {
             id: calories
-            x: 300
+
             color: "#c2c2c2"
             text: qsTr("0kcal")
+
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: 25
+
             font.pixelSize: 15
         }
 
-        RoundButton {
+        RemoveButton {
             visible: false
             id: remove
-            width: 52
-            height: 51
-            text: "x"
-            anchors.verticalCenter: parent.verticalCenter
+
             anchors.left: parent.left
             anchors.leftMargin: 8
-            topPadding: 4
-            topInset: 6
-            font.pointSize: 30
+            anchors.verticalCenter: parent.verticalCenter
         }
     }
 }

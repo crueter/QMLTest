@@ -10,10 +10,11 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import SneedContent
+import Sneed
 
 Rectangle {
     id: rectangle
-    color: "#000000"
+    color: Constants.sub1Color
 
     width: 400
     height: 400
@@ -202,26 +203,24 @@ Rectangle {
 
     ListView {
         id: listView
+        clip: true
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: add.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 15
-        anchors.rightMargin: 15
-        anchors.topMargin: 15
-        anchors.bottomMargin: 21
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
+        anchors.bottomMargin: 8
     }
 
-    RoundButton {
+    AddButton {
         id: add
-        x: 348
-        width: 52
-        height: 48
-        text: "+"
+
         anchors.right: parent.right
         anchors.top: protein.bottom
         anchors.rightMargin: 8
         anchors.topMargin: 8
-        font.pointSize: 26
     }
 }

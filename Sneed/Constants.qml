@@ -5,6 +5,7 @@ import QtQuick.Studio.Application
 QtObject {
     readonly property int width: 480
     readonly property int height: 640
+    readonly property int pageHeight: 640 - 50
 
     property string relativeFontDirectory: "fonts"
 
@@ -19,14 +20,12 @@ QtObject {
                                               })
 
     // TODO: background color for each "level"
-    readonly property color backgroundColor: "#EAEAEA"
+    readonly property color baseColor: "#000000"
+    readonly property color sub1Color: "#141414"
+    readonly property color sub2Color: "#282828"
 
 
     property StudioApplication application: StudioApplication {
         fontPath: Qt.resolvedUrl("../../SneedContent/" + relativeFontDirectory)
     }
-
-    readonly property int onlineSearch: 0
-    readonly property int offlineSearch: 1
-    readonly property int recipesSearch: 2
 }

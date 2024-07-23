@@ -9,12 +9,16 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import SneedContent
+import Sneed
+
 Rectangle {
     id: rectangle
-    // width: 580
-    // height: 400
-    color: "#141414"
+
+    color: Constants.sub1Color
+
     border.color: "#ffffff"
+
     border.width: 2
 
     property date currentDate
@@ -26,7 +30,7 @@ Rectangle {
 
     Text {
         id: mealName
-        x: 8
+
         color: "#ffffff"
         text: qsTr("Meal")
 
@@ -34,22 +38,19 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 50
         anchors.topMargin: 20
+
         font.pixelSize: 21
         font.bold: true
         font.weight: Font.Medium
     }
 
-    RoundButton {
+    AddButton {
         id: add
-        x: 528
-        width: 52
-        height: 48
-        text: "+"
+
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.rightMargin: 8
         anchors.topMargin: 8
-        font.pointSize: 26
     }
 
     ListView {

@@ -1,14 +1,16 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import SneedContent
+import Sneed
+
 Rectangle {
     id: exerciseSetForm
 
-    // width: ListView.view.width
     width: 435
     height: 60
 
-    color: "#383838"
+    color: Constants.sub2Color
     border.color: "#ffffff"
 
     signal deleteSet(int myId)
@@ -19,19 +21,13 @@ Rectangle {
     property alias weightEdit: weightEdit
 
     // TODO: Swipe to delete ?
-    RoundButton {
+    RemoveButton {
         id: remove
 
-        width: 52
-        height: 51
-        text: "x"
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 8
         anchors.topMargin: 5
-        topPadding: 5
-        font.pointSize: 24
-        flat: false
     }
 
     Text {

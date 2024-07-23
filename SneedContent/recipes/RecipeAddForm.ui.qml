@@ -10,10 +10,11 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import SneedContent
+import Sneed
 
 Rectangle {
     id: rectangle
-    color: "#000000"
+    color: Constants.sub1Color
 
     property alias submit: submit
     property alias back: back

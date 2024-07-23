@@ -9,15 +9,15 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import Sneed
+import SneedContent
+
 Rectangle {
     id: exercise
 
-    // property int myId
-
-    // height: 250
-    color: "#141414"
+    color: Constants.sub1Color
     border.color: "#ffffff"
-    border.width: 3
+    border.width: 2
 
     signal deleteMe(int myId)
     signal exerciseChanged
@@ -27,19 +27,14 @@ Rectangle {
     property alias listView: listView
     property alias exerciseName: exerciseName
 
-    RoundButton {
+    RemoveButton {
         id: remove
 
-        width: 51
-        height: 51
-        text: "x"
         anchors.left: parent.left
-        anchors.top: parent.top
         anchors.leftMargin: 8
+
+        anchors.top: parent.top
         anchors.topMargin: 8
-        topPadding: 5
-        font.pointSize: 24
-        flat: false
     }
 
     TextField {
@@ -59,19 +54,13 @@ Rectangle {
         placeholderText: qsTr("Exercise Name")
     }
 
-    RoundButton {
+    AddButton {
         id: add
 
-        width: 52
-        height: 51
-        text: "+"
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.rightMargin: 8
         anchors.topMargin: 8
-        topPadding: 10
-        font.pointSize: 24
-        flat: false
     }
 
     ListView {
