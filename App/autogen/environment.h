@@ -6,10 +6,10 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(SneedPlugin)
-Q_IMPORT_QML_PLUGIN(SneedContentPlugin)
+Q_IMPORT_QML_PLUGIN(OpenFitnessPalPlugin)
+Q_IMPORT_QML_PLUGIN(OFPContentPlugin)
 
-const char mainQmlFile[] = "qrc:/qt/qml/SneedContent/App.qml";
+const char mainQmlFile[] = "qrc:/qt/qml/OFPContent/App.qml";
 
 #ifdef BUILD_QDS_COMPONENTS
 

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 #endif
     set_qt_environment();
     QGuiApplication app(argc, argv);
-    app.setApplicationDisplayName("Sneed");
+    app.setApplicationDisplayName("OFP");
 
     QQmlApplicationEngine engine;
 

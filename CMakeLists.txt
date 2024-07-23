@@ -6,7 +6,11 @@ option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
 set(CMAKE_CXX_STANDARD 17)
 
-project(SneedApp LANGUAGES CXX)
+set(OFP_ORG_NAME "OpenFitnessPal")
+set(OFP_APP_NAME "OFPApp")
+set(OFP_GIT_REPO "https://github.com/crueter/QMLTest.git")
+
+project(${OFP_APP_NAME} VERSION 0.1 LANGUAGES CXX)
 
 add_subdirectory(3rd_party)
 find_package(OFPLib)
@@ -53,24 +57,53 @@ set(PROJECT_SRC ${HEADERS} ${SOURCES}
     ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
 )
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
+
+# Git
+include(GetGitRevisionDescription)
+git_get_exact_tag(OFP_GIT_TAG)
+get_git_head_revision(OFP_GIT_REFSPEC OFP_GIT_COMMIT)
+
+message(STATUS "Git commit: ${OFP_GIT_COMMIT}")
+message(STATUS "Git tag: ${OFP_GIT_TAG}")
+message(STATUS "Git refspec: ${OFP_GIT_REFSPEC}")
+
+string(REPLACE "-beta" "." OFP_GIT_TAG_NUMERO ${OFP_GIT_TAG})
+
+string(REPLACE "." " " OFP_SPLIT_VERSION ${OFP_GIT_TAG_NUMERO})
+
+separate_arguments(OFP_SPLIT_VERSION)
+
+list(GET OFP_SPLIT_VERSION 0 OFP_VERSION_MAJOR)
+list(GET OFP_SPLIT_VERSION 1 OFP_VERSION_MINOR)
+list(GET OFP_SPLIT_VERSION 2 OFP_VERSION_HOTFIX)
+
+project(${OFP_APP_NAME} VERSION ${OFP_GIT_TAG_NUMERO} LANGUAGES CXX)
+
+# Build Date
+string(TIMESTAMP TODAY "%Y-%m-%d")
+set(OFP_BUILD_TIMESTAMP "${TODAY}")
+
+# TODO: buildconfig
+
 qt_add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SRC})
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
     qtquickcontrols2.conf)
 
-qt_add_qml_module(SneedApp
-    URI SneedTest
+qt_add_qml_module(${OFP_APP_NAME}
+    URI OFPTest
     VERSION 1.0
     SOURCES
     ${PROJECT_SRC}
 )
 
-target_include_directories(SneedApp PRIVATE "include/")
-target_include_directories(SneedApp PRIVATE "include/items")
-target_include_directories(SneedApp PRIVATE "include/data")
-target_include_directories(SneedApp PRIVATE "include/models")
-target_include_directories(SneedApp PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(${OFP_APP_NAME} PRIVATE "include/")
+target_include_directories(${OFP_APP_NAME} PRIVATE "include/items")
+target_include_directories(${OFP_APP_NAME} PRIVATE "include/data")
+target_include_directories(${OFP_APP_NAME} PRIVATE "include/models")
+target_include_directories(${OFP_APP_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${OFPLib_SOURCE_DIR}/include)
 
 include(qds)
