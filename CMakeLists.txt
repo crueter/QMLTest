@@ -46,7 +46,12 @@ foreach(ELEMENT ${CODE_ELEMENTS})
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
 endforeach()
 
-set(PROJECT_SRC ${HEADERS} ${SOURCES})
+set(PROJECT_SRC ${HEADERS} ${SOURCES}
+    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
+    ${OFPLib_SOURCE_DIR}/include/FoodItem.h
+    ${OFPLib_SOURCE_DIR}/include/ServingSize.h
+    ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
+)
 
 qt_add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SRC})
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
