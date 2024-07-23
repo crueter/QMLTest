@@ -83,9 +83,9 @@ jobs:
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
       run: |
         sudo apt-get install libstdc++-10-dev gcc-10 ninja-build openjdk-17-jdk
-        #wget "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
-        #wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
-        #wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
+        wget "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
+        wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
+        wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
 
     - name: Configure and Build (Linux)
       if: runner.os == 'Linux'
@@ -128,29 +128,29 @@ jobs:
       env:
         BUILD_TOOLS_VERSION: "34.0.0"
 
-        #- name: Package AppImage (Linux)
-        #if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
-        #shell: bash
-        #run: |
-        #sudo apt-get install libxcb-cursor-dev libxcb-cursor0
-        #sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build --prefix=/usr
+    - name: Package AppImage (Linux)
+      if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
+      shell: bash
+      run: |
+        sudo apt-get install libxcb-cursor-dev libxcb-cursor0
+        sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build --prefix=/usr
 
-        #mkdir -p ${{ env.INSTALL_APPIMAGE_DIR}}/usr/{lib,bin}
+        mkdir -p ${{ env.INSTALL_APPIMAGE_DIR}}/usr/{lib,bin}
 
-        #cmake --install ${{ env.BUILD_DIR }} --prefix ${{ env.INSTALL_APPIMAGE_DIR }}/usr
+        cmake --install ${{ env.BUILD_DIR }} --prefix ${{ env.INSTALL_APPIMAGE_DIR }}/usr
 
-        #export OUTPUT="OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage"
+        export OUTPUT="OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage"
 
-        #chmod +x linuxdeploy-*.AppImage
+        chmod +x linuxdeploy-*.AppImage
 
-        #mkdir -p ${{ env.INSTALL_APPIMAGE_DIR }}/usr/plugins/iconengines
+        mkdir -p ${{ env.INSTALL_APPIMAGE_DIR }}/usr/plugins/iconengines
 
-        #cp -r /home/runner/work/OpenFitnessPal/Qt/${{ matrix.qt_version }}/gcc_64/plugins/iconengines/* ${{ env.INSTALL_APPIMAGE_DIR }}/usr/plugins/iconengines
+        cp -r /home/runner/work/OpenFitnessPal/Qt/${{ matrix.qt_version }}/gcc_64/plugins/iconengines/* ${{ env.INSTALL_APPIMAGE_DIR }}/usr/plugins/iconengines
 
-        #cp /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ${{ env.INSTALL_APPIMAGE_DIR }}/usr/lib/
-        #cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 ${{ env.INSTALL_APPIMAGE_DIR }}/usr/lib/
+        cp /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ${{ env.INSTALL_APPIMAGE_DIR }}/usr/lib/
+        cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 ${{ env.INSTALL_APPIMAGE_DIR }}/usr/lib/
 
-        #./linuxdeploy-x86_64.AppImage --appdir ${{ env.INSTALL_APPIMAGE_DIR }} --output appimage --plugin qt
+        ./linuxdeploy-x86_64.AppImage --appdir ${{ env.INSTALL_APPIMAGE_DIR }} --output appimage --plugin qt
 
     - name: Package (Windows)
       if: runner.os == 'Windows'
@@ -195,12 +195,12 @@ jobs:
         name: OpenFitnessPal-${{ runner.os }}-Binary-${{ env.VERSION }}-${{ inputs.build_type }}
         path: OpenFitnessPal.tar.gz
 
-        #- name: Upload AppImage (Linux)
-    #if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
-      #uses: actions/upload-artifact@v4
-      #with:
-        #name: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
-        #        path: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
+    - name: Upload AppImage (Linux)
+      if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
+        path: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
 
     - name: Upload portable zip (Windows)
       if: runner.os == 'Windows'
