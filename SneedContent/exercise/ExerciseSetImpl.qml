@@ -5,13 +5,8 @@ ExerciseSetForm {
 
     remove.onClicked: exerciseSetImpl.deleteSet(setID)
 
-    repsEdit.onValueChanged: {
+    function changeData() {
         reps = repsEdit.value
-
-        exerciseSetImpl.changed(repsEdit.value, weightEdit.value, setID)
-    }
-
-    weightEdit.onValueChanged: {
         weight = weightEdit.value
 
         exerciseSetImpl.changed(repsEdit.value, weightEdit.value, setID)

@@ -223,7 +223,6 @@ DataManager::DataError DataManager::saveRecipe(const Recipe &recipe)
 
 DataManager::DataError DataManager::truncateSaveRecipes(const QList<Recipe> &recipes)
 {
-    // qDebug() << "saving recipes rn";
     QFile file(dataDir.absoluteFilePath("recipes.json"));
 
     QJsonArray array;
@@ -233,7 +232,6 @@ DataManager::DataError DataManager::truncateSaveRecipes(const QList<Recipe> &rec
     }
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        // QMessageBox::critical(nullptr, "Write failed", "Failed to write some data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -320,7 +318,6 @@ DataManager::DataError DataManager::removeExercise(const Exercise &exercise, con
 
 DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
 {
-    // QDate date = QDate::currentDate();
     QString dateString = date.toString("MM-dd-yyyy");
     QDir dir(dataDir);
     dir.cd("journal");
@@ -328,7 +325,6 @@ DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
     bool ok = dir.mkpath(dateString);
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -337,24 +333,20 @@ DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
     ok = dir.mkpath("exercises");
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
     dir.cd("exercises");
 
     QFile file(dir.absoluteFilePath(ex.name()));
-    // qDebug() << ex.name();
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        // QMessageBox::critical(nullptr, "Write failed", "Failed to save exercise data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        // qDebug() << "epic fail";
         return Failure;
     }
 
     QStringList data;
 
-    for (ExerciseSet &set : ex.nativeSets()) {
+    for (ExerciseSet &set : ex.sets()) {
         QStringList csv;
         csv << QString::number(set.weight()) << QString::number(set.reps());
 
@@ -367,6 +359,60 @@ DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
     file.close();
 
     return Success;
+}
+
+DataManager::DataError DataManager::truncateSaveExercises(const QList<Exercise> &exercises, QDate date)
+{
+    QString dateString = date.toString("MM-dd-yyyy");
+    QDir dir(dataDir);
+    dir.cd("journal");
+
+    bool ok = dir.mkpath(dateString);
+
+    if (!ok) {
+        return Failure;
+    }
+
+    dir.cd(dateString);
+
+    ok = dir.mkpath("exercises");
+
+    if (!ok) {
+        return Failure;
+    }
+
+    dir.cd("exercises");
+
+    QDirIterator iter(dir, QDirIterator::IteratorFlag::Subdirectories);
+
+    while (iter.hasNext()) {
+        QFile f = iter.next();
+        f.remove();
+    }
+
+    for (const Exercise & ex : exercises) {
+        QFile file(dir.absoluteFilePath(ex.name()));
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            return Failure;
+        }
+
+        QStringList data;
+
+        for (ExerciseSet &set : ex.sets()) {
+            QStringList csv;
+            csv << QString::number(set.weight()) << QString::number(set.reps());
+
+            data << csv.join(',');
+        }
+
+        data << "";
+
+        file.write(data.join('\n').toUtf8());
+        file.close();
+    }
+
+    return Success;
+
 }
 
 QList<Exercise> DataManager::loadExercises(QDate date)
@@ -409,7 +455,7 @@ QList<Exercise> DataManager::loadExercises(QDate date)
 
             QStringList csv = line.split(',');
 
-            if (csv.size() != 2) {
+            if (csv.size() < 2) {
                 continue;
             }
 

@@ -1,7 +1,7 @@
 #ifndef FOODSERVINGCOMBOBOXMODEL_H
 #define FOODSERVINGCOMBOBOXMODEL_H
 
-#include "FoodItem.h"
+#include "ServingSize.h"
 #include <QAbstractListModel>
 #include <QQmlEngine>
 
@@ -18,9 +18,9 @@ public:
     };
 
     FoodServingComboBoxModel(QObject *parent = nullptr);
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     Q_INVOKABLE void add(const ServingSize &size);
     Q_INVOKABLE void add(const QList<ServingSize> &sizes);
@@ -30,7 +30,7 @@ public:
     Q_INVOKABLE void clear();
 
 protected:
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
 private:
     QList<ServingSize> m_data;
 };

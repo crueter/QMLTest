@@ -4,23 +4,20 @@
 Exercise::Exercise(QObject *parent)
     : QObject(parent)
 {
-    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 Exercise::Exercise(const Exercise &other)
     : QObject(other.parent())
 {
     m_name = other.name();
-    m_sets = other.nativeSets();
-    DataManager::saveExercise(*this, QDate::currentDate());
+    m_sets = other.sets();
 }
 
 Exercise Exercise::operator=(const Exercise &other)
 {
     setParent(other.parent());
     m_name = other.name();
-    m_sets = other.nativeSets();
-    DataManager::saveExercise(*this, QDate::currentDate());
+    m_sets = other.sets();
 
     return *this;
 }
@@ -34,9 +31,7 @@ void Exercise::setName(const QString &newName)
 {
     if (m_name == newName)
         return;
-    DataManager::removeExercise(*this, QDate::currentDate());
     m_name = newName;
-    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 QList<ExerciseSet> Exercise::sets() const
@@ -44,46 +39,16 @@ QList<ExerciseSet> Exercise::sets() const
     return (m_sets);
 }
 
-QList<ExerciseSet> Exercise::nativeSets() const
-{
-    return m_sets;
-}
-
 void Exercise::setSets(const QList<ExerciseSet> &newSets)
 {
     m_sets = newSets;
 }
 
-void Exercise::setNativeSets(const QList<ExerciseSet> &newSets)
-{
-    m_sets = newSets;
-}
-
-// QJSValue Exercise::fromNative(const Exercise &newExercise)
-// {
-//     QJSEngine engine;
-//     QJSValue obj = engine.newObject();
-//     obj.setProperty("name", newExercise.name());
-//     obj.setProperty("sets", ExerciseSet::fromNativeList(newExercise.sets()));
-
-//     return obj;
-// }
-
-// Exercise Exercise::toNative(const QJSValue &newExercise)
-// {
-//     Exercise exercise;
-//     exercise.setName(newExercise.property("name").toString());
-//     exercise.setSets(ExerciseSet::toNativeList(newExercise.property("sets")));
-
-//     return exercise;
-// }
 
 void Exercise::addSet()
 {
     ExerciseSet set;
     m_sets.append(set);
-
-    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 void Exercise::addSet(int reps, int weight)
@@ -92,15 +57,11 @@ void Exercise::addSet(int reps, int weight)
     set.setReps(reps);
     set.setWeight(weight);
     m_sets.append(set);
-
-    DataManager::saveExercise(*this, QDate::currentDate());
-
 }
 
 void Exercise::removeSet(int idx)
 {
     m_sets.removeAt(idx);
-    DataManager::saveExercise(*this, QDate::currentDate());
 }
 
 void Exercise::changeSet(int idx, int reps, int weight)
@@ -109,12 +70,5 @@ void Exercise::changeSet(int idx, int reps, int weight)
     set.setReps(reps);
     set.setWeight(weight);
     m_sets.replace(idx, set);
-
-    DataManager::saveExercise(*this, QDate::currentDate());
-}
-
-void Exercise::remove()
-{
-    DataManager::removeExercise(*this, QDate::currentDate());
 }
 

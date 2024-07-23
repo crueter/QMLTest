@@ -12,14 +12,33 @@ ExercisePageForm {
         id: exercises
     }
 
+    function reloadData() {
+        exercises.clear()
+
+        exercises.loadData(currentDate)
+    }
+
     listView.delegate: ExerciseImpl {
         id: exercise
         height: 85 + 60 * listView.count
+        clip: true
 
         onDeleteMe: {
                     exercises.removeRow(exID)
-                    ex.remove()
                 }
+
+        onChanged: {
+            model.sets = esm.sets()
+            exercises.saveData(currentDate)
+        }
+
+        function reloadData() {
+            setData(model.sets)
+        }
+
+        Component.onCompleted: {
+            reloadData()
+        }
     }
 
     listView.model: exercises

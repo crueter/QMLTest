@@ -17,6 +17,8 @@ Rectangle {
     border.color: "#ffffff"
     border.width: 2
 
+    property date currentDate
+
     property int mealNumber: 1
     property alias listView: listView
     property alias mealName: mealName

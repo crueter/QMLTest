@@ -22,18 +22,7 @@ QVariant ExerciseSetsModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (role == Qt::DisplayRole) {
-        switch(index.column()) {
-        case 0:
-            return m_data[index.row()].reps();
-            break;
-        case 1:
-            return m_data[index.row()].weight();
-            break;
-        default:
-            break;
-        }
-    } else if (role == ESMRoleTypes::REPS) {
+    if (role == ESMRoleTypes::REPS) {
         return m_data[index.row()].reps();
     } else if (role == ESMRoleTypes::WEIGHT) {
         return m_data[index.row()].weight();
@@ -44,18 +33,65 @@ QVariant ExerciseSetsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+QList<ExerciseSet> ExerciseSetsModel::sets()
+{
+    return m_data;
+}
+
 void ExerciseSetsModel::setData(const QList<ExerciseSet> &newData)
 {
     beginResetModel();
     m_data.clear();
-
-    m_data.append(newData);
     endResetModel();
+
+    for (const ExerciseSet &s : newData) {
+        add(s.reps(), s.weight());
+    }
 }
 
 QList<ExerciseSet> ExerciseSetsModel::data()
 {
     return m_data;
+}
+
+void ExerciseSetsModel::clear()
+{
+    removeRows(0, m_data.size());
+}
+
+void ExerciseSetsModel::duplicateLast()
+{
+    ExerciseSet e;
+    if (!m_data.empty()) {
+        e = m_data.last();
+    }
+
+    add(e);
+}
+
+bool ExerciseSetsModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid()) {
+        return false;
+    }
+
+    if (role == ESMRoleTypes::REPS) {
+        m_data[index.row()].setReps(value.toInt());
+    } else if (role == ESMRoleTypes::WEIGHT) {
+        m_data[index.row()].setWeight(value.toInt());
+    } else {
+        return false;
+    }
+
+    return true;
+}
+
+Qt::ItemFlags ExerciseSetsModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
 
 void ExerciseSetsModel::add(int reps, int weight)
@@ -70,6 +106,11 @@ void ExerciseSetsModel::add(int reps, int weight)
 
     endInsertRows();
 
+}
+
+void ExerciseSetsModel::add(const ExerciseSet &set)
+{
+    add(set.reps(), set.weight());
 }
 
 bool ExerciseSetsModel::removeRows(int row, int count, const QModelIndex &parent)

@@ -25,12 +25,6 @@ public:
     int weight() const;
     void setWeight(int newWeight);
 
-    // QTime time() const;
-    // void setTime(const QTime &newTime);
-
-    static QJSValue fromNativeList(const QList<ExerciseSet> &newSets);
-    static QList<ExerciseSet> toNativeList(const QJSValue &newSets);
-
 private:
     int m_reps = 0;
     int m_weight = 0;

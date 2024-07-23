@@ -22,20 +22,13 @@ public:
     void setName(const QString &newName);
 
     QList<ExerciseSet> sets() const;
-    QList<ExerciseSet> nativeSets() const;
     void setSets(const QList<ExerciseSet> &newSets);
-    void setNativeSets(const QList<ExerciseSet> &newSets);
-
-    // static QJSValue fromNative(const Exercise &newExercise);
-    // static Exercise toNative(const QJSValue &newExercise);
 
 public slots:
     void addSet();
     void addSet(int reps, int weight);
     void removeSet(int idx);
     void changeSet(int idx, int reps, int weight);
-
-    void remove();
 
 signals:
     void nameChanged();

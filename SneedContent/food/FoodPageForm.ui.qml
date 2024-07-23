@@ -18,6 +18,8 @@ Rectangle {
     height: Constants.height
     color: "#000000"
 
+    property date currentDate
+
     property alias mealLog1: mealLog1
     property alias mealLog2: mealLog2
     property alias mealLog3: mealLog3
@@ -45,7 +47,7 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.rightMargin: 0
         anchors.topMargin: 60
-        anchors.bottomMargin: 60
+        anchors.bottomMargin: 40
 
         ColumnLayout {
             id: colLayout

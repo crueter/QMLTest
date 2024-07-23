@@ -20,8 +20,13 @@ MealLogForm {
         meal: mealNumber
     }
 
+    function reloadData() {
+        fsm.clear()
+        fsm.loadData(currentDate)
+    }
+
     Component.onCompleted: {
-        fsm.loadData(new Date())
+        reloadData()
     }
 
     listView.model: fsm
@@ -33,7 +38,7 @@ MealLogForm {
             model.serving = food
             model.servingSize = food.size
 
-            fsm.saveData(new Date())
+            fsm.saveData(currentDate)
         }
 
         mouse.onClicked: {
@@ -47,7 +52,7 @@ MealLogForm {
 
         onDeleteFood: {
             fsm.removeRow(foodID)
-            fsm.saveData(new Date())
+            fsm.saveData(currentDate)
         }
 
         remove.visible: true
@@ -60,6 +65,6 @@ MealLogForm {
         fsm.add(servings);
         fsm.cache(servings)
 
-        fsm.saveData(new Date())
+        fsm.saveData(currentDate)
     }
 }

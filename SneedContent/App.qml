@@ -9,7 +9,13 @@ Window {
 
     visible: true
 
-    // TODO: date picker
+    function newDate(date) {
+        exercisesPage.currentDate = date
+        foodPage.currentDate = date
+
+        exercisesPage.reloadData()
+        foodPage.reloadData()
+    }
 
     Dialog {
         id: search
@@ -108,10 +114,20 @@ Window {
         }
 
         ExercisePageImpl {
-            Component.onCompleted: exercises.loadData(new Date())
+            id: exercisesPage
+
+            Component.onCompleted: {
+                currentDate = new Date()
+                reloadData()
+            }
         }
 
         FoodPageImpl {
+            id: foodPage
+            Component.onCompleted: {
+                currentDate = new Date()
+                reloadData()
+            }
         }
 
         RecipesPageImpl {
@@ -156,5 +172,7 @@ Window {
         anchors.top: parent.top
         anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
+
+        onDateChanged: (date) => newDate(date)
     }
 }

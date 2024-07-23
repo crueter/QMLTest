@@ -7,60 +7,66 @@ ExerciseForm {
 
     width: parent.width
 
-    property alias ex: ex
+    signal changed()
 
-    Exercise {
-        id: ex
-    }
+    property alias esm: esm
 
     ExerciseSetsModel {
         id: esm
     }
 
+    function setData(sets) {
+        esm.setData(sets)
+    }
+
     function addSet(reps: int, weight: int) {
         esm.add(reps, weight)
-
-        ex.addSet(reps, weight)
+        exercise.changed()
     }
 
     function setName(newName: string) {
         name = newName
         exerciseName.text = newName
-
-        ex.name = newName
+        exercise.changed()
     }
 
-    remove.onClicked: exercise.deleteMe(exID)
+    remove.onClicked: deleteMe(exID)
 
-    add.onClicked: addSet(0, 0)
+    add.onClicked: {
+        esm.duplicateLast()
+        exercise.changed()
+    }
 
     listView.delegate: ExerciseSetImpl {
-        // width: exercise.width
         id: set
         clip: true
 
         onDeleteSet: {
             esm.removeRow(setID)
-            ex.removeSet(setID)
+            exercise.changed()
         }
 
         onChanged: (reps, weight, id) =>
                    {
-                       ex.changeSet(id, reps, weight)
+                       model.reps = reps
+                       model.weight = weight
+
+                       exercise.changed()
                    }
 
         Component.onCompleted: {
-            repsEdit.value = reps
-            weightEdit.value = weight
+            repsEdit.value = model.reps
+            weightEdit.value = model.weight
+
+            weightEdit.valueChanged.connect(changeData)
+            repsEdit.valueChanged.connect(changeData)
+
+            exercise.changed()
         }
     }
 
-    exerciseName.onEditingFinished: setName(exerciseName.displayText)
-
-    Component.onCompleted: {
+    exerciseName.onEditingFinished: {
         setName(exerciseName.displayText)
-
-        ex.sets = sets
-        esm.setData(sets)
+        exercise.changed()
     }
 }

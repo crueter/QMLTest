@@ -18,6 +18,8 @@ Rectangle {
     height: Constants.height
     color: "#000000"
 
+    property date currentDate
+
     property alias add: add
     property alias listView: listView
 
@@ -57,6 +59,7 @@ Rectangle {
 
     ListView {
         id: listView
+        clip: true
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -66,6 +69,8 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.rightMargin: 0
         anchors.topMargin: 15
-        anchors.bottomMargin: 0
+        anchors.bottomMargin: 40
+        boundsMovement: Flickable.StopAtBounds
+        boundsBehavior: Flickable.StopAtBounds
     }
 }

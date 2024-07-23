@@ -19,18 +19,25 @@ public:
     };
 
     ExerciseListModel(QObject *parent = nullptr);
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     Q_INVOKABLE void add(QString name = "", QList<ExerciseSet> sets = {});
-    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+
+    Q_INVOKABLE void clear();
+
+    bool setData(const QModelIndex &index, const QVariant &value,
+                 int role = Qt::EditRole) override;
 
     Q_INVOKABLE void loadData(QDate date);
     Q_INVOKABLE void saveData(QDate date);
 
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
+
 protected:
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
 private:
     QList<Exercise> m_data;
 };

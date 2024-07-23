@@ -35,6 +35,7 @@ public:
 
     static DataError removeExercise(const Exercise &exercise, const QDate &date);
     static DataError saveExercise(const Exercise &exercise, QDate date);
+    static DataError truncateSaveExercises(const QList<Exercise> &exercises, QDate date);
     static QList<Exercise> loadExercises(QDate date);
 
     static DataError saveInfo(QString field, QVariant data);

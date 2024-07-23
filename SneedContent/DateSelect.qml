@@ -8,6 +8,8 @@ Rectangle {
     height: 40
     color: "#000000"
 
+    signal dateChanged(var newDate)
+
     // TODO: DATE PICKER
     MouseArea {
         id: mouseArea
@@ -42,7 +44,10 @@ Rectangle {
         anchors.leftMargin: 0
         font.pointSize: 26
 
-        onClicked: dateText.currentDate.setDate(dateText.currentDate.getDate() - 1);
+        onClicked: {
+            dateText.currentDate.setDate(dateText.currentDate.getDate() - 1);
+            dateChanged(dateText.currentDate)
+        }
     }
 
     Button {
@@ -56,7 +61,10 @@ Rectangle {
         anchors.rightMargin: 0
         font.pointSize: 26
 
-        onClicked: dateText.currentDate.setDate(dateText.currentDate.getDate() + 1);
+        onClicked: {
+            dateText.currentDate.setDate(dateText.currentDate.getDate() + 1);
+            dateChanged(dateText.currentDate)
+        }
     }
 }
 
