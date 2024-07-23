@@ -6,7 +6,7 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(OpenFitnessPalPlugin)
+Q_IMPORT_QML_PLUGIN(OFPDataPlugin)
 Q_IMPORT_QML_PLUGIN(OFPContentPlugin)
 
 const char mainQmlFile[] = "qrc:/qt/qml/OFPContent/App.qml";

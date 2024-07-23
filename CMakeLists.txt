@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(OFP_ORG_NAME "OpenFitnessPal")
 set(OFP_APP_NAME "OFPApp")
+set(OFP_EXEC_NAME "OpenFitnessPal")
 set(OFP_GIT_REPO "https://github.com/crueter/QMLTest.git")
 
 project(${OFP_APP_NAME} VERSION 0.1 LANGUAGES CXX)
@@ -106,7 +107,10 @@ qt_add_qml_module(${OFP_APP_NAME}
     ${PROJECT_SRC}
 )
 
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${OFP_EXEC_NAME})
+
 add_subdirectory(program_info/)
+add_subdirectory(buildconfig)
 
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/")
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/items")

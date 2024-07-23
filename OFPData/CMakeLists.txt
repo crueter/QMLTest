@@ -6,9 +6,9 @@ set_source_files_properties(Constants.qml
 		QT_QML_SINGLETON_TYPE true
 )
 
-qt_add_library(OpenFitnessPal STATIC)
-qt6_add_qml_module(OpenFitnessPal
-    URI "OpenFitnessPal"
+qt_add_library(OFPData STATIC)
+qt6_add_qml_module(OFPData
+    URI "OFPData"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES

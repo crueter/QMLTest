@@ -11,15 +11,21 @@
 #include "autogen/environment.h"
 
 #include <QQmlContext>
+#include <BuildConfig.h>
 
 int main(int argc, char *argv[])
 {
 #ifdef Q_OS_ANDROID
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+    //     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+    qputenv("QT_SCALE_FACTOR", 2);
 #endif
+
     set_qt_environment();
     QGuiApplication app(argc, argv);
-    app.setApplicationDisplayName("OFP");
+    app.setApplicationDisplayName(BuildConfig.APP_NAME);
+    app.setApplicationName(BuildConfig.APP_NAME);
+    app.setApplicationVersion(BuildConfig.versionString());
+    app.setOrganizationName(BuildConfig.ORG_NAME);
 
     QQmlApplicationEngine engine;
 
@@ -31,14 +37,13 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("settings", &settings);
     engine.rootContext()->setContextProperty("blankRecipe", QVariant::fromValue(recipe));
 
-
     const QUrl url(mainQmlFile);
     QObject::connect(
-                &engine, &QQmlApplicationEngine::objectCreated, &app,
-                [url, &engine](QObject *obj, const QUrl &objUrl) mutable {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+        &engine, &QQmlApplicationEngine::objectCreated, &app,
+        [url, &engine](QObject *obj, const QUrl &objUrl) mutable {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        }, Qt::QueuedConnection);
 
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");

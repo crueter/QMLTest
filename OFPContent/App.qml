@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import OpenFitnessPal
+import OFPData
 
 Window {
     id: window
