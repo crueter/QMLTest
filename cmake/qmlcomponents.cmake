@@ -18,7 +18,7 @@ FetchContent_Populate(ds)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     QuickStudioComponentsplugin
-    QuickStudioDesignEffectsplugin
+    # QuickStudioDesignEffectsplugin
     QuickStudioEffectsplugin
     QuickStudioApplicationplugin
     FlowViewplugin
