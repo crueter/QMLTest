@@ -57,6 +57,13 @@ set(PROJECT_SRC ${HEADERS} ${SOURCES}
     ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
 )
 
+if(WIN32)
+    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
+    set(OFP_BUILD_PLATFORM "win32")
+else()
+    set(OFP_BUILD_PLATFORM "lin64")
+endif()
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
 
 # Git
@@ -98,6 +105,8 @@ qt_add_qml_module(${OFP_APP_NAME}
     SOURCES
     ${PROJECT_SRC}
 )
+
+add_subdirectory(program_info/)
 
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/")
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/items")
