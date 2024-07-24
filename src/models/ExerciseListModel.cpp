@@ -68,6 +68,8 @@ void ExerciseListModel::add(QString name, QList<ExerciseSet> sets)
 
 bool ExerciseListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
+    if (count == 0) return false;
+
     beginRemoveRows(parent, row, row + count - 1);
     m_data.remove(row, count);
     endRemoveRows();

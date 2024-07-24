@@ -1,1 +1,4 @@
 build
+appimage
+*.AppImage
+CMakeLists.txt.user*
