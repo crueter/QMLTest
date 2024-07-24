@@ -9,49 +9,39 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+
 import OFPData
-import OFPContent
 
 Rectangle {
-    id: exercise
+    id: rectangle
 
     color: Constants.sub1Color
+
     border.color: "#ffffff"
+
     border.width: 2
 
-    signal deleteMe(int myId)
-    signal exerciseChanged
+    property date currentDate
 
-    property alias remove: remove
-    property alias add: add
+    property int mealNumber: 1
     property alias listView: listView
-    property alias exerciseName: exerciseName
+    property alias mealName: mealName
+    property alias add: add
 
-    RemoveButton {
-        id: remove
+    Text {
+        id: mealName
+
+        color: "#ffffff"
+        text: qsTr("Meal")
 
         anchors.left: parent.left
-        anchors.leftMargin: 8
-
         anchors.top: parent.top
-        anchors.topMargin: 8
-    }
+        anchors.leftMargin: 50
+        anchors.topMargin: 20
 
-    TextField {
-        id: exerciseName
-
-        text: name
-
-        height: 56
-        color: "#ddf5f5f5"
-        anchors.left: remove.right
-        anchors.right: add.left
-        anchors.top: parent.top
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
-        anchors.topMargin: 8
-        font.pointSize: 20
-        placeholderText: qsTr("Exercise Name")
+        font.pixelSize: 21
+        font.bold: true
+        font.weight: Font.Medium
     }
 
     AddButton {
@@ -65,19 +55,16 @@ Rectangle {
 
     ListView {
         id: listView
-
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: exerciseName.bottom
+        anchors.top: add.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 20
-        anchors.rightMargin: 0
-        anchors.topMargin: 8
-        anchors.bottomMargin: 0
+        anchors.leftMargin: 15
+        anchors.rightMargin: 15
+        anchors.topMargin: 15
+        anchors.bottomMargin: 15
         boundsMovement: Flickable.StopAtBounds
         boundsBehavior: Flickable.StopAtBounds
         interactive: false
-
-        model: esm
     }
 }

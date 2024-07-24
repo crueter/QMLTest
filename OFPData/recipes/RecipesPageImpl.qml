@@ -1,14 +1,9 @@
 import QtQuick 2.15
 
-import OFPTest
+import OFPNative
 
 RecipesPageForm {
     id: impl
-    // width: parent.width
-
-    // Recipe {
-    //     id: blankRecipe
-    // }
 
     add.onClicked: {
         recipeDialog.recipeEdit.recipe = blankRecipe
@@ -54,10 +49,11 @@ RecipesPageForm {
 
         remove.visible: true
     }
+
     listView.clip: true
 
     function addRecipe(recipe) {
-        search.food.searchReady.disconnect(addRecipe)
+        recipeDialog.recipeEdit.ready.disconnect(addRecipe)
         rlm.add(recipe);
 
         rlm.saveData()

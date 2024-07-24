@@ -1,7 +1,7 @@
 import QtQuick 2.15
 
-import OFPTest
-import OFPContent
+import OFPNative
+import OFPData
 
 FoodSearchForm {
     id: fsf

@@ -6,39 +6,30 @@ It is supposed to be strictly declarative and only uses a subset of QML. If you 
 this file manually, you might introduce QML code that is not supported by Qt Design Studio.
 Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on .ui.qml files.
 */
-import QtQuick 6.2
-import QtQuick.Controls 6.2
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 import OFPData
-import OFPContent
 
-import QtQuick.Layouts
 
 Rectangle {
-    id: exercisePageForm
+    id: rectangle
     width: Constants.width
     height: Constants.pageHeight
     color: Constants.baseColor
-
-    property date currentDate
 
     property alias add: add
     property alias listView: listView
 
     Text {
-        id: title
+        id: text1
         color: "#ffffff"
-        text: "Exercises"
-
+        text: qsTr("Recipes")
         anchors.top: parent.top
-        anchors.topMargin: 10
-
+        anchors.topMargin: 8
         font.pixelSize: 24
-
-        anchors.horizontalCenter: parent.horizontalCenter
-
         font.bold: true
-        font.family: Constants.largeFont.family
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     AddButton {
@@ -46,24 +37,22 @@ Rectangle {
 
         anchors.right: parent.right
         anchors.top: parent.top
-
-        anchors.rightMargin: 15
-        anchors.topMargin: 7
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
     }
 
     ListView {
         id: listView
-        clip: true
-
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: add.bottom
         anchors.bottom: parent.bottom
 
-        anchors.leftMargin: 5
-        anchors.rightMargin: 0
+        anchors.leftMargin: 15
+        anchors.rightMargin: 15
         anchors.topMargin: 15
         anchors.bottomMargin: 40
+
         boundsMovement: Flickable.StopAtBounds
         boundsBehavior: Flickable.StopAtBounds
     }
