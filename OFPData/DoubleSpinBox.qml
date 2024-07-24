@@ -3,11 +3,13 @@ import QtQuick.Controls 2.1
 
 SpinBox {
     id: spinbox
+
+    editable: true
+
     from: 0
     value: 100
     to: 1000 * 100.0
     stepSize: 100
-    // anchors.centerIn: parent
 
     property int decimals: 2
     property real realValue: value / 100.0

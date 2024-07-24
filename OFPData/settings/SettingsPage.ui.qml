@@ -32,24 +32,9 @@ Rectangle {
         font.family: Constants.largeFont.family
     }
 
-    // ScrollView {
-    //     id: scrollView
-    //     anchors.left: parent.left
-    //     anchors.right: parent.right
-    //     anchors.top: title.bottom
-    //     anchors.bottom: parent.bottom
-
-    //     anchors.leftMargin: 0
-    //     anchors.rightMargin: 10
-    //     anchors.topMargin: 0
-    //     anchors.bottomMargin: 55
-
-    // contentHeight: meal5.y
-
-    // ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-    // ScrollBar.vertical.policy: ScrollBar.AlwaysOn
     GridLayout {
         id: grid
+
         anchors.left: parent.left
         anchors.top: title.bottom
         anchors.right: parent.right
@@ -57,7 +42,7 @@ Rectangle {
 
         anchors.leftMargin: 15
         anchors.rightMargin: 15
-        anchors.bottomMargin: 10
+        anchors.bottomMargin: 40
         anchors.topMargin: 8
 
         rows: 1

@@ -9,7 +9,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import OFPContent
+
 import OFPData
 
 Rectangle {
@@ -19,9 +19,9 @@ Rectangle {
     property alias submit: submit
     property alias back: back
 
-    property alias recipeName: recipeName
+    property alias foodName: foodName
     property alias servings: servings
-
+    property alias unit: unit
     property alias calories: calories
     property alias carbs: carbs
     property alias fat: fat
@@ -54,7 +54,7 @@ Rectangle {
     Text {
         id: title
         color: "#ffffff"
-        text: qsTr("Add Recipe")
+        text: qsTr("Edit")
         anchors.top: parent.top
         anchors.topMargin: 10
         font.pixelSize: 24
@@ -63,7 +63,7 @@ Rectangle {
     }
 
     Text {
-        id: recipeName
+        id: foodName
         color: "#ffffff"
         text: qsTr("Food Name")
         anchors.left: parent.left
@@ -79,8 +79,19 @@ Rectangle {
         id: text1
         color: "#ffffff"
         text: qsTr("Servings")
-        anchors.left: recipeName.left
-        anchors.top: recipeName.bottom
+        anchors.left: foodName.left
+        anchors.top: foodName.bottom
+        anchors.leftMargin: 20
+        anchors.topMargin: 30
+        font.pixelSize: 17
+    }
+
+    Text {
+        id: text2
+        color: "#ffffff"
+        text: qsTr("Unit")
+        anchors.left: foodName.left
+        anchors.top: text1.bottom
         anchors.leftMargin: 20
         anchors.topMargin: 30
         font.pixelSize: 17
@@ -88,9 +99,6 @@ Rectangle {
 
     DoubleSpinBox {
         id: servings
-
-        value: 1 * 100
-
         anchors.left: title.left
         anchors.right: parent.right
         anchors.top: text1.top
@@ -99,16 +107,27 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: -6
         anchors.bottomMargin: -6
-
         to: 1000 * 100
+    }
+
+    ComboBox {
+        id: unit
+        anchors.left: title.left
+        anchors.right: parent.right
+        anchors.top: text2.top
+        anchors.bottom: text2.bottom
+        anchors.leftMargin: 0
+        anchors.rightMargin: 15
+        anchors.topMargin: -6
+        anchors.bottomMargin: -6
     }
 
     Text {
         id: text3
         color: "#ffffff"
         text: qsTr("Calories")
-        anchors.left: recipeName.left
-        anchors.top: text1.bottom
+        anchors.left: foodName.left
+        anchors.top: text2.bottom
         anchors.leftMargin: 0
         anchors.topMargin: 50
         font.pixelSize: 20

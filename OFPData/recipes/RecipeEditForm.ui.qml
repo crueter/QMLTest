@@ -9,23 +9,27 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import OFPContent
+
 import OFPData
 
 Rectangle {
     id: rectangle
     color: Constants.sub1Color
 
+    width: 400
+    height: 400
+
     property alias submit: submit
     property alias back: back
+    property alias add: add
 
-    property alias foodName: foodName
+    property alias recipeName: recipeName
     property alias servings: servings
-    property alias unit: unit
     property alias calories: calories
     property alias carbs: carbs
     property alias fat: fat
     property alias protein: protein
+    property alias listView: listView
 
     Button {
         id: back
@@ -54,7 +58,7 @@ Rectangle {
     Text {
         id: title
         color: "#ffffff"
-        text: qsTr("Edit")
+        text: qsTr("Edit Recipe")
         anchors.top: parent.top
         anchors.topMargin: 10
         font.pixelSize: 24
@@ -62,13 +66,16 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    Text {
-        id: foodName
+    TextField {
+        id: recipeName
         color: "#ffffff"
-        text: qsTr("Food Name")
+        text: qsTr("")
+        placeholderText: "Recipe"
         anchors.left: parent.left
+        anchors.right: parent.right
         anchors.top: title.bottom
         anchors.leftMargin: 40
+        anchors.rightMargin: 40
         anchors.topMargin: 20
         font.pixelSize: 20
         wrapMode: Text.WrapAnywhere
@@ -79,19 +86,8 @@ Rectangle {
         id: text1
         color: "#ffffff"
         text: qsTr("Servings")
-        anchors.left: foodName.left
-        anchors.top: foodName.bottom
-        anchors.leftMargin: 20
-        anchors.topMargin: 30
-        font.pixelSize: 17
-    }
-
-    Text {
-        id: text2
-        color: "#ffffff"
-        text: qsTr("Unit")
-        anchors.left: foodName.left
-        anchors.top: text1.bottom
+        anchors.left: recipeName.left
+        anchors.top: recipeName.bottom
         anchors.leftMargin: 20
         anchors.topMargin: 30
         font.pixelSize: 17
@@ -110,24 +106,12 @@ Rectangle {
         to: 1000 * 100
     }
 
-    ComboBox {
-        id: unit
-        anchors.left: title.left
-        anchors.right: parent.right
-        anchors.top: text2.top
-        anchors.bottom: text2.bottom
-        anchors.leftMargin: 0
-        anchors.rightMargin: 15
-        anchors.topMargin: -6
-        anchors.bottomMargin: -6
-    }
-
     Text {
         id: text3
         color: "#ffffff"
         text: qsTr("Calories")
-        anchors.left: foodName.left
-        anchors.top: text2.bottom
+        anchors.left: recipeName.left
+        anchors.top: text1.bottom
         anchors.leftMargin: 0
         anchors.topMargin: 50
         font.pixelSize: 20
@@ -215,5 +199,28 @@ Rectangle {
         font.pixelSize: 16
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: text6.horizontalCenter
+    }
+
+    ListView {
+        id: listView
+        clip: true
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: add.bottom
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
+        anchors.bottomMargin: 8
+    }
+
+    AddButton {
+        id: add
+
+        anchors.right: parent.right
+        anchors.top: protein.bottom
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
     }
 }
