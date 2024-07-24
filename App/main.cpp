@@ -16,8 +16,7 @@
 int main(int argc, char *argv[])
 {
 #ifdef Q_OS_ANDROID
-    //     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-    qputenv("QT_SCALE_FACTOR", 2);
+    qputenv("QT_SCALE_FACTOR", QByteArray::number(2));
 #endif
 
     set_qt_environment();
