@@ -26,7 +26,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick VirtualKeyboard)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
 
 set(CODE_ELEMENTS
     data/DataManager
