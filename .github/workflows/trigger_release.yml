@@ -30,8 +30,10 @@ jobs:
         with:
           submodules: 'true'
           path: 'OpenFitnessPal-source'
+          
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
+        
       - name: Grab and store version
         run: |
           tag_name=$(echo ${{ github.ref }} | grep -oE "[^/]+$")
@@ -41,6 +43,9 @@ jobs:
         run: |
           mv ${{ github.workspace }}/OpenFitnessPal-source OpenFitnessPal-${{ env.VERSION }}
           ls *
+
+          cd ${{ github.workspace }}
+          
           mv OpenFitnessPal-Linux-Binary*/OpenFitnessPal.tar.gz OpenFitnessPal-Linux-Binary-${{ env.VERSION }}.tar.gz
           mv OpenFitnessPal-*.AppImage/OpenFitnessPal-*.AppImage OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
           zip -r OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip OpenFitnessPal-Windows-Portable*/* OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
