@@ -112,6 +112,21 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${OFP_EXEC_NA
 add_subdirectory(program_info/)
 add_subdirectory(buildconfig)
 
+if (ANDROID)
+    include(FetchContent)
+    FetchContent_Declare(
+        android_openssl
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
+    )
+    FetchContent_MakeAvailable(android_openssl)
+    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
+endif()
+
+if (ANDROID)
+    add_android_openssl_libraries(${OFP_APP_NAME})
+endif()
+
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/")
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/items")
 target_include_directories(${OFP_APP_NAME} PRIVATE "include/data")
